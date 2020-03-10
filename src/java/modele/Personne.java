@@ -3,6 +3,7 @@ package modele;
 public class Personne {
 	private int id;
 	private String prenom, nom, email;
+  private boolean estFormateur, estAdministration;
 
 	public Personne() {
 		id = 0;
@@ -12,12 +13,21 @@ public class Personne {
 	}
 
 	public Personne(int id, String prenom, String nom, String email) {
-		super();
 		this.id = id;
 		this.prenom = prenom;
 		this.nom = nom;
 		this.email = email;
 	}
+
+  public Personne(int id, String prenom, String nom, 
+          String email, boolean estFormateur, boolean estAdministration) {
+		this.id = id;
+		this.prenom = prenom;
+		this.nom = nom;
+		this.email = email;
+    this.estFormateur = estFormateur;
+    this.estAdministration = estAdministration;
+  }
 
 	public int getId() {
 		return id;

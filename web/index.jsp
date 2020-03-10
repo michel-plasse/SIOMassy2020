@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -8,6 +9,7 @@
   <body>
     <h1>Agriotes</h1>
     <nav>
+      <a href="connexion">Connexion</a>
       <a href="trombinoscope?idSession=1">Session 1</a>
     </nav>
   </body>
