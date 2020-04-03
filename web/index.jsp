@@ -12,6 +12,7 @@
     <nav>
       <a href="connexion">Connexion</a>
       <a href="trombinoscope?idSession=1">Session 1</a>
+      
     </nav>
   </body>
 </html>

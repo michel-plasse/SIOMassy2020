@@ -8,21 +8,30 @@
     <link rel="stylesheet" href="agriotes.css"/>
   </head>
   <body>
-    <h1>Connexion</h1>
+    <h1>Connexion2</h1>
+    §§§§§§§§§§§§§
     <c:if test='${sessionScope["user"] == null}'>
-      <form id="loginForm" action="connexion" method="POST">
-        Identifiant :  <input type="text" name="login" value="${param["login"]}"/><br/>
-        Mot de passe :  <input type="password" name="password"/><br/>
-        <button type="submit">Connexion</button>
+
+    <form id="loginForm" action="connexion" method="POST">
+            Identifiant :  <input type="text" name="login" value="${param["login"]}"/><br/>
+            Mot de passe :  <input type="password" name="password"/><br/>
+
+
         <c:if test="${erreurLogin != null}">
           <div class="error">${erreurLogin}</div>
         </c:if>
-      </form>
+        
+           
+        
+        <c:if test="${erreurLogin != null}"></c:if>
+          <button >
+            <a href="<%=application.getContextPath()%>/changementMDP.jsp" >Mot de passe oublié</a></button>               
+        <button type="submit">Connexion</button>
+        
+    </form>
     </c:if>
-    <c:if test='${sessionScope["user"] != null}'>
-      <form id="loginForm" action="deconnexion" method="POST">
-        <button type="submit">Déconnecter ${sessionScope["user"].email}</button>
-      </form>
-    </c:if>
+     
+   
+   
   </body>
 </html>
