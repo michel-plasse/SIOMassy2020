@@ -2,7 +2,7 @@ package modele;
 
 public class Personne {
 	private int id;
-	private String prenom, nom, email;
+	private String prenom, nom, email, mdp, urlPhoto, jeton; 
   private boolean estFormateur, estAdministration;
 
 	public Personne() {
@@ -12,6 +12,16 @@ public class Personne {
 		email = null;
 	}
 
+    public Personne(String prenom, String nom, String email, String mdp) {
+        this.prenom = prenom;
+        this.nom = nom;
+        this.email = email;
+        this.mdp = mdp;
+    }
+
+        
+        
+        
 	public Personne(int id, String prenom, String nom, String email) {
 		this.id = id;
 		this.prenom = prenom;
@@ -60,5 +70,45 @@ public class Personne {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+    public String getMdp() {
+        return mdp;
+    }
+
+    public void setMdp(String mdp) {
+        this.mdp = mdp;
+    }
+
+    public String getUrlPhoto() {
+        return urlPhoto;
+    }
+
+    public void setUrlPhoto(String urlPhoto) {
+        this.urlPhoto = urlPhoto;
+    }
+
+    public String getJeton() {
+        return jeton;
+    }
+
+    public void setJeton(String jeton) {
+        this.jeton = jeton;
+    }
+
+    public boolean isEstFormateur() {
+        return estFormateur;
+    }
+
+    public void setEstFormateur(boolean estFormateur) {
+        this.estFormateur = estFormateur;
+    }
+
+    public boolean isEstAdministration() {
+        return estAdministration;
+    }
+
+    public void setEstAdministration(boolean estAdministration) {
+        this.estAdministration = estAdministration;
+    }
 
 }

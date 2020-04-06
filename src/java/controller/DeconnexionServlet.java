@@ -32,10 +32,16 @@ public class DeconnexionServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    request.getSession(true).invalidate();
+      request.getSession(true).invalidate();
     request.getRequestDispatcher(VUE_INDEX).forward(request, response);
+   
   }
 
+  @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+          throws ServletException, IOException {
+    
+  }
   /**
    * Returns a short description of the servlet.
    *
