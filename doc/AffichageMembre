@@ -1,0 +1,18 @@
+
+@startuml
+participant navigateur
+participant vue 
+participant controleur
+participant dao
+participant SGBD
+
+navigateur -> controleur :GET MembreCanalServlet 
+controleur --> vue: MembreCanal.jsp
+vue -> navigateur: formulaire
+navigateur -> controleur: POST MembreCanalServlet
+controleur -> dao:  List<Personne> stagiaires
+dao -> SGBD: select All
+SGBD-> dao: tous les membres
+dao -> controleur: les membres
+controleur -> navigateur: affichage des membres
+@enduml
