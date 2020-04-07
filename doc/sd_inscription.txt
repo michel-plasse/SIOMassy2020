@@ -1,0 +1,17 @@
+@startuml
+participant Utilisateur
+participant Vue
+
+Utilisateur-> Controleur: GET /inscription
+Controleur -> Vue: inscription.jsp
+Vue -> Utilisateur: formulaire vierge
+Utilisateur-> Controleur: POST /inscription\nnom, prenom, email, mdp1, mdp2
+Controleur -> Controleur: vérifie saisie
+Controleur -> Dao: Personne personne = new ...;\nPersonneDao dao = ...;\ndao.insert(personne);
+Controleur -> Smtp: JavaMailUtil.sendMail()
+Dao -> SGBD: INSERT ...
+Smtp -> Utilisateur: envoi du mail de confirmation
+Dao -> Controleur: Personne créée
+Controleur -> Vue: connexionOK.jsp
+Vue -> Utilisateur: Message d'inscription \nréussie
+@enduml
