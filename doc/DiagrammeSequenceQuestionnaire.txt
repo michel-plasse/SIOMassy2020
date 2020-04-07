@@ -11,4 +11,7 @@ participant Modèle
 Vue -> Navigateur: formulaire de création de questionnaire
 Navigateur -> Controleur: POST /creerQuestionnaire avec idQuestion, idReponse, idTypeQuestion..
 Controleur -> Modèle : newQuestionnaire(...); QuestionnaireDao dao = new ... dao.insert(questi);
+Controleur -> Controleur : Verification que pas d'erreur (doublon etc)
+Controleur -> Navigateur : response.redirect("mesQuestions")
+Navigateur -> Controleur : /mesQuestions
 @enduml
