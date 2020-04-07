@@ -10,13 +10,17 @@
   <body>
     <h1>Trombinoscope de la session ${idSession}</h1>
     <p>${stagiaires.size()} stagiaires</p>
-    <ol>
+    
+      <table class="classique" border="0" width="90%" align="center">
       <c:forEach items="${stagiaires}" var="stagiaire">
-        <li>
-          ${stagiaire.prenom} ${stagiaire.nom}
-          (<a href="mailto:${stagiaire.email}">${stagiaire.email}</a>)
-        </li>
+
+               <td align="center" bgcolor="#F0F0F0" width="15%"> <img src="img/${stagiaire.id}.png" width="100" height="100"/><br> ${stagiaire.prenom} ${stagiaire.nom} <br> (<a href="mailto:${stagiaire.email}">${stagiaire.email}</a>)<br> </td>
+
+
+
+
+
       </c:forEach>
-    </ol>
+    
   </body>
 </html>

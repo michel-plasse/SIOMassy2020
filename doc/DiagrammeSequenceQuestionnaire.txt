@@ -1,0 +1,14 @@
+@startuml
+participant Navigateur
+participant Vue
+
+Navigateur -> Controleur: GET /creerQuestionnaire
+Controleur -> Controleur : vérifie que l'utilisateur est formateur ou administrateur
+Controleur -> Vue: creerQuestionnaire.jsp
+
+participant Modèle
+
+Vue -> Navigateur: formulaire de création de questionnaire
+Navigateur -> Controleur: POST /creerQuestionnaire avec idQuestion, idReponse, idTypeQuestion..
+Controleur -> Modèle : newQuestionnaire(...); QuestionnaireDao dao = new ... dao.insert(questi);
+@enduml
