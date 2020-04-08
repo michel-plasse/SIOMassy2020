@@ -12,6 +12,14 @@ public class Personne {
 		email = null;
 	}
 
+    public Personne(String prenom, String nom, String email, String mdp, String jeton) {
+        this.prenom = prenom;
+        this.nom = nom;
+        this.email = email;
+        this.mdp = mdp;
+        this.jeton = jeton;
+    }
+
     public Personne(String prenom, String nom, String email, String mdp) {
         this.prenom = prenom;
         this.nom = nom;

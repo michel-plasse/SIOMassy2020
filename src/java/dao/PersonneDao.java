@@ -25,7 +25,7 @@ public class PersonneDao {
           "SELECT * FROM personne WHERE email=? AND mdp=?";
   
   public static final String Insertion 
-          ="Insert into personne (nom,prenom,email,mdp) VALUES(?,?,?,?) ";
+          ="Insert into personne (nom,prenom,email,mdp,jeton) VALUES(?,?,?,?,?) ";
 
   public static final String CHECK_BY_MAIL  
           ="SELECT * FROM personne WHERE email=?";
@@ -65,13 +65,14 @@ public class PersonneDao {
       
   }*/
   
-  public static void addPerson(String nom,String prenom,String email,String mdp) throws SQLException{
+  public static void addPerson(Personne p) throws SQLException{
     Connection db = Database.getConnection();
     PreparedStatement stmt = db.prepareStatement(Insertion);
-    stmt.setString(1, nom);
-    stmt.setString(2, prenom);
-    stmt.setString(3, email);
-    stmt.setString(4, mdp);
+    stmt.setString(1, p.getNom());
+    stmt.setString(2, p.getPrenom());
+    stmt.setString(3, p.getEmail());
+    stmt.setString(4, p.getMdp());
+    stmt.setString(5, p.getJeton());
     stmt.executeUpdate();
     
       

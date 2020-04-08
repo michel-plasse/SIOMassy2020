@@ -76,8 +76,9 @@ public class InscriptionServlet extends HttpServlet {
             }
             else{
                 try {
-                        //Personne p = new Personne();
-                        PersonneDao.addPerson(nom, prenom,mail,mdp);
+                        String jeton = "huhu";
+                        Personne p = new Personne(prenom, nom, mail, mdp, jeton);
+                        PersonneDao.addPerson(p);
                         //PersonneDao.addPerson(Personne p);
                         JavaMailUtil.sendMail(mail,nom,prenom);
                         request.setAttribute("messageBienvenue", "Bonjour "+ prenom + ", vous êtes maintenant inscrit, vous pouvez vous identifier ci-dessous");                
