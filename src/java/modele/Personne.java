@@ -3,7 +3,7 @@ package modele;
 public class Personne {
 	private int id;
 	private String prenom, nom, email, mdp, urlPhoto, jeton; 
-  private boolean estFormateur, estAdministration;
+  private boolean estFormateur, estAdministration,est_Actif;
 
 	public Personne() {
 		id = 0;
@@ -18,6 +18,7 @@ public class Personne {
         this.email = email;
         this.mdp = mdp;
         this.jeton = jeton;
+        this.est_Actif=false;
     }
 
     public Personne(String prenom, String nom, String email, String mdp) {
@@ -105,6 +106,10 @@ public class Personne {
 
     public boolean isEstFormateur() {
         return estFormateur;
+    }
+    
+    public boolean getestActif() {
+        return est_Actif;
     }
 
     public void setEstFormateur(boolean estFormateur) {

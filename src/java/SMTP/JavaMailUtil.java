@@ -1,4 +1,4 @@
-package dao;
+package SMTP;
 
 import java.util.Properties;
 import java.util.logging.Level;
@@ -13,7 +13,7 @@ import javax.mail.internet.MimeMessage;
  
 public class JavaMailUtil {
  
-  public static void sendMail(String recepient,String name,String prenom) throws Exception {
+  public static void sendMail(String recepient,String name,String prenom,String jeton) throws Exception {
       System.out.println("Préparation de l'envoi du mail");
       
       Properties props = new Properties();
@@ -37,8 +37,9 @@ public class JavaMailUtil {
            Message message = new MimeMessage(session);
            message.setFrom(new InternetAddress(myAccountEmail));
            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recepient));     
-           message.setSubject("Inscription Application Web AGRIOTES");
-           message.setText("Bonjour" + prenom +" "+name+" , votre compte a bien été créé");
+           message.setSubject("Confirmation d'inscription Application Web AGRIOTES");
+           //message.setText("Bonjour" + prenom +" "+name+" , votre compte a bien été créé");
+           message.setText("Veuillez confirmez votre inscription en cliquant sur le lien ci-après :"+"http://localhost:8082/SIOMassy2020/confirmationEmail?token="+jeton);
            Transport.send(message);
            System.out.println("Message envoyé avec succès");
             }

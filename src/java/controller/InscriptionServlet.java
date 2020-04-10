@@ -1,6 +1,6 @@
 package controller;
 
-import dao.JavaMailUtil;
+import SMTP.JavaMailUtil;
 import dao.PersonneDao;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -15,11 +15,13 @@ import javax.servlet.http.HttpSession;
 import modele.Personne;
 
 import java.io.IOException;
+import java.util.Random;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.codec.digest.DigestUtils;
 
 
 @WebServlet("/inscription")
@@ -76,11 +78,13 @@ public class InscriptionServlet extends HttpServlet {
             }
             else{
                 try {
-                        String jeton = "huhu";
+                        Random random=new Random();
+                        random.nextInt(9999999);
+                        String jeton = DigestUtils.md5Hex(""+random) ;
                         Personne p = new Personne(prenom, nom, mail, mdp, jeton);
-                        PersonneDao.addPerson(p);
+                        PersonneDao.insert(p);
                         //PersonneDao.addPerson(Personne p);
-                        JavaMailUtil.sendMail(mail,nom,prenom);
+                        JavaMailUtil.sendMail(mail,nom,prenom,jeton);
                         request.setAttribute("messageBienvenue", "Bonjour "+ prenom + ", vous êtes maintenant inscrit, vous pouvez vous identifier ci-dessous");                
                         vue = VUE_FORM_CON;
                     } catch (Exception ex) {
