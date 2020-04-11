@@ -31,7 +31,7 @@ public class InscriptionServlet extends HttpServlet {
     private static final String VUE_FORM_CON = "/WEB-INF/connexion.jsp";
     private static final String VUE_FORM_INS = "/WEB-INF/inscription.jsp";
     private static final String VUE_ERREUR = "/WEB-INF/exception.jsp";
-
+    private static final String VUE_VERIFY= "/WEB-INF/verify.jsp";
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -83,10 +83,10 @@ public class InscriptionServlet extends HttpServlet {
                         String jeton = DigestUtils.md5Hex(""+random) ;
                         Personne p = new Personne(prenom, nom, mail, mdp, jeton);
                         PersonneDao.insert(p);
-                        //PersonneDao.addPerson(Personne p);
                         JavaMailUtil.sendMail(mail,nom,prenom,jeton);
-                        request.setAttribute("messageBienvenue", "Bonjour "+ prenom + ", vous êtes maintenant inscrit, vous pouvez vous identifier ci-dessous");                
-                        vue = VUE_FORM_CON;
+                        
+                        //request.setAttribute("messageBienvenue", "Bonjour "+ prenom + ", vous êtes maintenant inscrit, vous pouvez vous identifier ci-dessous");                
+                        vue = VUE_VERIFY;
                     } catch (Exception ex) {
                         Logger.getLogger(InscriptionServlet.class.getName()).log(Level.SEVERE, null, ex);
                         vue = VUE_ERREUR;

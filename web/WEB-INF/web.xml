@@ -6,16 +6,16 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet>
-        <servlet-name>ConfirmationEmail</servlet-name>
-        <servlet-class>controller.ConfirmationEmail</servlet-class>
+        <servlet-name>confirmationEmail</servlet-name>
+        <servlet-class>controller.confirmationEmail</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ConfirmationEmail</servlet-name>
-        <url-pattern>/ConfirmationEmail</url-pattern>
+        <servlet-name>confirmationEmail</servlet-name>
+        <url-pattern>/confirmationEmail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

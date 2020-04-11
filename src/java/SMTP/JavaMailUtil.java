@@ -41,7 +41,7 @@ public class JavaMailUtil {
            //message.setText("Bonjour" + prenom +" "+name+" , votre compte a bien été créé");
            message.setText("Veuillez confirmez votre inscription en cliquant sur le lien ci-après :"+"http://localhost:8082/SIOMassy2020/confirmationEmail?token="+jeton);
            Transport.send(message);
-           System.out.println("Message envoyé avec succès");
+           
             }
         catch (Exception ex) {
           Logger.getLogger(JavaMailUtil.class.getName()).log(Level.SEVERE, null, ex);
