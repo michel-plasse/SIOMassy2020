@@ -24,7 +24,6 @@ public class Personne {
         this.mdp = mdp;
         this.jeton = jeton;
         this.estActif=false;
-        //this.dateInsertion= new Date();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         this.dateInsertion=timestamp;
         

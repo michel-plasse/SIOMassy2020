@@ -24,46 +24,52 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name="confirmationEmail" ,urlPatterns = "/confirmationEmail")
 public class confirmationEmail extends HttpServlet {
     
-        //private static final String VUE_FORM_CON = "/SIOMassy2020/connexion";
         private static final String VUE_FORM_CON = "/WEB-INF/connexion.jsp";
-        private static final String VUE_INDEX = "/SIOMassy2020";
+        private static final String VUE_INDEX = "/index.jsp";
     
         
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-      
-    }
-
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        processRequest(request, response);
+        
         String Token = request.getParameter("token");
-        //Timestamp timestampvalidation = new Timestamp(System.currentTimeMillis());
+        Timestamp timestampvalidation = new Timestamp(System.currentTimeMillis());
         
         String vue=VUE_FORM_CON;
-        request.setAttribute("messageBienvenue", "vous n'etes pas le bienvenue");
+        
         try {
-            Connection db = Database.getConnection();
             
-            PreparedStatement stmt = db.prepareStatement("SELECT * from personne where jeton= ? and current_timestamp()-date_insertion<=86400 and est_Actif=false");
+            Connection db = Database.getConnection();
+            PreparedStatement stmt = db.prepareStatement("SELECT * from personne where jeton= ? and est_Actif=false");
             stmt.setString(1, Token);
             //stmt.setTimestamp(2, timestampvalidation);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                PreparedStatement stmt1 = db.prepareStatement("UPDATE personne SET est_Actif=true where jeton= ? ");
-                stmt1.setString(1, Token);
-                int i = stmt1.executeUpdate();
-                if(i==1){
-                   request.setAttribute("messageBienvenue", "Bienvenue");
+                Timestamp t = rs.getTimestamp("date_insertion");
+                if (timestampvalidation.getTime()-t.getTime()<86400){
+                         PreparedStatement stmt1 = db.prepareStatement("UPDATE personne SET est_Actif=true where jeton= ? ");
+                         stmt1.setString(1, Token);
+                         int i = stmt1.executeUpdate();
+                         if(i==1){
+                             request.setAttribute("messageBienvenue", "Bienvenue");
+                        }
+                
+                
+                }else{
+                    request.setAttribute("messageBienvenue", "vous n'etes pas le bienvenue");
                 }
+                
+                
+               
             }
             
             
         } catch (SQLException ex) {
             Logger.getLogger(confirmationEmail.class.getName()).log(Level.SEVERE, null, ex);
+            vue = VUE_INDEX;
+            
         }
             //response.sendRedirect(vue);
             request.getRequestDispatcher(vue).forward(request, response);
@@ -74,7 +80,7 @@ public class confirmationEmail extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
 
     

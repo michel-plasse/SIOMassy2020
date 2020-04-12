@@ -13,7 +13,7 @@ import javax.mail.internet.MimeMessage;
  
 public class JavaMailUtil {
  
-  public static void sendMail(String recepient,String name,String prenom,String jeton) throws Exception {
+  public static void sendMail(String mail,String name,String prenom,String jeton) throws Exception {
       System.out.println("Préparation de l'envoi du mail");
       
       Properties props = new Properties();
@@ -36,7 +36,7 @@ public class JavaMailUtil {
        try {
            Message message = new MimeMessage(session);
            message.setFrom(new InternetAddress(myAccountEmail));
-           message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recepient));     
+           message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mail));     
            message.setSubject("Confirmation d'inscription Application Web AGRIOTES");
            //message.setText("Bonjour" + prenom +" "+name+" , votre compte a bien été créé");
            message.setText("Veuillez confirmez votre inscription en cliquant sur le lien ci-après :"+"http://localhost:8082/SIOMassy2020/confirmationEmail?token="+jeton);

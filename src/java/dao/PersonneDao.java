@@ -62,7 +62,7 @@ public class PersonneDao {
   
   public static void insert(Personne p) throws SQLException{
     Connection db = Database.getConnection();
-    PreparedStatement stmt = db.prepareStatement(Insertion);
+    PreparedStatement stmt = db.prepareStatement(Insertion); //Insert into personne (nom,prenom,email,mdp,jeton,est_Actif, date_insertion) VALUES(?,?,?,?,?,?,?)
     stmt.setString(1, p.getNom());
     stmt.setString(2, p.getPrenom());
     stmt.setString(3, p.getEmail());
@@ -79,7 +79,7 @@ public class PersonneDao {
       
     int cpt=0;
     Connection db = Database.getConnection();
-    PreparedStatement stmt = db.prepareStatement(CHECK_BY_MAIL);
+    PreparedStatement stmt = db.prepareStatement(CHECK_BY_MAIL); //"SELECT * FROM personne WHERE email=?"
     stmt.setString(1, mail);
     ResultSet rs= stmt.executeQuery();
     while (rs.next()) {
