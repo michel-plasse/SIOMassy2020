@@ -1,9 +1,14 @@
 package modele;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 public class Personne {
 	private int id;
 	private String prenom, nom, email, mdp, urlPhoto, jeton; 
-  private boolean estFormateur, estAdministration,est_Actif;
+        private boolean estFormateur, estAdministration,estActif;
+        private Timestamp dateInsertion;
 
 	public Personne() {
 		id = 0;
@@ -18,7 +23,11 @@ public class Personne {
         this.email = email;
         this.mdp = mdp;
         this.jeton = jeton;
-        this.est_Actif=false;
+        this.estActif=false;
+        //this.dateInsertion= new Date();
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        this.dateInsertion=timestamp;
+        
     }
 
     public Personne(String prenom, String nom, String email, String mdp) {
@@ -47,6 +56,18 @@ public class Personne {
     this.estFormateur = estFormateur;
     this.estAdministration = estAdministration;
   }
+
+  public Personne(int id, String nom, String prenom, 
+          String email, boolean estFormateur, boolean estAdministration, boolean estActif) {
+		this.id = id;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+                this.estFormateur = estFormateur;
+                this.estAdministration = estAdministration;
+                this.estActif = estActif;
+  }
+    
 
 	public int getId() {
 		return id;
@@ -109,7 +130,7 @@ public class Personne {
     }
     
     public boolean getestActif() {
-        return est_Actif;
+        return estActif;
     }
 
     public void setEstFormateur(boolean estFormateur) {
@@ -124,4 +145,11 @@ public class Personne {
         this.estAdministration = estAdministration;
     }
 
+    public void setdateInsertion(Timestamp dateInsertion) {
+		this.dateInsertion = dateInsertion;
+	}
+
+	public Timestamp getdateInsertion() {
+		return dateInsertion;
+	}
 }

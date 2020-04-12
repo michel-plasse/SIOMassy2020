@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Timestamp;
+import java.sql.Date;
+import java.time.LocalDateTime;
 
 import modele.Personne;
 
@@ -24,8 +27,10 @@ public class PersonneDao {
   public static final String GET_BY_EMAIL_PASSWORD = 
           "SELECT * FROM personne WHERE email=? AND mdp=?";
   
+ 
+  
   public static final String Insertion 
-          ="Insert into personne (nom,prenom,email,mdp,jeton,est_Actif) VALUES(?,?,?,?,?,?) ";
+          ="Insert into personne (nom,prenom,email,mdp,jeton,est_Actif, date_insertion) VALUES(?,?,?,?,?,?,?) ";
 
   public static final String CHECK_BY_MAIL  
           ="SELECT * FROM personne WHERE email=?";
@@ -53,17 +58,7 @@ public class PersonneDao {
     return result;
   }
   
-  /*public static void addPerson(String nom,String prenom,String email,String mdp) throws SQLException{
-    Connection db = Database.getConnection();
-    PreparedStatement stmt = db.prepareStatement(Insertion);
-    stmt.setString(1, nom);
-    stmt.setString(2, prenom);
-    stmt.setString(3, email);
-    stmt.setString(4, mdp);
-    stmt.executeUpdate();
-    
-      
-  }*/
+
   
   public static void insert(Personne p) throws SQLException{
     Connection db = Database.getConnection();
@@ -74,6 +69,8 @@ public class PersonneDao {
     stmt.setString(4, p.getMdp());
     stmt.setString(5, p.getJeton());
     stmt.setBoolean(6, p.getestActif());
+    stmt.setTimestamp(7, p.getdateInsertion());
+    
     stmt.executeUpdate();
     
       
@@ -121,15 +118,16 @@ public class PersonneDao {
               rs.getString("nom"),
               rs.getString("prenom"),
               rs.getString("email"),
-//              rs.getString("tel"),
-//              rs.getString("adresse"),
-//              rs.getString("code_postal"),
-//              rs.getString("ville"),
+              rs.getBoolean("est_formateur"),
               rs.getBoolean("est_administration"),
-              rs.getBoolean("est_formateur"));
+              rs.getBoolean("est_Actif")
+      );
     }
     stmt.close();
     db.close();
     return result;
   }
+  
+  
+   
 }

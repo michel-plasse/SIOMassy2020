@@ -15,6 +15,9 @@ import javax.servlet.http.HttpSession;
 import modele.Personne;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -81,6 +84,7 @@ public class InscriptionServlet extends HttpServlet {
                         Random random=new Random();
                         random.nextInt(9999999);
                         String jeton = DigestUtils.md5Hex(""+random) ;
+                       
                         Personne p = new Personne(prenom, nom, mail, mdp, jeton);
                         PersonneDao.insert(p);
                         JavaMailUtil.sendMail(mail,nom,prenom,jeton);

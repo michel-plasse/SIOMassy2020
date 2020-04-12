@@ -37,20 +37,27 @@ public class ConnexionServlet extends HttpServlet {
     try {
       if (login == null || login.trim().isEmpty()|| password == null || password.trim().isEmpty()) {
         request.setAttribute("erreurLogin", "Les champs sont obligatoires");
-      } else {
-        user = PersonneDao.getByLoginPassword(login, password);
-        if (user != null) {
-          // Ajouter en session
-          HttpSession maSession = request.getSession(true);
-          maSession.setAttribute("user", user);
-          request.setAttribute("nomprenom", "Session de : "+ user.getPrenom()+" "+ user.getNom());
-          //request.setAttribute("identifiant",user.getEmail());
-          vue = VUE_CONNEXION_OK;
-        } else {
-          request.setAttribute("erreurLogin",
-                  "Utilisateur inconnu ou mot de passe incorrect");
+      } 
+      user = PersonneDao.getByLoginPassword(login, password);
+      if(user != null && user.getestActif()== true ){
+        HttpSession maSession = request.getSession(true);
+        maSession.setAttribute("user", user);
+        request.setAttribute("nomprenom", "Session de : "+ user.getPrenom()+" "+ user.getNom());
+        vue = VUE_CONNEXION_OK;
+              
         }
+      else if(user != null && user.getestActif()== false ){
+          request.setAttribute("erreurLogin","Vous n'avez pas encore validé votre compte !!!");
+          vue=VUE_FORM;
       }
+      else {
+          request.setAttribute("erreurLogin","Utilisateur inconnu ou mot de passe incorrect");
+          vue=VUE_FORM;
+      }
+      
+      
+      
+      
     } catch (SQLException exc) {
       Logger.getLogger(ConnexionServlet.class.getName()).log(Level.SEVERE, null, exc);
       request.setAttribute("exception", exc);
