@@ -46,13 +46,16 @@ public class InscriptionServlet extends HttpServlet {
         String mdp = request.getParameter("mdp");
         String mdp2 = request.getParameter("mdp2");
         String vue = VUE_FORM_INS;     //inscription.jsp
+        Random random=new Random();                               // Instance d'un objet random
+        random.nextInt(9999999);                                  // Selection aléatoire d'un nombre entre 0 est 9999999
+        String jeton = DigestUtils.md5Hex(""+random) ;
                        
         try { // nous faisons d'abord un test sur tous les champs du formulaire
             if (nom == null || nom.trim().isEmpty()|| prenom == null || prenom.trim().isEmpty()|| mail == null || mail.trim().isEmpty()|| mdp == null || mdp.trim().isEmpty() || mdp2 == null || mdp2.trim().isEmpty()) {
                      request.setAttribute("erreurLogin", "Veuillez renseigner tous les champs");
             // la vue reste à VUE_FORM_INS
             }
-            else if(PersonneDao.mailExist(mail)){ // on fait appel à la méthode mailExist() presente dans PersonneDao
+            else if(PersonneDao.mailExist(mail) && PersonneDao.compteActif(mail)){ // on fait appel à la méthode mailExist() presente dans PersonneDao
                      request.setAttribute("erreurLogin", "Ce mail existe déjà");
             // la vue reste à VUE_FORM_INS 
             }
@@ -74,11 +77,23 @@ public class InscriptionServlet extends HttpServlet {
                      request.setAttribute("erreurLogin", "Les mots de passe ne sont pas identiques ! merci de vérifier votre saisie");
             // la vue reste à VUE_FORM_INS    
             }
+             else if(PersonneDao.mailExist(mail) && PersonneDao.compteActif(mail)==false){ // on fait appel à la méthode mailExist() presente dans PersonneDao
+                  try {
+                      
+                    PersonneDao.update(prenom, nom, mail, mdp, jeton);                                    // Dans la classe PersonneDao, nous avons des méthodes qui permettent de préparer des requêtes Sql qui seront exécutées côté base de données
+                    JavaMailUtil.sendMail(mail,nom,prenom,jeton);             // Dans la classe JavaMailUtil, nous avons l'implémentation de ma méthode sendMail() qui permet t'établie l'envoi du mail
+                    vue = VUE_VERIFY;                                         // la valeur de vue change à "/WEB-INF/verify.jsp"
+                    }
+                catch (Exception ex) {
+                        Logger.getLogger(InscriptionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                        vue = VUE_ERREUR;
+                    }   
+            // la vue reste à VUE_FORM_INS 
+            }
+            
             else{
                 try {
-                    Random random=new Random();                               // Instance d'un objet random
-                    random.nextInt(9999999);                                  // Selection aléatoire d'un nombre entre 0 est 9999999
-                    String jeton = DigestUtils.md5Hex(""+random) ;            // Cryptage de ce nombre 
+                    
                     Personne p = new Personne(prenom, nom, mail, mdp, jeton); // Instance d'un objet p avec un constructeur paramétré qui initialise l'attribut est_Actif à false et la date_insertion à l'haure et date du système 
                     PersonneDao.insert(p);                                    // Dans la classe PersonneDao, nous avons des méthodes qui permettent de préparer des requêtes Sql qui seront exécutées côté base de données
                     JavaMailUtil.sendMail(mail,nom,prenom,jeton);             // Dans la classe JavaMailUtil, nous avons l'implémentation de ma méthode sendMail() qui permet t'établie l'envoi du mail

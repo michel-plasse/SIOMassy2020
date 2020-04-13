@@ -36,29 +36,25 @@ public class confirmationEmail extends HttpServlet {
         
         String Token = request.getParameter("token");
         Timestamp timestampvalidation = new Timestamp(System.currentTimeMillis());
-        
         String vue=VUE_FORM_CON;
         
         try {
-            
             Connection db = Database.getConnection();
             PreparedStatement stmt = db.prepareStatement("SELECT * from personne where jeton= ? and est_Actif=false");
             stmt.setString(1, Token);
-            //stmt.setTimestamp(2, timestampvalidation);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 Timestamp t = rs.getTimestamp("date_insertion");
-                if (timestampvalidation.getTime()-t.getTime()<86400){
+                long diff = timestampvalidation.getTime()-t.getTime();              
+                if (diff<=86400000){
                          PreparedStatement stmt1 = db.prepareStatement("UPDATE personne SET est_Actif=true where jeton= ? ");
                          stmt1.setString(1, Token);
                          int i = stmt1.executeUpdate();
                          if(i==1){
-                             request.setAttribute("messageBienvenue", "Bienvenue");
+                             request.setAttribute("messageBienvenue", "Bienvenue, vous venez de finaliser votre inscription");
                         }
-                
-                
                 }else{
-                    request.setAttribute("messageBienvenue", "vous n'etes pas le bienvenue");
+                    request.setAttribute("messageBienvenue", "Votre inscription n'a pas été validé. Veuillez réessayer de vous réinscrire.");
                 }
                 
                 
