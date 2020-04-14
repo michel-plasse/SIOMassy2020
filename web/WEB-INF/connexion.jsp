@@ -15,18 +15,20 @@
     <form id="loginForm" action="connexion" method="POST">
             Identifiant :  <input type="text" name="login" value="${param["login"]}"/><br/>
             Mot de passe :  <input type="password" name="password"/><br/>
-
+            <button type="submit">Connexion</button>    
 
         <c:if test="${erreurLogin != null}">
           <div class="error">${erreurLogin}</div>
         </c:if>
-        
+        </form>
            
-        
+            <form id="CHGMDPForm" action="rappelMdp.jsp" method="POST">
         <c:if test="${erreurLogin != null}"></c:if>
-          <button >
-            <a href="<%=application.getContextPath()%>/changementMDP.jsp" >Mot de passe oublié</a></button>               
-        <button type="submit">Connexion</button>
+        <button>
+
+         <a href="<%=request.getContextPath()+"/ChangerMDPServlet"%>">Mot de passe oublié</a>
+            </boutton>
+        
         
     </form>
     </c:if>

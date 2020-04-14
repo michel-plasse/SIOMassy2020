@@ -23,12 +23,13 @@ import modele.Personne;
  *
  * @author aline
  */
-@WebServlet(name = "ChangementMDPServlet", urlPatterns = {"/ChangementMDPServlet"})
-public class ChangementMDPServlet extends HttpServlet {
+@WebServlet(name = "ChangerMDPServlet", urlPatterns = {"/ChangerMDPServlet"})
+public class ChangerMDPServlet extends HttpServlet {
     
   private static final String VUE_INDEX = "/index.jsp";
-  private static final String VUE_CHGMDP = "/WEB-INF/changementMDP.jsp";
-  /**
+  private static final String VUE_CHGMDP ="/WEB-INF/rappelMdp.jsp";
+//"/WEB-INF/rappelMdp.jsp";
+  /**<
    * Vue si erreur (exception)
    */
   private static final String VUE_ERREUR = "WEB-INF/PageError.jsp";
@@ -51,13 +52,18 @@ public class ChangementMDPServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       String login = request.getParameter("login");
-    String password = request.getParameter("password");
-    String vue = VUE_CHGMDP;
-    Personne user = null;
+                
+                String login = request.getParameter("login");
+                String password = request.getParameter("password");
+                String vue = VUE_CHGMDP;
+                Personne user = null;
+
+     
+     
     try {
       if (login == null || login.trim().isEmpty()
-              || password == null || password.trim().isEmpty()) {
+              //|| password == null || password.trim().isEmpty()
+              ) {
         request.setAttribute("erreurLogin", "Les champs sont obligatoires");
       } else {
         user = PersonneDao.getByLoginPassword(login, password);
@@ -77,7 +83,7 @@ public class ChangementMDPServlet extends HttpServlet {
       vue = VUE_ERREUR;
     }
     // Passer la main à la JSP
-    request.getRequestDispatcher(vue).forward(request, response);
+   request.getRequestDispatcher(VUE_CHGMDP).forward(request, response);
   }
     }
 

@@ -19,7 +19,7 @@
     
     <c:if test='${sessionScope["user"] == null}'>
       
-        <form id="changeMDPForm" action="changementMDP" method="POST">
+        <form id="changeMDPForm" action="changerMDPServlet" method="POST">
           Identifiant :              <input type="text" name="login" value="${param["login"]}"/><br/>
           confirmer Identifiant :    <input type="text" name="login" value="${param["login"]}"/><br/>
           Verify Code :  <input type="code" name="code"/><br/>
