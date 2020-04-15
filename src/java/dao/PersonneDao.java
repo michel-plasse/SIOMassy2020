@@ -27,17 +27,27 @@ public class PersonneDao {
   public static final String GET_BY_EMAIL_PASSWORD = 
           "SELECT * FROM personne WHERE email=? AND mdp=?";
   
- 
-  
   public static final String Insertion 
-          ="Insert into personne (nom,prenom,email,mdp,jeton,est_Actif, date_insertion) VALUES(?,?,?,?,?,?,?) ";
+          ="Insert into personne (nom,prenom,email,mdp,jeton,date_butoir_jeton) VALUES(?,?,?,?,?,?)";
 
   public static final String CHECK_BY_MAIL  
           ="SELECT * FROM personne WHERE email=?";
   
    public static final String CHECK_BY_ACTIF  
-          ="SELECT * FROM personne WHERE email=? and est_Actif=true";
-  /**
+          ="SELECT * FROM personne WHERE email=? and date_inscription IS NOT NULL";
+   
+   public static final String DELETE_BY_JETON  
+          ="DELETE FROM personne WHERE jeton=? "; 
+  
+    public static final String DELETE_BY_DATE_BUTOIR  
+          ="DELETE FROM personne WHERE date_butoir_jeton <= ? ";
+   
+   
+   
+   
+   
+   
+   /**
    * Stagiaires d'une session de formation
    *
    * @param idSession id de la session
@@ -65,19 +75,31 @@ public class PersonneDao {
   
   public static void insert(Personne p) throws SQLException{
     Connection db = Database.getConnection();
-    PreparedStatement stmt = db.prepareStatement(Insertion); //Insert into personne (nom,prenom,email,mdp,jeton,est_Actif, date_insertion) VALUES(?,?,?,?,?,?,?)
+    PreparedStatement stmt = db.prepareStatement(Insertion); //"Insert into personne (nom,prenom,email,mdp,jeton,date_butoir_jeton) VALUES(?,?,?,?,?,?)"
     stmt.setString(1, p.getNom());
     stmt.setString(2, p.getPrenom());
     stmt.setString(3, p.getEmail());
     stmt.setString(4, p.getMdp());
     stmt.setString(5, p.getJeton());
-    stmt.setBoolean(6, p.getestActif());
-    stmt.setTimestamp(7, p.getdateInsertion());
-    
+    stmt.setTimestamp(7, p.getdateButoirJeton());
     stmt.executeUpdate();
-    
-      
-  }
+   }
+  
+  public static void deletePerson(String jeton) throws SQLException{
+    Connection db = Database.getConnection();
+    PreparedStatement stmt = db.prepareStatement(DELETE_BY_JETON); //"DELETE FROM personne WHERE jeton=? "; 
+    stmt.setString(1, jeton);
+    stmt.executeUpdate();
+   }
+  
+  public static void deletePersonBydate(Timestamp now) throws SQLException{
+    Connection db = Database.getConnection();
+    PreparedStatement stmt = db.prepareStatement(DELETE_BY_DATE_BUTOIR); //"DELETE FROM personne WHERE date_butoir_jeton <= ? " 
+    stmt.setTimestamp(1, now);
+    stmt.executeUpdate();
+   }
+  
+  
   
   public static void update(String prenom, String nom, String mail, String mdp, String jeton) throws SQLException{
     Connection db = Database.getConnection();
@@ -89,9 +111,10 @@ public class PersonneDao {
     stmt.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
     stmt.setString(6, mail);
     stmt.executeUpdate();
-    
-      
-  }
+   }
+  
+  
+  
   public static boolean mailExist(String mail)throws SQLException{
     int cpt=0;
     Connection db = Database.getConnection();
@@ -107,10 +130,10 @@ public class PersonneDao {
     return false;
   }
 
-  public static boolean compteActif(String mail)throws SQLException{
+  public static boolean compteValide(String mail)throws SQLException{
     int cpt=0;
     Connection db = Database.getConnection();
-    PreparedStatement stmt = db.prepareStatement(CHECK_BY_ACTIF); //"SELECT * FROM personne WHERE email=? and est_Actif=true"
+    PreparedStatement stmt = db.prepareStatement(CHECK_BY_ACTIF); //"SELECT * FROM personne WHERE email=? and date_inscription IS NOT NULL;"
     stmt.setString(1, mail);
     ResultSet rs= stmt.executeQuery();
     while (rs.next()) {
@@ -146,8 +169,8 @@ public class PersonneDao {
               rs.getString("prenom"),
               rs.getString("email"),
               rs.getBoolean("est_formateur"),
-              rs.getBoolean("est_administration"),
-              rs.getBoolean("est_Actif")
+              rs.getBoolean("est_administration")
+              
       );
     }
     stmt.close();

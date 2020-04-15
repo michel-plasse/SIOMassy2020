@@ -2,6 +2,7 @@ package modele;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import javafx.util.converter.LocalDateTimeStringConverter;
 
@@ -9,10 +10,10 @@ public class Personne {
 	private int id;
 	private String prenom, nom, email, mdp, urlPhoto, jeton; 
         private boolean estFormateur, estAdministration;
+        private Timestamp dateButoirJeton;
+        private Timestamp dateInscription;
         //private estActif;
         //private Timestamp dateInsertion;
-        private LocalDateTime dateButoirJeton;
-        private LocalDateTime dateInscription;
         
 	
         public Personne() {
@@ -29,12 +30,22 @@ public class Personne {
             this.email = email;
             this.mdp = mdp;
             this.jeton = jeton;
-            LocalDateTime today = LocalDateTime.now();
-            this.dateButoirJeton=today;
+            this.dateButoirJeton = new Timestamp(System.currentTimeMillis());
+ 
+            //DateTimeFormatter F = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            //this.dateButoirJeton=LocalDateTime.parse(today.format(F));
             //this.estActif=false;
             //Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             //this.dateInsertion=timestamp;
         }
+        
+        public void setdateButoirJeton(Timestamp dateButoirJeton) {
+                    this.dateButoirJeton = dateButoirJeton;
+            }
+
+	public Timestamp getdateButoirJeton() {
+		return dateButoirJeton;
+	}
 
         public Personne(String prenom, String nom, String email, String mdp) {
             this.prenom = prenom;
@@ -44,9 +55,7 @@ public class Personne {
         }
 
         
-        
-        
-	public Personne(int id, String prenom, String nom, String email) {
+        public Personne(int id, String prenom, String nom, String email) {
 		this.id = id;
 		this.prenom = prenom;
 		this.nom = nom;
@@ -63,7 +72,8 @@ public class Personne {
           this.estAdministration = estAdministration;
         }
 
-  
+        
+        
 	public int getId() {
 		return id;
 	}
@@ -136,11 +146,5 @@ public class Personne {
             this.estAdministration = estAdministration;
         }
 
-        public void setdateButoirJeton(LocalDateTime dateButoirJeton) {
-                    this.dateButoirJeton = dateButoirJeton;
-            }
-
-	public LocalDateTime getdateButoirJeton() {
-		return dateButoirJeton;
-	}
+        
 }

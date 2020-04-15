@@ -6,6 +6,7 @@
 package controller;
 
 import dao.Database;
+import dao.PersonneDao;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -40,21 +41,25 @@ public class confirmationEmail extends HttpServlet {
         
         try {
             Connection db = Database.getConnection();
-            PreparedStatement stmt = db.prepareStatement("SELECT * from personne where jeton= ? and est_Actif=false");
+            PreparedStatement stmt = db.prepareStatement("SELECT * from personne where jeton= ?");
             stmt.setString(1, Token);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                Timestamp t = rs.getTimestamp("date_insertion");
+                Timestamp t = rs.getTimestamp("date_butoir_jeton");
                 long diff = timestampvalidation.getTime()-t.getTime();              
                 if (diff<=86400000){
-                         PreparedStatement stmt1 = db.prepareStatement("UPDATE personne SET est_Actif=true where jeton= ? ");
+                         PreparedStatement stmt1 = db.prepareStatement("UPDATE personne SET jeton=? , date_butoir_jeton= ? ,date_inscription =? where jeton= ? ");
+                         stmt1.setString(1, null);
+                         stmt1.setTimestamp(1, null);
+                         stmt1.setTimestamp(1, timestampvalidation);
                          stmt1.setString(1, Token);
                          int i = stmt1.executeUpdate();
                          if(i==1){
                              request.setAttribute("messageBienvenue", "Bienvenue, vous venez de finaliser votre inscription");
                         }
                 }else{
-                    request.setAttribute("messageBienvenue", "Votre inscription n'a pas été validé. Veuillez réessayer de vous réinscrire.");
+                    PersonneDao.deletePerson(Token);
+                    request.setAttribute("messageBienvenue", "Vous avez dépassé le temps accordé pour valider votre inscription, Nous vous invitons à vous réinscrire");
                 }
                 
                 
