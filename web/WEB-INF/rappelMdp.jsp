@@ -22,7 +22,7 @@
         <form id="changeMDPForm" action="changerMDPServlet" method="POST">
           Identifiant :              <input type="text" name="login" value="${param["login"]}"/><br/>
           confirmer Identifiant :    <input type="text" name="login" value="${param["login"]}"/><br/>
-          Verify Code :  <input type="code" name="code"/><br/>
+<!--          Verify Code :  <input type="code" name="code"/><br/>-->
         
         <c:if test="${erreurLogin != null}">
           <div class="error">${erreurLogin}</div>
