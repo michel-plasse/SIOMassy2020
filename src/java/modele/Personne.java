@@ -10,28 +10,29 @@ public class Personne {
 	private int id;
 	private String prenom, nom, email, mdp, urlPhoto, jeton; 
         private boolean estFormateur, estAdministration;
-        private Timestamp dateButoirJeton;
-        private Timestamp dateInscription;
+        private LocalDateTime dateButoirJeton;
+        private LocalDateTime dateInscription;
+        //private Timestamp dateButoirJeton;
         //private estActif;
         //private Timestamp dateInsertion;
         
-	
-        public Personne() {
+	public Personne() {
 		id = 0;
 		prenom = null;
 		nom = null;
 		email = null;
 	}
 
-        
         public Personne(String prenom, String nom, String email, String mdp, String jeton) {
             this.prenom = prenom;
             this.nom = nom;
             this.email = email;
             this.mdp = mdp;
             this.jeton = jeton;
-            this.dateButoirJeton = new Timestamp(System.currentTimeMillis());
- 
+            this.dateButoirJeton= LocalDateTime.now().plusHours(24);
+            //this.dateButoirJeton = new Timestamp(System.currentTimeMillis());
+            //LocalDateTime butoir = LocalDateTime.now();
+            //this.dateButoirJeton= butoir.plusHours(24);
             //DateTimeFormatter F = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             //this.dateButoirJeton=LocalDateTime.parse(today.format(F));
             //this.estActif=false;
@@ -39,11 +40,11 @@ public class Personne {
             //this.dateInsertion=timestamp;
         }
         
-        public void setdateButoirJeton(Timestamp dateButoirJeton) {
+        public void setdateButoirJeton(LocalDateTime dateButoirJeton) {
                     this.dateButoirJeton = dateButoirJeton;
             }
 
-	public Timestamp getdateButoirJeton() {
+	public LocalDateTime getdateButoirJeton() {
 		return dateButoirJeton;
 	}
 
@@ -72,9 +73,7 @@ public class Personne {
           this.estAdministration = estAdministration;
         }
 
-        
-        
-	public int getId() {
+        public int getId() {
 		return id;
 	}
 
