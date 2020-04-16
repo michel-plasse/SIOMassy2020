@@ -3,6 +3,8 @@ package controller;
 import dao.PersonneDao;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -34,35 +36,47 @@ public class ConnexionServlet extends HttpServlet {
     String password = request.getParameter("password");
     String vue = VUE_FORM;
     Personne user = null;
+    LocalDateTime now = LocalDateTime.now();
+    Timestamp timestamp = Timestamp.valueOf(now);
+    
     try {
+          
+      user = PersonneDao.getByLoginPassword(login, password);
+      
+ 
       if (login == null || login.trim().isEmpty()|| password == null || password.trim().isEmpty()) {
         request.setAttribute("erreurLogin", "Les champs sont obligatoires");
-      } 
-      user = PersonneDao.getByLoginPassword(login, password);
-      if(user != null && user.getestActif()== true ){
+      }      
+      
+      
+      else if(user != null && user.getdateInscription()!= null){
         HttpSession maSession = request.getSession(true);
         maSession.setAttribute("user", user);
         request.setAttribute("nomprenom", "Session de : "+ user.getPrenom()+" "+ user.getNom());
         vue = VUE_CONNEXION_OK;
               
         }
-      else if(user != null && user.getestActif()== false ){
+     
+        else if(user != null && user.getJeton()!= null && Timestamp.valueOf(user.getdateButoirJeton()).getTime() > timestamp.getTime()){
           request.setAttribute("erreurLogin","Vous n'avez pas encore validé votre compte !!!");
           vue=VUE_FORM;
       }
+      else if(user != null && user.getJeton()!= null && Timestamp.valueOf(user.getdateButoirJeton()).getTime() < timestamp.getTime()){
+          PersonneDao.deletePerson(user.getJeton());
+          request.setAttribute("erreurLogin","Vous ne pouvez pas vous connecter car vous n'avez pas valider votre inscription dans les temps, nous vous invitons à vous réinscrire");
+          vue=VUE_FORM;
+          }
       else {
           request.setAttribute("erreurLogin","Utilisateur inconnu ou mot de passe incorrect");
           vue=VUE_FORM;
       }
+      } catch (SQLException exc) {
+          Logger.getLogger(ConnexionServlet.class.getName()).log(Level.SEVERE, null, exc);
+          request.setAttribute("exception", exc);
+          vue = VUE_ERREUR;
+      }
       
-      
-      
-      
-    } catch (SQLException exc) {
-      Logger.getLogger(ConnexionServlet.class.getName()).log(Level.SEVERE, null, exc);
-      request.setAttribute("exception", exc);
-      vue = VUE_ERREUR;
-    }
+   
     // Passer la main à la JSP
     request.getRequestDispatcher(vue).forward(request, response);
   }

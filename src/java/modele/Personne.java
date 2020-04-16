@@ -10,11 +10,9 @@ public class Personne {
 	private int id;
 	private String prenom, nom, email, mdp, urlPhoto, jeton; 
         private boolean estFormateur, estAdministration;
-        private LocalDateTime dateButoirJeton;
+        
         private LocalDateTime dateInscription;
-        //private Timestamp dateButoirJeton;
-        //private estActif;
-        //private Timestamp dateInsertion;
+        private LocalDateTime dateButoirJeton;
         
 	public Personne() {
 		id = 0;
@@ -30,14 +28,21 @@ public class Personne {
             this.mdp = mdp;
             this.jeton = jeton;
             this.dateButoirJeton= LocalDateTime.now().plusHours(24);
-            //this.dateButoirJeton = new Timestamp(System.currentTimeMillis());
-            //LocalDateTime butoir = LocalDateTime.now();
-            //this.dateButoirJeton= butoir.plusHours(24);
-            //DateTimeFormatter F = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            //this.dateButoirJeton=LocalDateTime.parse(today.format(F));
-            //this.estActif=false;
-            //Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            //this.dateInsertion=timestamp;
+           
+        }
+        
+        public Personne(int id, String nom, String prenom, String email, boolean estFormateur, boolean estAdministration, String jeton,LocalDateTime dateinscription, LocalDateTime dateButoirJeton ) {
+                      this.id = id;
+                      this.nom = nom;
+                      this.prenom = prenom;
+                      this.email = email;
+                      this.estFormateur = estFormateur;
+                      this.estAdministration = estAdministration;
+                      this.jeton = jeton;
+                      this.dateButoirJeton = dateButoirJeton;
+                      this.dateInscription=dateinscription;
+                      
+                      
         }
         
         public void setdateButoirJeton(LocalDateTime dateButoirJeton) {
@@ -47,7 +52,14 @@ public class Personne {
 	public LocalDateTime getdateButoirJeton() {
 		return dateButoirJeton;
 	}
+        
+        public void setdateInscription(LocalDateTime dateInscription) {
+                    this.dateInscription = dateInscription;
+            }
 
+	public LocalDateTime getdateInscription() {
+		return dateButoirJeton;
+	}
         public Personne(String prenom, String nom, String email, String mdp) {
             this.prenom = prenom;
             this.nom = nom;

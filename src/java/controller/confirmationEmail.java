@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -27,7 +28,7 @@ public class confirmationEmail extends HttpServlet {
     
         private static final String VUE_FORM_CON = "/WEB-INF/connexion.jsp";
         private static final String VUE_INDEX = "/index.jsp";
-    
+        // Pour tester private static final String VUE_VERIFY= "/WEB-INF/verify.jsp";
         
     
     @Override
@@ -36,7 +37,10 @@ public class confirmationEmail extends HttpServlet {
         
         
         String Token = request.getParameter("token");
-        Timestamp timestampvalidation = new Timestamp(System.currentTimeMillis());
+        //Timestamp timestampvalidation = new Timestamp(System.currentTimeMillis());
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(now);
+        
         String vue=VUE_FORM_CON;
         
         try {
@@ -46,13 +50,14 @@ public class confirmationEmail extends HttpServlet {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 Timestamp t = rs.getTimestamp("date_butoir_jeton");
-                long diff = timestampvalidation.getTime()-t.getTime();              
-                if (diff<=86400000){
+                //long diff = now.getTime()-t.getTime();              
+                //if (diff<=86400000){
+                    if (t.getTime()>timestamp.getTime()){
                          PreparedStatement stmt1 = db.prepareStatement("UPDATE personne SET jeton=? , date_butoir_jeton= ? ,date_inscription =? where jeton= ? ");
                          stmt1.setString(1, null);
-                         stmt1.setTimestamp(1, null);
-                         stmt1.setTimestamp(1, timestampvalidation);
-                         stmt1.setString(1, Token);
+                         stmt1.setTimestamp(2, null);
+                         stmt1.setTimestamp(3, timestamp);
+                         stmt1.setString(4, Token);
                          int i = stmt1.executeUpdate();
                          if(i==1){
                              request.setAttribute("messageBienvenue", "Bienvenue, vous venez de finaliser votre inscription");
@@ -65,7 +70,7 @@ public class confirmationEmail extends HttpServlet {
                 
                
             }
-            
+            // Pour tester vue=VUE_VERIFY;
             
         } catch (SQLException ex) {
             Logger.getLogger(confirmationEmail.class.getName()).log(Level.SEVERE, null, ex);

@@ -5,6 +5,7 @@ import dao.PersonneDao;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -50,6 +51,8 @@ public class InscriptionServlet extends HttpServlet {
         Random random=new Random();                               // Instance d'un objet random
         random.nextInt(9999999);                                  // Selection aléatoire d'un nombre entre 0 est 9999999
         String jeton = DigestUtils.md5Hex(""+random) ;
+      
+        
         
         try {            
             PersonneDao.deletePersonBydate(new Timestamp(System.currentTimeMillis()));

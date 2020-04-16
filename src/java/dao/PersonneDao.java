@@ -81,8 +81,9 @@ public class PersonneDao {
     stmt.setString(3, p.getEmail());
     stmt.setString(4, p.getMdp());
     stmt.setString(5, p.getJeton());
-    stmt.setTimestamp(7, p.getdateButoirJeton());
+    stmt.setTimestamp(6, Timestamp.valueOf(p.getdateButoirJeton()));
     stmt.executeUpdate();
+   
    }
   
   public static void deletePerson(String jeton) throws SQLException{
@@ -101,7 +102,7 @@ public class PersonneDao {
   
   
   
-  public static void update(String prenom, String nom, String mail, String mdp, String jeton) throws SQLException{
+  /*public static void update(String prenom, String nom, String mail, String mdp, String jeton) throws SQLException{
     Connection db = Database.getConnection();
     PreparedStatement stmt = db.prepareStatement("UPDATE personne SET prenom=? , nom=?, mdp=?, jeton=?, date_insertion=? where email=?");
     stmt.setString(1, prenom);
@@ -111,7 +112,7 @@ public class PersonneDao {
     stmt.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
     stmt.setString(6, mail);
     stmt.executeUpdate();
-   }
+   }*/
   
   
   
@@ -158,7 +159,7 @@ public class PersonneDao {
     Connection db = Database.getConnection();
     Personne result = null;
     // Nous cherchons dans la vue membre, qui ajoute a personne le booleen est_formateur
-    PreparedStatement stmt = db.prepareStatement(GET_BY_EMAIL_PASSWORD);
+    PreparedStatement stmt = db.prepareStatement(GET_BY_EMAIL_PASSWORD); // SELECT * FROM personne WHERE email=? AND mdp=?
     stmt.setString(1, login);
     stmt.setString(2, password);
     ResultSet rs = stmt.executeQuery();
@@ -169,7 +170,11 @@ public class PersonneDao {
               rs.getString("prenom"),
               rs.getString("email"),
               rs.getBoolean("est_formateur"),
-              rs.getBoolean("est_administration")
+              rs.getBoolean("est_administration"),
+              rs.getString("jeton"),
+              rs.getTimestamp("date_inscription").toLocalDateTime(),
+              rs.getTimestamp("date_butoir_jeton").toLocalDateTime()
+             // Timestamp . valueOf (instant)
               
       );
     }
