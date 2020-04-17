@@ -7,8 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Timestamp;
-import java.sql.Date;
-import java.time.LocalDateTime;
+
 
 import modele.Personne;
 
@@ -27,7 +26,7 @@ public class PersonneDao {
   public static final String GET_BY_EMAIL_PASSWORD = 
           "SELECT * FROM personne WHERE email=? AND mdp=?";
   
-  public static final String Insertion 
+  public static final String Insertion
           ="Insert into personne (nom,prenom,email,mdp,jeton,date_butoir_jeton) VALUES(?,?,?,?,?,?)";
 
   public static final String CHECK_BY_MAIL  
@@ -42,11 +41,7 @@ public class PersonneDao {
     public static final String DELETE_BY_DATE_BUTOIR  
           ="DELETE FROM personne WHERE date_butoir_jeton <= ? ";
    
-   
-   
-   
-   
-   
+
    /**
    * Stagiaires d'une session de formation
    *
@@ -164,19 +159,49 @@ public class PersonneDao {
     stmt.setString(2, password);
     ResultSet rs = stmt.executeQuery();
     if (rs.next()) {
-      result = new Personne(
-              rs.getInt("id_personne"),
-              rs.getString("nom"),
-              rs.getString("prenom"),
-              rs.getString("email"),
-              rs.getBoolean("est_formateur"),
-              rs.getBoolean("est_administration"),
-              rs.getString("jeton"),
-              rs.getTimestamp("date_inscription").toLocalDateTime(),
-              rs.getTimestamp("date_butoir_jeton").toLocalDateTime()
-             // Timestamp . valueOf (instant)
-              
-      );
+        
+        Timestamp t2 = rs.getTimestamp("date_butoir_jeton");
+        if(rs.wasNull()){
+            result = new Personne(
+            rs.getInt("id_personne"),
+            rs.getString("nom"),
+            rs.getString("prenom"),
+            rs.getString("email"),
+            rs.getString("mdp"),
+            "",
+            rs.getTimestamp("date_inscription").toLocalDateTime(),
+            null
+               );   
+        }
+        else{
+            Timestamp t1 = rs.getTimestamp("date_inscription");
+            if(rs.wasNull()){
+                result = new Personne(
+                rs.getInt("id_personne"),
+                rs.getString("nom"),
+                rs.getString("prenom"),
+                rs.getString("email"),
+                rs.getString("mdp"),
+                rs.getString("jeton"),
+                null,
+                t2.toLocalDateTime()
+                   );  
+            }
+            else{
+                result = new Personne(
+                rs.getInt("id_personne"),
+                rs.getString("nom"),
+                rs.getString("prenom"),
+                rs.getString("email"),
+                rs.getString("mdp"),
+                rs.getString("jeton"),
+                t1.toLocalDateTime(),
+                t2.toLocalDateTime()
+                   ); 
+            }
+
+        }
+      
     }
     stmt.close();
     db.close();

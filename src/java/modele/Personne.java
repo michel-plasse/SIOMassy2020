@@ -1,10 +1,7 @@
 package modele;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import javafx.util.converter.LocalDateTimeStringConverter;
+
 
 public class Personne {
 	private int id;
@@ -21,7 +18,7 @@ public class Personne {
 		email = null;
 	}
 
-        public Personne(String prenom, String nom, String email, String mdp, String jeton) {
+        public Personne(String prenom, String nom, String email, String mdp, String jeton) { // utilisé pour le insert
             this.prenom = prenom;
             this.nom = nom;
             this.email = email;
@@ -31,16 +28,16 @@ public class Personne {
            
         }
         
-        public Personne(int id, String nom, String prenom, String email, boolean estFormateur, boolean estAdministration, String jeton,LocalDateTime dateinscription, LocalDateTime dateButoirJeton ) {
+        public Personne(int id, String nom, String prenom, String email,String mdp, String jeton,LocalDateTime dateinscription, LocalDateTime dateButoirJeton) {
                       this.id = id;
                       this.nom = nom;
                       this.prenom = prenom;
                       this.email = email;
-                      this.estFormateur = estFormateur;
-                      this.estAdministration = estAdministration;
+                      this.mdp = mdp;
                       this.jeton = jeton;
-                      this.dateButoirJeton = dateButoirJeton;
                       this.dateInscription=dateinscription;
+                      this.dateButoirJeton = dateButoirJeton;
+                      // Constructeur utilisé pour créer le USER dans ConnexionServlet
                       
                       
         }
@@ -58,7 +55,7 @@ public class Personne {
             }
 
 	public LocalDateTime getdateInscription() {
-		return dateButoirJeton;
+		return dateInscription;
 	}
         public Personne(String prenom, String nom, String email, String mdp) {
             this.prenom = prenom;

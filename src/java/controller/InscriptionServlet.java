@@ -5,15 +5,8 @@ import dao.PersonneDao;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import modele.Personne;
 import java.util.Random;
 import javax.servlet.ServletException;
@@ -61,7 +54,8 @@ public class InscriptionServlet extends HttpServlet {
         }
         
         
-        try {                                                     // nous faisons d'abord un test sur tous les champs du formulaire
+        try {
+            // nous faisons d'abord un test sur tous les champs du formulaire
             if (nom == null || nom.trim().isEmpty()|| prenom == null || prenom.trim().isEmpty()|| mail == null || mail.trim().isEmpty()|| mdp == null || mdp.trim().isEmpty() || mdp2 == null || mdp2.trim().isEmpty()) {
                      request.setAttribute("erreurLogin", "Veuillez renseigner tous les champs");
             // la vue reste à VUE_FORM_INS
@@ -88,17 +82,17 @@ public class InscriptionServlet extends HttpServlet {
                      request.setAttribute("erreurLogin", "Les mots de passe ne sont pas identiques ! merci de vérifier votre saisie");
             // la vue reste à VUE_FORM_INS    
             }
-             else if(PersonneDao.mailExist(mail) && PersonneDao.compteValide(mail)==false){ // on fait appel à la méthode mailExist() presente dans PersonneDao
-                  try {
+            else if(PersonneDao.mailExist(mail) && PersonneDao.compteValide(mail)==false){ 
+                try {
                       
-                    request.setAttribute("erreurLogin", "Email déjà enregistré, veuillez confirmer votre inscription en cliquant sur le lien inclus dans le mail qui vous a été adressé");
+                      request.setAttribute("erreurLogin", "Email déjà enregistré, veuillez confirmer votre inscription en cliquant sur le lien inclus dans le mail qui vous a été adressé");
                     
                     }
                 catch (Exception ex) {
                         Logger.getLogger(InscriptionServlet.class.getName()).log(Level.SEVERE, null, ex);
                         vue = VUE_ERREUR;
                     }   
-            // la vue reste à VUE_FORM_INS 
+           
             }
             
             else{
