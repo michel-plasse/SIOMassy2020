@@ -161,6 +161,7 @@ public class PersonneDao {
     if (rs.next()) {
         
         Timestamp t2 = rs.getTimestamp("date_butoir_jeton");
+               
         if(rs.wasNull()){
             result = new Personne(
             rs.getInt("id_personne"),
@@ -187,7 +188,7 @@ public class PersonneDao {
                 t2.toLocalDateTime()
                    );  
             }
-            else{
+            /*else{
                 result = new Personne(
                 rs.getInt("id_personne"),
                 rs.getString("nom"),
@@ -198,7 +199,7 @@ public class PersonneDao {
                 t1.toLocalDateTime(),
                 t2.toLocalDateTime()
                    ); 
-            }
+            }*/
 
         }
       
