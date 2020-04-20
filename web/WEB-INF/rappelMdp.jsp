@@ -8,6 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <link rel="stylesheet" href="css/style.css"/>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Agriotes - Changez de mot de passe</title>

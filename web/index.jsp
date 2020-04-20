@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html>
+    <link rel="stylesheet" href="css/style.css"/>
   <head>
     <title>Agriotes</title>
     <meta charset="UTF-8">
