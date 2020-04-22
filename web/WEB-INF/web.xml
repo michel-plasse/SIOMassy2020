@@ -4,9 +4,17 @@
         <servlet-name>GestionMdp</servlet-name>
         <servlet-class>controller.GestionMdp</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DemanderNouvMdpServlet</servlet-name>
+        <servlet-class>controller.DemanderNouvMdpServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GestionMdp</servlet-name>
         <url-pattern>/GestionMdp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DemanderNouvMdpServlet</servlet-name>
+        <url-pattern>/DemanderNouvMdpServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

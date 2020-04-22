@@ -19,19 +19,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import modele.Personne;
 
-/**
- *
- * @author aline
- */
-@WebServlet(name = "ChangerMDPServlet", urlPatterns = {"/ChangerMDPServlet"})
+@WebServlet(name = "ChangerMDPServlet", urlPatterns = {"/rappelMdp"})
 public class ChangerMDPServlet extends HttpServlet {
     
   private static final String VUE_INDEX = "/index.jsp";
   private static final String VUE_CHGMDP ="/WEB-INF/rappelMdp.jsp";
-//"/WEB-INF/rappelMdp.jsp";
-  /**<
-   * Vue si erreur (exception)
-   */
+
   private static final String VUE_ERREUR = "WEB-INF/PageError.jsp";
 
 
@@ -41,14 +34,6 @@ public class ChangerMDPServlet extends HttpServlet {
          request.getRequestDispatcher(VUE_CHGMDP).forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

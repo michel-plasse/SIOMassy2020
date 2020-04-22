@@ -23,11 +23,10 @@
         </c:if>
         </form>
            
-            <form id="CHGMDPForm" action="rappelMdp.jsp" method="POST">
+            <form id="CHGMDPForm" action="demanderNouvMdp" method="POST">
         <c:if test="${erreurLogin != null}"></c:if>
-        <button>
-
-         <a href="<%=request.getContextPath()+"/ChangerMDPServlet"%>">Mot de passe oublié</a>
+        <button type="submit">change
+            
             </boutton>
         
         
