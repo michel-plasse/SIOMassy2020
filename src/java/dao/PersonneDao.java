@@ -26,7 +26,7 @@ public class PersonneDao {
   public static final String GET_BY_EMAIL_PASSWORD = 
           "SELECT * FROM personne WHERE email=? AND mdp=?";
   
-  public static final String Insertion
+  public static final String INSERTION
           ="Insert into personne (nom,prenom,email,mdp,jeton,date_butoir_jeton) VALUES(?,?,?,?,?,?)";
 
   public static final String CHECK_BY_MAIL  
@@ -70,7 +70,7 @@ public class PersonneDao {
   
   public static void insert(Personne p) throws SQLException{
     Connection db = Database.getConnection();
-    PreparedStatement stmt = db.prepareStatement(Insertion); //"Insert into personne (nom,prenom,email,mdp,jeton,date_butoir_jeton) VALUES(?,?,?,?,?,?)"
+    PreparedStatement stmt = db.prepareStatement(INSERTION); //"Insert into personne (nom,prenom,email,mdp,jeton,date_butoir_jeton) VALUES(?,?,?,?,?,?)"
     stmt.setString(1, p.getNom());
     stmt.setString(2, p.getPrenom());
     stmt.setString(3, p.getEmail());
