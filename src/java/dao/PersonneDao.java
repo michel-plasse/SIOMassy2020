@@ -92,31 +92,7 @@ public class PersonneDao {
         stmt.executeUpdate();
     }
 
-    /*public static void update(String prenom, String nom, String mail, String mdp, String jeton) throws SQLException{
-    Connection db = Database.getConnection();
-    PreparedStatement stmt = db.prepareStatement("UPDATE personne SET prenom=? , nom=?, mdp=?, jeton=?, date_insertion=? where email=?");
-    stmt.setString(1, prenom);
-    stmt.setString(2, nom);
-    stmt.setString(3, mdp);
-    stmt.setString(4, jeton);
-    stmt.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
-    stmt.setString(6, mail);
-    stmt.executeUpdate();
-   }*/
- /*public static boolean mailExist(String mail)throws SQLException{
-    int cpt=0;
-    Connection db = Database.getConnection();
-    PreparedStatement stmt = db.prepareStatement(CHECK_BY_MAIL); 
-    stmt.setString(1, mail);
-    ResultSet rs= stmt.executeQuery();
-    while (rs.next()) {
-        cpt++;
-    }
-    if(cpt == 1){
-        return true;
-    }
-    return false;
-  }*/
+    
     public static boolean mailExist(String mail) throws SQLException {
         Connection db = Database.getConnection();
         PreparedStatement stmt = db.prepareStatement(CHECK_BY_MAIL);
@@ -168,48 +144,7 @@ public class PersonneDao {
             );
 
         }
-        /*public static Personne getByLoginPassword(String login, String password) throws SQLException {
-        Connection db = Database.getConnection();
-        Personne result = null;
-        // Nous cherchons dans la vue membre, qui ajoute a personne le booleen est_formateur
-        PreparedStatement stmt = db.prepareStatement(GET_BY_EMAIL_PASSWORD); // SELECT * FROM personne WHERE email=? AND mdp=?
-        stmt.setString(1, login);
-        stmt.setString(2, password);
-        ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
-
-            Timestamp t2 = rs.getTimestamp("date_butoir_jeton");
-
-            if (rs.wasNull()) {
-                result = new Personne(
-                        rs.getInt("id_personne"),
-                        rs.getString("nom"),
-                        rs.getString("prenom"),
-                        rs.getString("email"),
-                        rs.getString("mdp"),
-                        "",
-                        rs.getTimestamp("date_inscription").toLocalDateTime(),
-                        null
-                );
-            } else {
-                Timestamp t1 = rs.getTimestamp("date_inscription");
-                if (rs.wasNull()) {
-                    result = new Personne(
-                            rs.getInt("id_personne"),
-                            rs.getString("nom"),
-                            rs.getString("prenom"),
-                            rs.getString("email"),
-                            rs.getString("mdp"),
-                            rs.getString("jeton"),
-                            null,
-                            t2.toLocalDateTime()
-                    );
-                }
-               
-
-            }
-
-        }*/
+        
         stmt.close();
         db.close();
         return result;
