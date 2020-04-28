@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @WebServlet(name="confirmationEmail" ,urlPatterns = "/confirmationEmail")
-public class confirmationEmail extends HttpServlet {
+public class ConfirmationEmailServlet extends HttpServlet {
     
         private static final String VUE_FORM_CON = "/WEB-INF/connexion.jsp";
         private static final String VUE_INDEX = "/index.jsp";
@@ -73,7 +73,7 @@ public class confirmationEmail extends HttpServlet {
             // Pour tester vue=VUE_VERIFY;
             
         } catch (SQLException ex) {
-            Logger.getLogger(confirmationEmail.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConfirmationEmailServlet.class.getName()).log(Level.SEVERE, null, ex);
             vue = VUE_INDEX;
             
         }

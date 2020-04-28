@@ -1,17 +1,16 @@
-package controller;
+package modele;
 
 import java.time.LocalDateTime;
 
 public class Evaluation {
+
     private int idEvaluation;
     private LocalDateTime dateEffet;
     private int idCreateur;
     private int idSessionFormation;
     private int idModule;
 
-    
     // ##################################    Constructeurs    ############################################
-    
     public Evaluation() {
     }
 
@@ -23,8 +22,6 @@ public class Evaluation {
         this.idModule = idModule;
     }
 
-    
-    
     // ############################### Getters et Setters ##################################################
     public int getIdEvaluation() {
         return idEvaluation;
@@ -65,8 +62,5 @@ public class Evaluation {
     public void setIdModule(int idModule) {
         this.idModule = idModule;
     }
-    
-    
-    
-    
+
 }
