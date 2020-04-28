@@ -77,7 +77,7 @@ public class InscriptionServlet extends HttpServlet {
                 Logger.getLogger(InscriptionServlet.class.getName()).log(Level.SEVERE, null, ex);
                 switch (ex.getErrorCode()) {
                     case Database.DOUBLON:
-                        boolean estConfirme = PersonneDao.EstValide(mail);
+                        boolean estConfirme = PersonneDao.estValide(mail);
                         msg = (estConfirme) ? "Email déjà enregistré et confirmé"
                                 : "Email déjà enregistré, veuillez confirmer votre inscription en cliquant sur le lien inclus dans le mail qui vous a été adressé";
                         break;

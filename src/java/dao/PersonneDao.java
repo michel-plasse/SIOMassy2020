@@ -13,25 +13,49 @@ import modele.Personne;
 
 public class PersonneDao {
 
-    public static final String GET_BY_ID_SESSION
-            = "SELECT * "
-            + "FROM personne "
-            + "WHERE id_personne IN "
-            + "("
-            + "	SELECT id_personne"
-            + "    FROM membre_session"
-            + "    WHERE id_session_formation=?"
-            + ")";
-
-    public static final String GET_BY_EMAIL_PASSWORD
+  public static final String GET_BY_ID_SESSION
+          = "SELECT * "
+          + "FROM personne "
+          + "WHERE id_personne IN "
+          + "("
+          + "	SELECT id_personne"
+          + "    FROM membre_session"
+          + "    WHERE id_session_formation=?"
+          + ")";
+  
+     public static final String GET_BY_EMAIL_PASSWORD
             = "SELECT * FROM personne WHERE email=? AND mdp=?";
 
     public static final String INSERTION
             = "Insert into personne (nom,prenom,email,mdp,jeton,date_butoir_jeton) VALUES(?,?,?,?,?,?)";
 
-    public static final String CHECK_BY_MAIL
-            = "SELECT * FROM personne WHERE email=?";
-
+  public static void insert(Personne p) throws SQLException{
+    Connection db = Database.getConnection();
+    PreparedStatement stmt = db.prepareStatement(INSERTION); //"Insert into personne (nom,prenom,email,mdp,jeton,date_butoir_jeton) VALUES(?,?,?,?,?,?)"
+    stmt.setString(1, p.getNom());
+    stmt.setString(2, p.getPrenom());
+    stmt.setString(3, p.getEmail());
+    stmt.setString(4, p.getMdp());
+    stmt.setString(5, p.getJeton());
+    stmt.setTimestamp(6, Timestamp.valueOf(p.getdateButoirJeton()));
+    stmt.executeUpdate();
+   
+   }
+  
+  public static void deletePerson(String jeton) throws SQLException{
+    Connection db = Database.getConnection();
+    PreparedStatement stmt = db.prepareStatement(DELETE_BY_JETON); //"DELETE FROM personne WHERE jeton=? "; 
+    stmt.setString(1, jeton);
+    stmt.executeUpdate();
+   }
+  
+  public static void deletePersonBydate(Timestamp now) throws SQLException{
+    Connection db = Database.getConnection();
+    PreparedStatement stmt = db.prepareStatement(DELETE_BY_DATE_BUTOIR); //"DELETE FROM personne WHERE date_butoir_jeton <= ? " 
+    stmt.setTimestamp(1, now);
+    stmt.executeUpdate();
+   }
+  
     public static final String CHECK_BY_ACTIF
             = "SELECT * FROM personne WHERE email=? and date_inscription IS NOT NULL";
 
@@ -65,43 +89,7 @@ public class PersonneDao {
         return result;
     }
 
-    public static void insert(Personne p) throws SQLException {
-        Connection db = Database.getConnection();
-        PreparedStatement stmt = db.prepareStatement(INSERTION); //"Insert into personne (nom,prenom,email,mdp,jeton,date_butoir_jeton) VALUES(?,?,?,?,?,?)"
-        stmt.setString(1, p.getNom());
-        stmt.setString(2, p.getPrenom());
-        stmt.setString(3, p.getEmail());
-        stmt.setString(4, p.getMdp());
-        stmt.setString(5, p.getJeton());
-        stmt.setTimestamp(6, Timestamp.valueOf(p.getdateButoirJeton()));
-        stmt.executeUpdate();
-
-    }
-
-    public static void deletePerson(String jeton) throws SQLException {
-        Connection db = Database.getConnection();
-        PreparedStatement stmt = db.prepareStatement(DELETE_BY_JETON); //"DELETE FROM personne WHERE jeton=? "; 
-        stmt.setString(1, jeton);
-        stmt.executeUpdate();
-    }
-
-    public static void deletePersonBydate(Timestamp now) throws SQLException {
-        Connection db = Database.getConnection();
-        PreparedStatement stmt = db.prepareStatement(DELETE_BY_DATE_BUTOIR); //"DELETE FROM personne WHERE date_butoir_jeton <= ? " 
-        stmt.setTimestamp(1, now);
-        stmt.executeUpdate();
-    }
-
-    
-    public static boolean mailExist(String mail) throws SQLException {
-        Connection db = Database.getConnection();
-        PreparedStatement stmt = db.prepareStatement(CHECK_BY_MAIL);
-        stmt.setString(1, mail);
-        ResultSet rs = stmt.executeQuery();
-        return rs.next();
-    }
-
-    public static boolean EstValide(String mail) throws SQLException {
+    public static boolean estValide(String mail) throws SQLException {
         Connection db = Database.getConnection();
         PreparedStatement stmt = db.prepareStatement(CHECK_BY_ACTIF); //"SELECT * FROM personne WHERE email=? and date_inscription IS NOT NULL;"
         stmt.setString(1, mail);
@@ -131,7 +119,6 @@ public class PersonneDao {
         LocalDateTime dateButoirJeton = (rs.getTimestamp("date_butoir_jeton") == null) ? null : rs.getTimestamp("date_butoir_jeton").toLocalDateTime();
         String Jeton = (rs.getString("jeton") == null) ? "" : rs.getString("jeton");
         if (rs.next()) {
-
             result = new Personne(
                     rs.getInt("id_personne"),
                     rs.getString("nom"),
@@ -142,9 +129,7 @@ public class PersonneDao {
                     dateInscription,
                     dateButoirJeton
             );
-
         }
-        
         stmt.close();
         db.close();
         return result;
