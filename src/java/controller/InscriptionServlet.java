@@ -69,8 +69,13 @@ public class InscriptionServlet extends HttpServlet {
         try {
             PersonneDao.deletePersonBydate(new Timestamp(System.currentTimeMillis()));
             Personne p = new Personne(prenom, nom, mail, mdp, jeton);           // Instance d'un objet p avec un constructeur paramétré qui initialise l'attribut est_Actif à false et la date_insertion à l'haure et date du système 
-            PersonneDao.insert(p);                                              // Dans la classe PersonneDao, nous avons des méthodes qui permettent de préparer des requêtes Sql qui seront exécutées côté base de données
-            JavaMailUtil.sendMail(mail, nom, prenom, jeton);                       // Dans la classe JavaMailUtil, nous avons l'implémentation de ma méthode sendMail() qui permet t'établie l'envoi du mail
+            PersonneDao.insert(p);
+            String texte="Veuillez confirmez votre inscription en cliquant sur le lien ci-après :"
+                    + JavaMailUtil.getCompletePath("confirmationEmail?token=" + jeton, request);
+            String sujet="Confirmez votre inscription sur AGRIOTES";
+            
+// Dans la classe PersonneDao, nous avons des méthodes qui permettent de préparer des requêtes Sql qui seront exécutées côté base de données
+            JavaMailUtil.sendMail(mail, nom, prenom, sujet, texte);                       // Dans la classe JavaMailUtil, nous avons l'implémentation de ma méthode sendMail() qui permet t'établie l'envoi du mail
             vue = VUE_VERIFY;                                                   // la valeur de vue change à "/WEB-INF/verify.jsp"
         } catch (SQLException ex) {
             try {
