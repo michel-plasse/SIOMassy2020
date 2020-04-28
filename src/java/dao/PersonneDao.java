@@ -21,9 +21,10 @@ public class PersonneDao {
           + "    WHERE id_session_formation=?"
           + ")";
   
-  public static final String GET_BY_EMAIL_PASSWORD = 
+    public static final String GET_BY_EMAIL_PASSWORD = 
           "SELECT * FROM personne WHERE email=? AND mdp=?";
-
+    public static final String GET_BY_EMAIL = 
+          "SELECT * FROM personne WHERE email=? ";
   /**
    * Stagiaires d'une session de formation
    *
@@ -65,6 +66,38 @@ public class PersonneDao {
     PreparedStatement stmt = con.prepareStatement(GET_BY_EMAIL_PASSWORD);
     stmt.setString(1, login);
     stmt.setString(2, password);
+    ResultSet rs = stmt.executeQuery();
+    if (rs.next()) {
+      result = new Personne(
+              rs.getInt("id_personne"),
+              rs.getString("nom"),
+              rs.getString("prenom"),
+              rs.getString("email"),
+//              rs.getString("tel"),
+//              rs.getString("adresse"),
+//              rs.getString("code_postal"),
+//              rs.getString("ville"),
+              rs.getBoolean("est_administration"),
+              rs.getBoolean("est_formateur"));
+    }
+    stmt.close();
+    con.close();
+    return result;
+  }
+
+    /**
+     *
+     * @param login
+     * @return email
+     * @throws SQLException
+     */
+    public static Personne getByLogin(String login) throws SQLException {
+    Connection con = Database.getConnection();
+    Personne result = null;
+    // Nous cherchons dans la vue membre, qui ajoute a personne le booleen est_formateur
+    PreparedStatement stmt = con.prepareStatement(GET_BY_EMAIL);
+    stmt.setString(1, login);
+    
     ResultSet rs = stmt.executeQuery();
     if (rs.next()) {
       result = new Personne(
