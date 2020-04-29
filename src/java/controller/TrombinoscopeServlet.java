@@ -32,7 +32,10 @@ public class TrombinoscopeServlet extends HttpServlet {
     // Soyons optimistes
     String vue = VUE_OK;
 		// d'abord en dur
-		int idSession = 1;
+		//int idSession = 1;
+                
+                int idSession = Integer.parseInt(request.getParameter("idSession"));
+                
 		// Recuperer les donnees (ici, les stagiaires)
 		try {
 			List<Personne> stagiaires = PersonneDao.getByIdSessionFormation(idSession);

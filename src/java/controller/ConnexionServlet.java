@@ -16,7 +16,7 @@ import modele.Personne;
 @WebServlet(name = "ConnexionServlet", urlPatterns = {"/connexion"})
 public class ConnexionServlet extends HttpServlet {
 
-  private static final String VUE_INDEX = "/index.jsp";
+  private static final String VUE_INDEX = "/WEB-INF/chat.jsp"; /** "/index.jsp"; */
   private static final String VUE_FORM = "/WEB-INF/connexion.jsp";
   /**
    * Vue si erreur (exception)
