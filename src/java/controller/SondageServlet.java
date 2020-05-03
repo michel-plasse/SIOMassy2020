@@ -13,12 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import dao.PersonneDao;
 import modele.Personne;
 
-@WebServlet("/trombinoscope")
-public class TrombinoscopeServlet extends HttpServlet {
+@WebServlet("/sondage")
+public class SondageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
   
   /** Vue si succes */
-  private static final String VUE_OK = "WEB-INF/trombinoscope.jsp";
+  private static final String VUE_OK = "WEB-INF/sondage.jsp";
   
   /** Vue si erreur (exception) */
   private static final String VUE_ERREUR = "WEB-INF/exception.jsp";
@@ -32,7 +32,7 @@ public class TrombinoscopeServlet extends HttpServlet {
     // Soyons optimistes
     String vue = VUE_OK;
 		// d'abord en dur
-		int idSession = 2;
+		int idSession = 1;
 		// Recuperer les donnees (ici, les stagiaires)
 		try {
 			List<Personne> stagiaire = PersonneDao.getByIdSessionFormation(idSession);
@@ -47,5 +47,11 @@ public class TrombinoscopeServlet extends HttpServlet {
 		// Passer la main a la vue
 		request.getRequestDispatcher(vue).forward(request, response);
 	}
-
+        protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+           
+                }
+                
+        
+                
 }

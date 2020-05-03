@@ -49,6 +49,7 @@ public class ConnexionServlet extends HttpServlet {
         request.setAttribute("erreurLogin", "Les champs sont obligatoires");
       } else {
         user = PersonneDao.getByLoginPassword(login, password);
+         
         if (user != null) {
           // Ajouter en session
           HttpSession maSession = request.getSession(true);

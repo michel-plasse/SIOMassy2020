@@ -11,7 +11,8 @@
     <h1>Agriotes</h1>
     <nav>
       <a href="connexion">Connexion</a>
-      <a href="trombinoscope?idSession=1">Session 1</a>
+      <a href="trombinoscope?idSession=1">Session 1</a><br><br>
+      <a href="sondage">Creer sondage</a>
     </nav>
   </body>
 </html>
