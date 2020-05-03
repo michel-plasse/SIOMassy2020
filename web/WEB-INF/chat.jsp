@@ -34,5 +34,19 @@
      
      
        </center>
+    
+    
+    <div class=" main">
+        <h1 align ="Center"> Chat</h1>
+        <hr>
+        <ul>
+            <c:forEach items ="${canaux}" ref="canal">
+                <li>
+                    ${canal.id}
+                    ${canal.nom}
+                </li>
+            </c:forEach>
+        </ul>
+    </div>
     </body>
 </html>

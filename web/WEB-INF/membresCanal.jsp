@@ -1,9 +1,3 @@
-<%-- 
-    Document   : membresCanal
-    Created on : 14 avr. 2020, 10:12:55
-    Author     : Cissé-LENOVO
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
