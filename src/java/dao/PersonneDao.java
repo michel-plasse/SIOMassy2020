@@ -116,4 +116,21 @@ public class PersonneDao {
     con.close();
     return result;
   }
+    
+    /** Positionne le jeton d'une personne en fonction de son email.
+     * La personne doit avoir validé son inscription (date_inscription IS NOT NULL).
+     * Renvoie le nombre de lignes affectées : 1 si ok (email trouvé
+     * et date_inscription pas NULL), ou 0 sinon.
+     * @param email
+     * @param jeton
+     * @return
+     * @throws SQLException 
+     */
+  public static int setJeton(String email, String jeton) throws SQLException {
+    int result = 0;
+    // A implementer par toi-même
+    // WHERE email=? AND date_inscription IS NOT NULL
+    // METS LE DIAGRAMME DE SEQUENCE A JOUR (nom = setJeton)
+    return result;
+  }
 }
