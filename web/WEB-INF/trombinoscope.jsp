@@ -9,18 +9,20 @@
   </head>
   <body>
     <h1>Trombinoscope de la session ${idSession}</h1>
-    <p>${stagiaires.size()} stagiaires</p>
-    
-      <table class="classique" border="0" width="90%" align="center">
-      <c:forEach items="${stagiaires}" var="stagiaire">
+    <p>${stagiaire.size()} stagiaires</p>
+    <ol>
+        <c:forEach  items="${stagiaire}" var="stagiaire">
+        <li>
+          ${stagiaire.prenom} ${stagiaire.nom}
+          (<a href="mailto:${stagiaire.email}">${stagiaire.email}</a>)
+        </li>
+        <td align="center" bgcolor ="#red" width="15%">
+            <img src="img/${stagiaire.id}.jpg"width="100" height="100"/>
+            <br>${stagiaire.prenom} ${stagiaire.nom} Session n¤ ${idSession}<br>
 
-               <td align="center" bgcolor="#F0F0F0" width="15%"> <img src="img/${stagiaire.id}.png" width="100" height="100"/><br> ${stagiaire.prenom} ${stagiaire.nom} <br> (<a href="mailto:${stagiaire.email}">${stagiaire.email}</a>)<br> </td>
-
-
-
-
-
+            <a href="mailto:${stagiaire.email}">${stagiare.email}</a><br>
+        </td>
       </c:forEach>
-    
+    </ol>
   </body>
 </html>

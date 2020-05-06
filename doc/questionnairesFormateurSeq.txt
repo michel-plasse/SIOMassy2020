@@ -1,0 +1,42 @@
+@startuml
+participant Navigateur
+participant JavaScript
+participant Vue
+
+== Afficher l'IHM ==
+Navigateur -> Controleur: GET /chat
+Controleur -> Dao: CanalDao dao = ..;\nList<Canal> canaux = dao.getAll();
+Controleur -> Vue: chat.jsp
+Vue -> Navigateur: à gauche, les canaux\nà droite, message d'accueil
+
+== Afficher un canal ==
+Navigateur -> JavaScript: clic sur un canal
+JavaScript -> Navigateur: setCanal()
+JavaScript -> Controleur: GET /canal?idCanal=...
+Controleur -> Controleur: vérifie idCanal est correct
+Controleur -> Dao: CanalDao dao = ...;List<Message> messages =\ndao.getMessages(idCanal);
+Controleur -> Vue: canal.jsp
+Vue -> JavaScript: JSON
+JavaScript -> Navigateur: rend le JSON
+
+== Créer un canal ===
+Navigateur -> Controleur: GET /creerCanal
+Controleur -> Vue: creationCanal.jsp
+Vue -> Navigateur: formulaire vierge
+Navigateur -> Controleur: POST /creerCanal
+Controleur -> Controleur: vérifie saisie
+Controleur -> Dao: Canal canal = new ...;\nCanalDao dao = ...;\ndao.insert(canal);
+Dao -> SGBD: INSERT ...
+SGBD -> Dao: SELECT * FROM ...
+Model -> Controleur: List<Canal> canaux = new ArrayList<Canal>();
+Controleur -> Vue: canaux.jsp
+Vue -> Navigateur: List canaux
+Navigateur -> Vue: Selection Canal
+Vue -> Controleur: formulaireMessage.jsp
+Controleur -> Dao: Message message = new ...;\nMessageDao dao = ...;\ndao.insert(message);
+Dao -> SGBD: INSERT ...
+SGBD -> Dao: SELECT * FROM ...
+Model -> Controleur: List<Message> messages = new ArrayList<Message>();
+Controleur -> Vue: message.jsp
+Vue -> Navigateur: List message
+@enduml

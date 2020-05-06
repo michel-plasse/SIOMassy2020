@@ -1,0 +1,13 @@
+@startuml
+participant Navigateur
+participant Vue
+
+Navigateur -> Controleur: GET /trombinoscope?idSession=...
+Controleur -> Controleur: vérifie que idSession\nest entier
+Controleur -> Dao: List<Personne> stagiaires =\nPersonneDao.\ngetByIdSessionFormation(idSession);
+Dao -> SGBD: SELECT ...
+SGBD -> Dao: lignes
+Dao -> Controleur: stagiaires
+Controleur -> Vue: trombinoscope.jsp
+Vue -> Navigateur: tableau des stagiaires
+@enduml
