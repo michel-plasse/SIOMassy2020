@@ -42,13 +42,13 @@ public class ChatServlet extends HttpServlet {
         // Soyons optimistes
         String vue = VUE_OK;
         // d'abord en dur
-        int idCanal = Integer.parseInt(request.getParameter("idCanal"));
+        //int idCanal = Integer.parseInt(request.getParameter("idCanal"));
         // Recuperer les donnees (ici, les stagiaires)
         try {
             List<Canal> canaux = CanalDao.getAll();
             // Ajouter 2 post it
             request.setAttribute("canaux", canaux);
-            request.setAttribute("idCanal", idCanal);
+            //request.setAttribute("idCanal", idCanal);
             System.out.println("Afficher nombre de canaux");
         } catch (Exception exc) {
             exc.printStackTrace();

@@ -5,6 +5,9 @@
  */
 package modele;
 
+import java.util.Objects;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Cissé-LENOVO
@@ -48,6 +51,42 @@ public class MembresCanal {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+    private static final Logger LOG = Logger.getLogger(MembresCanal.class.getName());
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final MembresCanal other = (MembresCanal) obj;
+        if (this.idCanal != other.idCanal) {
+            return false;
+        }
+        if (this.idPersonne != other.idPersonne) {
+            return false;
+        }
+        if (!Objects.equals(this.nom, other.nom)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "MembresCanal{" + "idCanal=" + idCanal + ", idPersonne=" + idPersonne + ", nom=" + nom + '}';
     }
 
     

@@ -33,5 +33,16 @@ BEGIN
   (5,1,'2019-09-02'),
   (6,2,'2018-09-05'),
   (7,2,'2018-09-06');
+
+  INSERT INTO canal (id_canal, nom, date_creation, id_createur) values
+  (1, 'CANAL_1', '2019-09-02', 1),
+  (2, 'CANAL_2', '2019-09-02', 2),
+  (3, 'CANAL_3', '2019-09-02', 3);
+  
+  INSERT INTO membre_canal (id_canal, id_personne, nom) values
+  (1, 1, 'Ricardo'),
+  (2, 2, 'Kilyan'),
+  (3, 3, 'Baptiste');
+
 END$$
 CALL agriotes2020_reset() $$

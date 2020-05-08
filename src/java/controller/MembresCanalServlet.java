@@ -5,8 +5,9 @@
  */
 package controller;
 
-
 import dao.CanalDao;
+import dao.MembresCanalDao;
+import dao.PersonneDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -17,13 +18,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.Canal;
+import modele.MembresCanal;
 import modele.Personne;
 
 /**
  *
  * @author Cissé-LENOVO
  */
-@WebServlet(name = "membresCanal", urlPatterns = {"/membresCanal"})
+@WebServlet(name = "MembresCanalServlet", urlPatterns = {"/membresCanal"})
 public class MembresCanalServlet extends HttpServlet {
 
     /**
@@ -46,9 +48,10 @@ public class MembresCanalServlet extends HttpServlet {
         int idCanal = 1;
         // Recuperer les donnees des membres d'un canal
         try {
-            List<Personne> membresCanal = CanalDao.getByIdCanal(idCanal);
-            // Ajouter 2 post it
-            request.setAttribute("membresCanal", membresCanal);
+            List<MembresCanal> membres = MembresCanalDao.getByIdCanal(idCanal);
+            // Ajouter 2 post it            request.setAttribute("idCanal", idCanal);
+
+            request.setAttribute("membres", membres);
             request.setAttribute("idCanal", idCanal);
         } catch (SQLException exc) {
             exc.printStackTrace();
@@ -58,7 +61,4 @@ public class MembresCanalServlet extends HttpServlet {
         // Passer la main a la vue
         request.getRequestDispatcher(vue).forward(request, response);
     }
-
-
-
 }

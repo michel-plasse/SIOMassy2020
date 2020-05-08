@@ -22,7 +22,8 @@ public class PersonneDao {
           + "    FROM membre_session"
           + "    WHERE id_session_formation=?"
           + ")";
-
+  
+       
   public static final String GET_BY_EMAIL_PASSWORD
           = "SELECT * FROM personne WHERE email=? AND mdp=?";
 
@@ -88,7 +89,9 @@ public class PersonneDao {
     }
     return result;
   }
-
+  
+    
+  
   public static boolean estValide(String mail) throws SQLException {
     Connection db = Database.getConnection();
     PreparedStatement stmt = db.prepareStatement(CHECK_BY_ACTIF); //"SELECT * FROM personne WHERE email=? and date_inscription IS NOT NULL;"
