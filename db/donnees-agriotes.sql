@@ -1,9 +1,6 @@
-DELIMITER $$
-DROP PROCEDURE IF EXISTS agriotes2020_reset$$
 CREATE PROCEDURE agriotes2020_reset()
 BEGIN
-  -- supprimer du plus dependant au moins dependant
-  DELETE FROM membre_session;
+ DELETE FROM membre_session;
   DELETE FROM personne;
   DELETE FROM session_formation;
   INSERT INTO personne (id_personne, nom, prenom, email, mdp, est_formateur, est_administration) values 
@@ -33,5 +30,4 @@ BEGIN
   (5,1,'2019-09-02'),
   (6,2,'2018-09-05'),
   (7,2,'2018-09-06');
-END$$
-CALL agriotes2020_reset() $$
+END

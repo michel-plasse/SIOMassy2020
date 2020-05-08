@@ -9,6 +9,7 @@ package dao;
  *
  * @author jabar
  */
-public class Sondage {
+public class SondageDao {
+    
     
 }

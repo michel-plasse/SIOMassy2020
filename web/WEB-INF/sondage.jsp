@@ -8,76 +8,39 @@
     <title>Création sondage</title>
   </head>
   <body>
-        <tr> <input type="text" id="name" name="name" required minlengh="4" maxlengh="8" size="100">
+      <form method="post" action="SondageServlet">
+      <tr> Saisir une question:
+       </tr>
+       
+        <tr> <input type="text" id="quest" name="quest" required minlengh="4" maxlengh="500" size="100">
        </tr>
         <br><br>
+        <tr> Selectionner les membres:
+       </tr><br><br>
         <div style="overflow:scroll;height:70px;background-color:white;width:200px;">
-        <input type="checkbox" name="uno" id="c1"/>
-         <label for="c1">texte 1</label><br />
-        <input type="checkbox" name="duo" id="c2"/>
-         <label for="c2">texte 2</label><br />
-        <input type="checkbox" name="tre" id="c3"/>
-         <label for="c3">texte 3</label><br />
-        <input type="checkbox" name="qua" id="c4"/>
-         <label for="c4">texte 4</label><br />
-        <input type="checkbox" name="chi" id="c5"/>
-         <label for="c5">texte 5</label><br />
-       </div>
-        <br>
+         <c:forEach items="${listePersonne}" var="unePersonne" varStatus="boucle">
+                <input type="checkbox" name="uno" value="${unePersonne.getId()}" id="c1"/>
+                <label for="c1">${unePersonne.getPrenom()}</label><br />
+               
+                    
+                
+          </c:forEach>
+        
+       </div>   
+       <br><br>
+       <tr> Saisir une date butoire (sous format yyyy-mm-dd svp) :
+       </tr>
+        <tr> <input type="text" id="date" name="date" required minlengh="4" maxlengh="10" size="13">
+       </tr>
+       <br><br>
+       <tr> Determiner la note maximale de votre sondage :
+       </tr>
+        <tr> <input type="text" id="note" name="note" required minlengh="4" maxlengh="2" size="1">
+       </tr>
+        <br><br><br>
         <button  class="favorite styled" type="button" name="vegeta">envoyer</button>
         <br><br>
-        <tr> <input type="text" id="name" name="name" required minlengh="4" maxlengh="8" size="100">
-       </tr>
-        <br><br>
-        <div style="overflow:scroll;height:70px;background-color:white;width:200px;">
-        <input type="checkbox" name="chk" id="c1"/>
-         <label for="c1">texte 1</label><br />
-        <input type="checkbox" name="chk" id="c2"/>
-         <label for="c2">texte 2</label><br />
-        <input type="checkbox" name="chk" id="c3"/>
-         <label for="c3">texte 3</label><br />
-        <input type="checkbox" name="chk" id="c4"/>
-         <label for="c4">texte 4</label><br />
-        <input type="checkbox" name="chk" id="c5"/>
-         <label for="c5">texte 5</label><br />
-       </div>
-        <br>
-        <button class="favorite styled" type="button">envoyer</button>
-        <br><br>
-        <tr> <input type="text" id="name" name="name" required minlengh="4" maxlengh="8" size="100">
-       </tr>
-        <br><br>
-        <div style="overflow:scroll;height:70px;background-color:white;width:200px;">
-        <input type="checkbox" name="chk" id="c1"/>
-         <label for="c1">texte 1</label><br />
-        <input type="checkbox" name="chk" id="c2"/>
-         <label for="c2">texte 2</label><br />
-        <input type="checkbox" name="chk" id="c3"/>
-         <label for="c3">texte 3</label><br />
-        <input type="checkbox" name="chk" id="c4"/>
-         <label for="c4">texte 4</label><br />
-        <input type="checkbox" name="chk" id="c5"/>
-         <label for="c5">texte 5</label><br />
-       </div>
-        <br>
-        <button class="favorite styled" type="button">envoyer</button>
-        <br><br>
-        <tr> <input type="text" id="name" name="name" required minlengh="4" maxlengh="8" size="100">
-       </tr>
-        <br><br>
-        <div style="overflow:scroll;height:70px;background-color:white;width:200px;">
-        <input type="checkbox" name="chk" id="c1"/>
-         <label for="c1">texte 1</label><br />
-        <input type="checkbox" name="chk" id="c2"/>
-         <label for="c2">texte 2</label><br />
-        <input type="checkbox" name="chk" id="c3"/>
-         <label for="c3">texte 3</label><br />
-        <input type="checkbox" name="chk" id="c4"/>
-         <label for="c4">texte 4</label><br />
-        <input type="checkbox" name="chk" id="c5"/>
-         <label for="c5">texte 5</label><br />
-       </div>
-        <br>
-        <button class="favorite styled" type="button">envoyer</button>
+        </form>
+        
   </body>
 </html>

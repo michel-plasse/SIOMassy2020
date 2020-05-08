@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.sql.Statement;
 
 import modele.Personne;
 
@@ -23,6 +24,7 @@ public class PersonneDao {
           + "    WHERE id_session_formation=?"
           + ")";
 
+          
   public static final String GET_BY_EMAIL_PASSWORD
           = "SELECT * FROM personne WHERE email=? AND mdp=?";
 
@@ -55,6 +57,30 @@ public class PersonneDao {
     stmt.setTimestamp(1, now);
     stmt.executeUpdate();
   }
+  
+  public static ArrayList<Personne> afficher() throws SQLException {
+
+        ArrayList<Personne> listeDesPersonnes = new ArrayList<>();
+
+        Connection connection = Database.getConnection();
+        String sql = "SELECT prenom,nom FROM agriotes2020.personne";
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+
+        while (rs.next()) {
+            Personne personne = new Personne(
+                    rs.getString("prenom"),
+                    rs.getString("nom"),
+                    "ab",
+                    "ab",
+                    "ab");
+                listeDesPersonnes.add(personne);
+        }
+
+        stmt.close();
+        connection.close();
+        return listeDesPersonnes;
+    }
 
   public static final String CHECK_BY_ACTIF
           = "SELECT * FROM personne WHERE email=? and date_inscription IS NOT NULL";
@@ -72,10 +98,12 @@ public class PersonneDao {
    * @return les stagiaires sous forme d'une List<Personne>
    * @throws SQLException
    */
+  //public static List<Personne> getByIdSessionFormation(int idSession) throws SQLException {
   public static List<Personne> getByIdSessionFormation(int idSession) throws SQLException {
     List<Personne> result = new ArrayList<Personne>();
     Connection db = Database.getConnection();
     PreparedStatement stmt = db.prepareStatement(GET_BY_ID_SESSION);
+  
     stmt.setInt(1, idSession);
     ResultSet rs = stmt.executeQuery();
     while (rs.next()) {
@@ -88,7 +116,25 @@ public class PersonneDao {
     }
     return result;
   }
-
+public static List<Personne> getByIdPersonne() throws SQLException {
+    List<Personne> result = new ArrayList<Personne>();
+    Connection db = Database.getConnection();
+  
+    String sql = "SELECT * FROM agriotes2020.personne";
+        Statement stmt = db.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+    
+   // ResultSet rs = stmt.executeQuery();
+    while (rs.next()) {
+      Personne personne = new Personne(
+              rs.getInt("id_personne"),
+              rs.getString("prenom"),
+              rs.getString("nom"),
+              rs.getString("email"));
+      result.add(personne);
+    }
+    return result;
+  }
   public static boolean estValide(String mail) throws SQLException {
     Connection db = Database.getConnection();
     PreparedStatement stmt = db.prepareStatement(CHECK_BY_ACTIF); //"SELECT * FROM personne WHERE email=? and date_inscription IS NOT NULL;"

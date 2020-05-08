@@ -30,25 +30,32 @@ public class SondageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
     // Soyons optimistes
-    String vue = VUE_OK;
-		// d'abord en dur
-		int idSession = 1;
-		// Recuperer les donnees (ici, les stagiaires)
-		try {
-			List<Personne> stagiaire = PersonneDao.getByIdSessionFormation(idSession);
-			// Ajouter 2 post it
-			request.setAttribute("stagiaire", stagiaire);
-                        request.setAttribute("idSession", idSession);
-		} catch (SQLException exc) {
-			exc.printStackTrace();
-			request.setAttribute("exception", exc);
-                        vue = VUE_ERREUR;
-		}
-		// Passer la main a la vue
+               String vue = VUE_OK;
+                try {
+                        PersonneDao dao = new PersonneDao();
+                        List<Personne> personnes = dao.getByIdPersonne();
+               
+                        request.setAttribute("listePersonne", personnes);
+                        
+
+                        
+
+                        } catch (SQLException exc) {
+                            exc.printStackTrace();
+                            request.setAttribute("message", "Pb de bases de données");
+                            vue = VUE_ERREUR;
+                        }
+               
+		
 		request.getRequestDispatcher(vue).forward(request, response);
 	}
         protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+            
+                    String Question = request.getParameter("quest");
+                    String Date = request.getParameter("date");
+                    String Note = request.getParameter("note");
+                    
            
                 }
                 
