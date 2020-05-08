@@ -5,8 +5,8 @@
  */
 package controller;
 
-import dao.CanalDao;
 
+import dao.CanalDao;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -21,7 +21,7 @@ import modele.Canal;
 /**
  *
  */
-@WebServlet(name = "ChatServlet", urlPatterns = {"/ChatServlet"})
+@WebServlet(name = "ChatServlet", urlPatterns = {"/chat.jsp"})
 public class ChatServlet extends HttpServlet {
 
     /**
