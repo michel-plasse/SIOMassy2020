@@ -90,23 +90,33 @@
             <hr>
             <a href="trombinoscope?idSession=1">Session 1</a> <hr>
         </div> 
-     
+
         <div class="main">
             <h1 align="center">CHAT</h1>
             <hr>
-            Membres du canal ${idCanal} :
-            ${membres.size()}
-            <hr>
-            Liste des membres
-            <ul>
+
+            <table
+                <hr>
+                Liste des membres
+                <tr>
+                <center><td>ID canal</td></center>
+                <center> <td>ID personne</td></center>
+                <center>  <td>Nom du membre</td></center>
+
+                </tr>  
                 <c:forEach items="${membres}" var="membre">
-                    <li>
-                        ${membre.idCanal}
-                        ${membre.idPersonne}
-                        ${membre.nom}
-                    </li>
+
+
+                    <tr>  
+
+                        <td>${membre.idCanal}</td></center>
+
+                    <center><td>${membre.idPersonne}</td></center>
+                    <center><td>${membre.nom}</td></center>
+
                 </c:forEach>
-            </ul>
+                </tr>
+            </table>
         </div>
 
     </body>
