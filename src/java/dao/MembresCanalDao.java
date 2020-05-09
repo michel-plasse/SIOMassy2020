@@ -21,14 +21,10 @@ import modele.Personne;
 public class MembresCanalDao {
 
     public static final String AFFICHER_MEMBRE_CANAL
-            = "SELECT * "
-            + "FROM personne "
-            + "WHERE id_personne IN "
-            + "("
-            + "	SELECT id_personne"
-            + "    FROM membre_canal"
-            + "    WHERE id_canal=?"
-            + ")";
+            = "SELECT mc.id_canal, mc.id_personne, mc.nom FROM membre_canal mc "
+            //+ "JOIN personne p ON mc.id_personne = p.id_personne, p.nom, "
+            + "INNER JOIN canal c ON mc.id_canal=c.id_canal";  
+            
 
     /* public static final String INSERER_MEMBRE_CANAL
             = "Insert into membre_canal (id_canal, id_personne, nom) VALUES(?,?,?)";
@@ -43,11 +39,10 @@ public class MembresCanalDao {
      * @return
      * @throws SQLException
      */
-    public static List<MembresCanal> getByIdCanal(int idCanal) throws SQLException {
+    public static List<MembresCanal> getAll() throws SQLException {
         List<MembresCanal> result = new ArrayList<>();
         Connection db = Database.getConnection();
         PreparedStatement stmt = db.prepareStatement(AFFICHER_MEMBRE_CANAL);
-        stmt.setInt(1, idCanal);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
             MembresCanal membres = new MembresCanal(
