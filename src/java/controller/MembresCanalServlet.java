@@ -43,15 +43,13 @@ public class MembresCanalServlet extends HttpServlet {
 
         // Soyons optimistes
         String vue = VUE_OK;
-        // d'abord en dur
-        int idCanal = 1;
+
         // Recuperer les donnees des membres d'un canal
         try {
-            List<MembresCanal> membres = MembresCanalDao.getByIdCanal(idCanal);
+            List<MembresCanal> membres = MembresCanalDao.getAll();
             // Ajouter 2 post it            
 
             request.setAttribute("membres", membres);
-            request.setAttribute("idCanal", idCanal);
         } catch (SQLException exc) {
             exc.printStackTrace();
             request.setAttribute("exception", exc);
