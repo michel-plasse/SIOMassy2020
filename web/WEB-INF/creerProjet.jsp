@@ -12,14 +12,11 @@
         <h1>Creation du projet</h1>
         <form method="get">
               
-        Titre du projet : <input type="text" name="titre" />
+        <div>Titre du projet : <input type="text" name="titre" /></div>
         
-        Date de creation : <input type="date" name="dateCreation"/>
+        <div>Date de creation : <input type="date" name="date_Debut"/></div>
 
-        Date de fin : <input type="date" name="dateFin"/>       
-
-        Description : <textarea name="description" cols="60" rows="10"> </textarea>
-        
+        <div>Date de fin : <input type="date" name="date_Fin"/></div>
 
         <input type="submit" value="Valider" />
 
