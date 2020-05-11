@@ -7,20 +7,21 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <h1>Creation du projet</h1>
-        <form method="get">
-              
-        <div>Titre du projet : <input type="text" name="titre" /></div>
-        
-        <div>Date de creation : <input type="date" name="date_Debut"/></div>
+    <body>
+        <head>        
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <h1>Creation du projet</h1>
+            <form id="ProjetForm" method="get">
 
-        <div>Date de fin : <input type="date" name="date_Fin"/></div>
+            <div>Titre du projet : <input type="text" name="titre" /></div>
 
-        <input type="submit" value="Valider" />
+            <div>Date de creation : <input type="date" name="date_Debut"/></div>
 
-        <input type="submit" value="Annuler" />
- 
+            <div>Date de fin : <input type="date" name="date_Fin"/></div>
+
+            <input type="submit" value="Valider" />
+
+            <input type="submit" value="Annuler" />
+        </head>
     </body>
 </html>
