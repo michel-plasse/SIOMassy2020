@@ -9,7 +9,7 @@ import java.util.List;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.sql.Statement;
-
+import java.sql.*;
 import modele.Personne;
 
 public class PersonneDao {
@@ -135,6 +135,21 @@ public static List<Personne> getByIdPersonne() throws SQLException {
     }
     return result;
   }
+ public int ComptPers() throws SQLException {
+            int sortie = 0;
+            Connection db = Database.getConnection();
+            Statement stmt = db.createStatement();
+            String sql = "select count(*) as NbPers FROM agriotes2020.personne";
+            ResultSet rs = stmt.executeQuery(sql); //"SELECT * FROM personne WHERE email=? and date_inscription IS NOT NULL;"
+             while (rs.next()) {
+             sortie = rs.getInt("NbPers");
+            }
+            return sortie;
+         
+              
+             }
+
+
   public static boolean estValide(String mail) throws SQLException {
     Connection db = Database.getConnection();
     PreparedStatement stmt = db.prepareStatement(CHECK_BY_ACTIF); //"SELECT * FROM personne WHERE email=? and date_inscription IS NOT NULL;"

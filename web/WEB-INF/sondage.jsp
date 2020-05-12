@@ -8,7 +8,8 @@
     <title>Création sondage</title>
   </head>
   <body>
-      <form method="post" action="SondageServlet">
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+      <form method="post" action="sondage">
       <tr> Saisir une question:
        </tr>
        
@@ -17,9 +18,9 @@
         <br><br>
         <tr> Selectionner les membres:
        </tr><br><br>
-        <div style="overflow:scroll;height:70px;background-color:white;width:200px;">
+       <div style="overflow:scroll;height:70px;background-color:white;width:200px;">
          <c:forEach items="${listePersonne}" var="unePersonne" varStatus="boucle">
-                <input type="checkbox" name="uno" value="${unePersonne.getId()}" id="c1"/>
+                <input type="checkbox" name="${unePersonne.getId()}" value="${unePersonne.getId()}" id="c1"/>
                 <label for="c1">${unePersonne.getPrenom()}</label><br />
                
                     
@@ -28,7 +29,7 @@
         
        </div>   
        <br><br>
-       <tr> Saisir une date butoire (sous format yyyy-mm-dd svp) :
+      <tr> Saisir une date butoire (sous format yyyy-mm-dd svp) :
        </tr>
         <tr> <input type="text" id="date" name="date" required minlengh="4" maxlengh="10" size="13">
        </tr>
@@ -38,7 +39,7 @@
         <tr> <input type="text" id="note" name="note" required minlengh="4" maxlengh="2" size="1">
        </tr>
         <br><br><br>
-        <button  class="favorite styled" type="button" name="vegeta">envoyer</button>
+        <input  type="submit" name="vegeta" value="envoyer">
         <br><br>
         </form>
         
