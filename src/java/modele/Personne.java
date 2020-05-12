@@ -41,6 +41,17 @@ public class Personne {
 
   }
 
+    public Personne(String string, String string0) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+   
+
+
+    public Personne(int aInt, String string, String string0, String string1, String string2, String string3, String string4, String string5, String string6, boolean aBoolean, boolean aBoolean0, String string7) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
   public void setdateButoirJeton(LocalDateTime dateButoirJeton) {
     this.dateButoirJeton = dateButoirJeton;
   }
