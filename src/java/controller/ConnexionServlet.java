@@ -111,6 +111,7 @@ public class ConnexionServlet extends HttpServlet {
    * Vue si erreur (exception)
    */
   private static final String VUE_ERREUR = "WEB-INF/exception.jsp";
+  private static final String VUE_CONNEXION_OK = "/WEB-INF/connexionOK.jsp";
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -142,7 +143,7 @@ public class ConnexionServlet extends HttpServlet {
           // Ajouter en session
           HttpSession maSession = request.getSession(true);
           maSession.setAttribute("user", user);
-          vue = VUE_INDEX;
+          vue = VUE_CONNEXION_OK;
         } else {
           request.setAttribute("erreurLogin",
                   "Utilisateur inconnu ou mot de passe incorrect");

@@ -17,6 +17,7 @@ public class Personne {
         nom = null;
         email = null;
     }
+    
 
     public Personne(String prenom, String nom, String email, String mdp, String jeton) { // utilisé pour le insert
         this.prenom = prenom;

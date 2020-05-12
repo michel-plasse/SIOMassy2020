@@ -29,6 +29,12 @@ public class PersonneDao {
   public static final String INSERTION
           = "Insert into personne (nom,prenom,email,mdp,jeton,date_butoir_jeton) VALUES(?,?,?,?,?,?)";
 
+  /**
+   * Insère dans la base de données la personne p. Si le email
+   *
+   * @param p
+   * @throws SQLException
+   */
   public static void insert(Personne p) throws SQLException {
     Connection db = Database.getConnection();
     PreparedStatement stmt = db.prepareStatement(INSERTION); //"Insert into personne (nom,prenom,email,mdp,jeton,date_butoir_jeton) VALUES(?,?,?,?,?,?)"

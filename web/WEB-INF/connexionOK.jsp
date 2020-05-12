@@ -13,9 +13,9 @@
         <div class="sidenav">
           <a href="trombinoscope?idSession=1">Session 1</a> <hr>
           <a href="trombinoscope?idSession=2">Session 2</a> <hr>
-          <a href="listeevaluations">Liste de mes évaluations</a> <hr>
+          <a href="listeEvaluations">Liste de mes évaluations</a> <hr>
           <a href="deconnexion">Déconnexion</a>
-        </div
+        </div>
         <h1 align="center"> ${nomprenom}</h1>
         
       <%--  <nav> 
