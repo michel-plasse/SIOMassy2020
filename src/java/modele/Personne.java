@@ -61,4 +61,20 @@ public class Personne {
 		this.email = email;
 	}
 
+    public void setEstFormateur(boolean estFormateur) {
+        this.estFormateur = estFormateur;
+    }
+
+    public void setEstAdministration(boolean estAdministration) {
+        this.estAdministration = estAdministration;
+    }
+
+    public boolean isEstFormateur() {
+        return estFormateur;
+    }
+
+    public boolean isEstAdministration() {
+        return estAdministration;
+    }
+
 }
