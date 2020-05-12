@@ -24,7 +24,7 @@ import modele.Personne;
  *
  * @author Cissé-LENOVO
  */
-@WebServlet(name = "MembresCanalServlet", urlPatterns = {"/membresCanal"})
+@WebServlet(name = "MembresCanalServlet", urlPatterns = {"/MembresCanalServlet"})
 public class MembresCanalServlet extends HttpServlet {
 
     /**

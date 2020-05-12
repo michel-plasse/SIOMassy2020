@@ -29,15 +29,13 @@
                     <td>ID de la personne</td>                    
                     <td><input type ="text" name ="idPersonne" id="idPersonne"></td>
                 </tr>
-                
-                <tr>
-                    <td>
-                        <input type ="submit" name ="submit" >
-                    </td>
-                    <td>
-                        <input type ="reset" name ="reset" >
-                    </td>
-                </tr>
+
+                <td>
+                    <form action="supprimerMembreCanal" method="POST">
+                        <input type="hidden" name="idCanal" value="${membre.idCanal}"/>
+                        <input type="hidden" name="idMembre" value="${membre.idPersonne}"/>
+                        <button type="submit" >Supprimer</button>
+                </td>
 
             </table>
 
