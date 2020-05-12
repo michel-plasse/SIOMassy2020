@@ -52,6 +52,8 @@ public class MembresCanal {
     public void setNom(String nom) {
         this.nom = nom;
     }
+    
+    
     private static final Logger LOG = Logger.getLogger(MembresCanal.class.getName());
 
     @Override

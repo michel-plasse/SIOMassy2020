@@ -20,18 +20,23 @@ import modele.Personne;
  */
 public class MembresCanalDao {
 
-    public static final String AFFICHER_MEMBRE_CANAL
+    /*public static final String AFFICHER_MEMBRE_CANAL
             = "SELECT mc.id_canal, mc.id_personne, mc.nom FROM membre_canal mc "
             //+ "JOIN personne p ON mc.id_personne = p.id_personne, p.nom, "
             + "INNER JOIN canal c ON mc.id_canal=c.id_canal";  
+      */
+    
+    public static final String AFFICHER_MEMBRE_CANAL
+            = "SELECT  mc.id_canal, mc.id_personne, mc.nom FROM membre_canal mc WHERE mc.id_canal = ?";
+            //+ "JOIN personne p ON mc.id_personne = p.id_personne, p.nom, "
             
 
-    /* public static final String INSERER_MEMBRE_CANAL
-            = "Insert into membre_canal (id_canal, id_personne, nom) VALUES(?,?,?)";
+    public static final String INSERER_MEMBRE_CANAL
+            = "Insert into membre_canal  (id_canal, id_personne, nom) VALUES(?,?,?)";
     
     public static final String DELETE_MEMBRE_CANAL
-          = "DELETE FROM membre_canal WHERE nom=? ";
-     */
+          = "DELETE FROM membre_canal WHERE id_canal=? ";
+     
     /**
      *
      * @param idCanal
@@ -39,10 +44,11 @@ public class MembresCanalDao {
      * @return
      * @throws SQLException
      */
-    public static List<MembresCanal> getAll() throws SQLException {
+    public static List<MembresCanal> getByIdCanal(int idCanal) throws SQLException {
         List<MembresCanal> result = new ArrayList<>();
         Connection db = Database.getConnection();
         PreparedStatement stmt = db.prepareStatement(AFFICHER_MEMBRE_CANAL);
+        stmt.setInt(1, idCanal);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
             MembresCanal membres = new MembresCanal(
@@ -54,7 +60,7 @@ public class MembresCanalDao {
         return result;
     }
 
-    /*  public static void insert(MembresCanal mc) throws SQLException {
+     public static void ajouterMembreCanal(MembresCanal mc) throws SQLException {
         Connection db = Database.getConnection();
         PreparedStatement stmt = db.prepareStatement(INSERER_MEMBRE_CANAL); //"Insert into personne (id_canal, id_personne, nom) VALUES(?,?,?)"
         stmt.setInt(1, mc.getIdCanal());
@@ -64,12 +70,14 @@ public class MembresCanalDao {
 
     }
 
-    public static void deleteMembreCanal(String nom) throws SQLException {
+    public static void supprimerMembreByIdCanal(int idCanal) throws SQLException {
         Connection db = Database.getConnection();
         PreparedStatement stmt = db.prepareStatement(DELETE_MEMBRE_CANAL); //"DELETE FROM personne WHERE jeton=? "; 
-        stmt.setString(1, nom);
+        stmt.setInt(1, idCanal);
         stmt.executeUpdate();
     }
 
-     */
+  
+
+     
 }

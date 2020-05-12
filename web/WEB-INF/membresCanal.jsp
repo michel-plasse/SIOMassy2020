@@ -92,32 +92,53 @@
         </div> 
 
         <div class="main">
-            <h1 align="center">CHAT</h1>
+            <h1 align="center">Les membres </h1>
+            <h1>Les membres du canal ${idCanal}</h1>
+
             <hr>
 
-            <table
-                <hr>
-                Liste des membres
-                <tr>
-                <center><td>ID canal</td></center>
-                <center> <td>ID personne</td></center>
-                <center>  <td>Nom du membre</td></center>
+            <table width = "300px" border="1">
 
-                </tr>  
+
+                <tr>
+                    <th>ID canal</th>
+
+                    <th>ID personne</th>
+
+                    <th>Nom</th>
+                    <th>Modifier</th>
+
+                    <th>Supprimer</th>
+
+
+                </tr>
+
                 <c:forEach items="${membres}" var="membre">
 
 
                     <tr>  
 
-                        <td>${membre.idCanal}</td></center>
+                        <td><center>${membre.idCanal}</center></td>
 
-                    <center><td>${membre.idPersonne}</td></center>
-                    <center><td>${membre.nom}</td></center>
+                    <td><center>${membre.idPersonne}</center></td>
+
+                    <td><center>${membre.nom}</center></td>
+
+                    <td><a href="update.jsp?id>">Edit</a></td>
+                    <td><a href = "delete.jsp?id>">Delete</a></td>
+                    </tr>
 
                 </c:forEach>
-                </tr>
-            </table>
-        </div>
 
-    </body>
+
+
+            </table>
+
+            <p><a href="gererMembres?id=1">Gerer les membres d'un canal</a></p>
+
+
+
+        </form>
+
+</body>
 </html>

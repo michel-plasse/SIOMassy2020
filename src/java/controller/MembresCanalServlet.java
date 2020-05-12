@@ -32,6 +32,7 @@ public class MembresCanalServlet extends HttpServlet {
      */
     private static final String VUE_OK = "WEB-INF/membresCanal.jsp";
 
+    private static final String VUE_BON = "WEB-INF/gererMembres.jsp";
     /**
      * Vue si erreur (exception)
      */
@@ -44,12 +45,14 @@ public class MembresCanalServlet extends HttpServlet {
         // Soyons optimistes
         String vue = VUE_OK;
 
+        int idCanal = 1;
         // Recuperer les donnees des membres d'un canal
         try {
-            List<MembresCanal> membres = MembresCanalDao.getAll();
+            List<MembresCanal> membres = MembresCanalDao.getByIdCanal(idCanal);
             // Ajouter 2 post it            
 
             request.setAttribute("membres", membres);
+            request.setAttribute("idCanal", idCanal);
         } catch (SQLException exc) {
             exc.printStackTrace();
             request.setAttribute("exception", exc);
@@ -57,5 +60,25 @@ public class MembresCanalServlet extends HttpServlet {
         }
         // Passer la main a la vue
         request.getRequestDispatcher(vue).forward(request, response);
+
     }
+
+    /*@Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+       
+            String vue = VUE_BON;
+            //MembresCanal membres = MembresCanalDao.ajouterMembreCanal(MembresCanal);
+            int idCanal = Integer.parseInt(request.getParameter("id_canal"));
+            int idPersonne = Integer.parseInt(request.getParameter("id_personne"));
+            String nom = request.getParameter("nom");
+            // Passer la main a la vue
+            out.println(" Membre ajouté");
+
+        }
+
+     */
 }
