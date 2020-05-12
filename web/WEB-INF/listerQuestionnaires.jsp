@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="agriotes.css"/>
+    <link rel="stylesheet" href="stylesheets/agriotes.css"/>
     <title>Liste des questionnaires</title>
 
 </head>
