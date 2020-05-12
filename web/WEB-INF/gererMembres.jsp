@@ -29,10 +29,7 @@
                     <td>ID de la personne</td>                    
                     <td><input type ="text" name ="idPersonne" id="idPersonne"></td>
                 </tr>
-                <tr>
-                    <td>Nom du membre</td>
-                    <td><input type ="text" name ="nom" id="nom"></td>
-                </tr>
+                
                 <tr>
                     <td>
                         <input type ="submit" name ="submit" >

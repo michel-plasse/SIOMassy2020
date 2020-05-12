@@ -15,18 +15,15 @@ import java.util.logging.Logger;
 public class MembresCanal {
     private int idCanal;
     private int idPersonne;
-    private String nom;
     
     public MembresCanal(){
         idCanal =0;
         idPersonne = 0;
-        nom = null;
     }
 
-    public MembresCanal(int idCanal, int idPersonne, String nom) {
+    public MembresCanal(int idCanal, int idPersonne) {
         this.idCanal = idCanal;
         this.idPersonne = idPersonne;
-        this.nom = nom;
     }
 
     public int getIdCanal() {
@@ -45,14 +42,9 @@ public class MembresCanal {
         this.idPersonne = idPersonne;
     }
 
-    public String getNom() {
-        return nom;
-    }
+  
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-    
+  
     
     private static final Logger LOG = Logger.getLogger(MembresCanal.class.getName());
 
@@ -62,35 +54,5 @@ public class MembresCanal {
         return hash;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final MembresCanal other = (MembresCanal) obj;
-        if (this.idCanal != other.idCanal) {
-            return false;
-        }
-        if (this.idPersonne != other.idPersonne) {
-            return false;
-        }
-        if (!Objects.equals(this.nom, other.nom)) {
-            return false;
-        }
-        return true;
-    }
 
-    @Override
-    public String toString() {
-        return "MembresCanal{" + "idCanal=" + idCanal + ", idPersonne=" + idPersonne + ", nom=" + nom + '}';
-    }
-
-    
-    
 }

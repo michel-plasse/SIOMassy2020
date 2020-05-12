@@ -105,7 +105,6 @@
 
                     <th>ID personne</th>
 
-                    <th>Nom</th>
                     <th>Modifier</th>
 
                     <th>Supprimer</th>
@@ -122,7 +121,6 @@
 
                     <td><center>${membre.idPersonne}</center></td>
 
-                    <td><center>${membre.nom}</center></td>
 
                     <td><a href="update.jsp?id>">Edit</a></td>
                     <td><a href = "delete.jsp?id>">Delete</a></td>

@@ -20,19 +20,15 @@ import modele.Personne;
  */
 public class MembresCanalDao {
 
-    /*public static final String AFFICHER_MEMBRE_CANAL
-            = "SELECT mc.id_canal, mc.id_personne, mc.nom FROM membre_canal mc "
-            //+ "JOIN personne p ON mc.id_personne = p.id_personne, p.nom, "
-            + "INNER JOIN canal c ON mc.id_canal=c.id_canal";  
-      */
+   
     
     public static final String AFFICHER_MEMBRE_CANAL
-            = "SELECT  mc.id_canal, mc.id_personne, mc.nom FROM membre_canal mc WHERE mc.id_canal = ?";
+            = "SELECT  mc.id_canal, mc.id_personne FROM membre_canal mc WHERE mc.id_canal = ?";
             //+ "JOIN personne p ON mc.id_personne = p.id_personne, p.nom, "
             
 
     public static final String INSERER_MEMBRE_CANAL
-            = "Insert into membre_canal  (id_canal, id_personne, nom) VALUES(?,?,?)";
+            = "Insert into membre_canal  (id_canal, id_personne) VALUES(?,?)";
     
     public static final String DELETE_MEMBRE_CANAL
           = "DELETE FROM membre_canal WHERE id_canal=? ";
@@ -53,8 +49,7 @@ public class MembresCanalDao {
         while (rs.next()) {
             MembresCanal membres = new MembresCanal(
                     rs.getInt("id_canal"),
-                    rs.getInt("id_personne"),
-                    rs.getString("nom"));
+                    rs.getInt("id_personne"));
             result.add(membres);
         }
         return result;
@@ -65,7 +60,6 @@ public class MembresCanalDao {
         PreparedStatement stmt = db.prepareStatement(INSERER_MEMBRE_CANAL); //"Insert into personne (id_canal, id_personne, nom) VALUES(?,?,?)"
         stmt.setInt(1, mc.getIdCanal());
         stmt.setInt(2, mc.getIdPersonne());
-        stmt.setString(3, mc.getNom());
         stmt.executeUpdate();
 
     }
