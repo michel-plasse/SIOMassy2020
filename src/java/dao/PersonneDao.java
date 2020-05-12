@@ -129,14 +129,17 @@ public class PersonneDao {
               ? null : rs.getTimestamp("date_inscription").toLocalDateTime();
       LocalDateTime dateButoirJeton = (rs.getTimestamp("date_butoir_jeton") == null)
               ? null : rs.getTimestamp("date_butoir_jeton").toLocalDateTime();
-      String Jeton = (rs.getString("jeton") == null) ? "" : rs.getString("jeton");
+      String jeton = (rs.getString("jeton") == null) ? "" : rs.getString("jeton");
       result = new Personne(
               rs.getInt("id_personne"),
               rs.getString("nom"),
               rs.getString("prenom"),
               rs.getString("email"),
               rs.getString("mdp"),
-              Jeton,
+              rs.getString("url_photo"),
+              rs.getBoolean ("est_Administration"),
+              rs.getBoolean ("est_Formateur"),
+              jeton,
               dateInscription,
               dateButoirJeton
       );
@@ -150,28 +153,25 @@ public class PersonneDao {
     /**
    * Mise à jour des informations personnelles : nom, prénom, email et mot de passe de la personne connectée 
    *
-   * @param idPersonne identifiant nimérique de la personne connectée 
-   * @param nom Nom de la personne qui sera mis à jour 
-   * @param prenom Prénom de la personne qui sera mis à jour
-   * @param email de la personne qui sera mis à jour
-   * @param mdp mot de passe de la personne qui sera mis à jour
+   * @param personne : objet contenant l'ensemble des informations de l'objet Personne. 
+   * Cette méthode ne mat à jour que les informations suivantes : nom, de la personne, prenom, email, mot de passe à partir de
+   * l'identifiant numérique de la personne.
    * @throws SQLException
    */
 
-   public static void majByIdPersonne(int idPersonne, String nom, String prenom, String email, String mdp)throws SQLException {
-        Connection connexion = null;
-        Connection db = Database.getConnection();
-
-        PreparedStatement stmt= db.prepareStatement(MAJ_BY_ID_PERSONNE);
-        stmt.setString(1, nom);
-        stmt.setString(2, prenom);
-        stmt.setString(3, email);
-        stmt.setString(4, mdp);
-        stmt.setInt(5, idPersonne);
-
+   public static void majByIdPersonne(Personne personne)throws SQLException {
+        
+    try (Connection db = Database.getConnection()) {
+      try (PreparedStatement stmt = db.prepareStatement(MAJ_BY_ID_PERSONNE)) {
+        stmt.setString(1, personne.getNom());
+        stmt.setString(2, personne.getPrenom());
+        stmt.setString(3, personne.getEmail());
+        stmt.setString(4, personne.getMdp());
+        stmt.setInt(5, personne.getId());
         stmt.executeUpdate();
-        stmt.close();
-        db.close();
+      }
+      db.close();
+    }
    }
 
 // fin ajout SMA pour mise à jour des données du profil
