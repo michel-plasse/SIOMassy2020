@@ -10,7 +10,7 @@
 <%-- The list of normal or fragment attributes can be specified here: --%>
 <%@attribute name="test"%>
 <c:if test="${test}">
-  <div class=error">  
+  <div>  
   Le mot de passe doit contenir :
     <ul>
       <li> - un minimum de 8 caractères</li>

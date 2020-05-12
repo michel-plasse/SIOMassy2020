@@ -23,12 +23,12 @@ public class ModifierProfilServlet extends HttpServlet {
   /**
    * Vue si succes ou en cas d'anomalie sur les valeurs saisies
    */
-  private static final String VUE_OK = "/WEB-INF/modifierProfil.jsp";
+  private static final String VUE_FORM = "/WEB-INF/modifierProfil.jsp";
   /**
    * Vue si succes si MAJ OK
    */
 
-  private static final String VUE_MENU = "/WEB-INF/menu.jsp";
+  private static final String VUE_ACCUEIL = "/WEB-INF/accueil.jsp";
 
   /**
    * Vue si erreur (exception)
@@ -44,49 +44,50 @@ public class ModifierProfilServlet extends HttpServlet {
           throws ServletException, IOException {
     HttpSession session = request.getSession(true);
     Personne personne = (Personne) session.getAttribute("user");
-    request.getRequestDispatcher(VUE_OK).forward(request, response);
+    request.getRequestDispatcher(VUE_FORM).forward(request, response);
   }
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String vue = VUE_MENU;
-
-    if (request.getParameter("bouton_Valid").equals("Abandonner")) {
+    String vue = VUE_ACCUEIL;
+    if (request.getParameter("bouton_valid").equals("Abandonner")) {
       //Abandon de la mise àjour
-      vue = VUE_MENU;
       request.setAttribute("Abandon", "Modification abandonnée");
       request.getRequestDispatcher(vue).forward(request, response);
     }
-
-    vue = VUE_OK;                      // modifierProfil.jsp
-
+    vue = VUE_FORM;                      // modifierProfil.jsp
     String nom = request.getParameter("nom");
     String prenom = request.getParameter("prenom");
     String email = request.getParameter("email");
-    String mdp = request.getParameter("mdp");
-    int idPersonne = Integer.parseInt(request.getParameter("id"));
-
+    String mdp1 = request.getParameter("mdp1");
+    String mdp2 = request.getParameter("mdp2");
+    HttpSession session = request.getSession(true);
+    Personne personne = (Personne) session.getAttribute("user");
+    personne.setNom(nom);
+    personne.setPrenom(prenom);
+    personne.setEmail(email);
+    personne.setMdp(mdp1);    
     // nous faisons d'abord un test sur tous les champs du formulaire
     if (nom == null || nom.trim().isEmpty() || prenom == null || prenom.trim().isEmpty()
-            || email == null || email.trim().isEmpty() || mdp == null || mdp.trim().isEmpty()) {
+            || email == null || email.trim().isEmpty() || mdp1 == null || mdp1.trim().isEmpty() || mdp2 == null || mdp2.trim().isEmpty()) {
       request.setAttribute("erreurLogin", "Veuillez renseigner tous les champs");
-      request.getRequestDispatcher(vue).forward(request, response);
+      
     } else if (!email.matches("(?:\\w|[\\-_])+(?:\\.(?:\\w|[\\-_])+)*\\@(?:\\w|[\\-_])+(?:\\.(?:\\w|[\\-_])+)+")) {
-      request.setAttribute("emailInvalide", true);
-      request.getRequestDispatcher(vue).forward(request, response);
-    } else if (!mdp.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")) {
+      request.setAttribute("emailEstInvalide", true);
+    } else if (!mdp1.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")) {
       request.setAttribute("mdpEstInvalide", true);
-      request.getRequestDispatcher(vue).forward(request, response);
+    } else if (!mdp1.equals(mdp2)) {
+      request.setAttribute("mdpEstDifferent ", true);
     } else {
       try {
-        PersonneDao.majByIdPersonne(idPersonne, nom, prenom, email, mdp);
-        vue = VUE_MENU;
-
-        request.setAttribute("MajOK", "Mise à jour effectuée");
-        request.getRequestDispatcher(vue).forward(request, response);
+        PersonneDao.majByIdPersonne(personne);
+        vue = VUE_ACCUEIL;
+        request.setAttribute("majOK", true);
       } catch (SQLException ex) {
         Logger.getLogger(ModifierProfilServlet.class.getName()).log(Level.SEVERE, null, ex);
+        vue = VUE_ERREUR;
       }
     }
+    request.getRequestDispatcher(vue).forward(request, response);
   }
 }
