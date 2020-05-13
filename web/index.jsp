@@ -13,6 +13,7 @@
     <nav>
       <a href="connexion">Connexion</a>
       <a href="trombinoscope?idSession=1">Session 1</a>
+      <a href="inscription">Inscription</a>
       
     </nav>
   </body>

@@ -22,14 +22,17 @@
           <div class="error">${erreurLogin}</div>
         </c:if>
         </form>
-           
+         <c:if test='${sessionScope["user"] != null}'>
+      <form id="loginForm" action="deconnexion" method="POST">
+        <button type="submit">Déconnecter ${sessionScope["user"].email}</button>
+      </form>
+    </c:if>  
             <form id="CHGMDPForm" action="demanderNouvMdp" method="POST">
         <c:if test="${erreurLogin != null}"></c:if>
-        <button type="submit">change
+        <button type="submit">modifier mot de passe
             
             </boutton>
-        
-        
+               
     </form>
     </c:if>
      

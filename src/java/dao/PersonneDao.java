@@ -98,7 +98,13 @@ public class PersonneDao {
         }
         return result;
     }
-
+ public static boolean estValide(String mail) throws SQLException {
+    Connection db = Database.getConnection();
+    PreparedStatement stmt = db.prepareStatement(CHECK_BY_ACTIF); //"SELECT * FROM personne WHERE email=? and date_inscription IS NOT NULL;"
+    stmt.setString(1, mail);
+    ResultSet rs = stmt.executeQuery();
+    return rs.next();
+  }
     /**
      * Personne de login et mot de passe passés en paramètre, ou null si pas
      * trouvée. Le mot de passe est pour l'instant passé en clair, mais il devra
