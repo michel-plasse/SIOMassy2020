@@ -19,8 +19,8 @@
         <img
             src="img/greta.jpg" 
             alt="[greta essonne]"
-            height="600px" 
-            width="900px" 
+            height="400px" 
+            width="600px" 
         />
         
       <%--  <nav> 

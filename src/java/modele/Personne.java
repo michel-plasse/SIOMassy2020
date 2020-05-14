@@ -4,154 +4,154 @@ import java.time.LocalDateTime;
 
 public class Personne {
 
-    private int id;
-    private String prenom, nom, email, mdp, urlPhoto, jeton;
-    private boolean estFormateur, estAdministration;
+  private int id;
+  private String prenom, nom, email, mdp, urlPhoto, jeton;
+  private boolean estFormateur, estAdministration;
 
-    private LocalDateTime dateInscription;
-    private LocalDateTime dateButoirJeton;
+  private LocalDateTime dateInscription;
+  private LocalDateTime dateButoirJeton;
 
-    public Personne() {
-        id = 0;
-        prenom = null;
-        nom = null;
-        email = null;
-    }
-    
+  public Personne() {
+    id = 0;
+    prenom = null;
+    nom = null;
+    email = null;
+  }
 
-    public Personne(String prenom, String nom, String email, String mdp, String jeton) { // utilisé pour le insert
-        this.prenom = prenom;
-        this.nom = nom;
-        this.email = email;
-        this.mdp = mdp;
-        this.jeton = jeton;
-        this.dateButoirJeton = LocalDateTime.now().plusHours(24);
+  public Personne(String prenom, String nom, String email, String mdp, String jeton) { // utilisé pour le insert
+    this.prenom = prenom;
+    this.nom = nom;
+    this.email = email;
+    this.mdp = mdp;
+    this.jeton = jeton;
+    this.dateButoirJeton = LocalDateTime.now().plusHours(24);
 
-    }
+  }
+  public Personne(int id, String nom, String prenom, String email, String mdp, String urlPhoto, Boolean estAdministration, Boolean estFormateur, String jeton, LocalDateTime dateinscription, LocalDateTime dateButoirJeton) {
+    this.id = id;
+    this.nom = nom;
+    this.prenom = prenom;
+    this.email = email;
+    this.mdp = mdp;
+    this.urlPhoto = urlPhoto;
+    this.estAdministration = estAdministration;
+    this.estFormateur = estFormateur;
+    this.jeton = jeton;
+    this.dateInscription = dateinscription;
+    this.dateButoirJeton = dateButoirJeton;
+    // Constructeur utilisé pour créer le USER dans ConnexionServlet
+  }
 
-    public Personne(int id, String nom, String prenom, String email, String mdp, String jeton, LocalDateTime dateinscription, LocalDateTime dateButoirJeton) {
-        this.id = id;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.email = email;
-        this.mdp = mdp;
-        this.jeton = jeton;
-        this.dateInscription = dateinscription;
-        this.dateButoirJeton = dateButoirJeton;
-        // Constructeur utilisé pour créer le USER dans ConnexionServlet
+  public void setdateButoirJeton(LocalDateTime dateButoirJeton) {
+    this.dateButoirJeton = dateButoirJeton;
+  }
 
-    }
+  public LocalDateTime getdateButoirJeton() {
+    return dateButoirJeton;
+  }
 
-    public void setdateButoirJeton(LocalDateTime dateButoirJeton) {
-        this.dateButoirJeton = dateButoirJeton;
-    }
+  public void setdateInscription(LocalDateTime dateInscription) {
+    this.dateInscription = dateInscription;
+  }
 
-    public LocalDateTime getdateButoirJeton() {
-        return dateButoirJeton;
-    }
+  public LocalDateTime getdateInscription() {
+    return dateInscription;
+  }
 
-    public void setdateInscription(LocalDateTime dateInscription) {
-        this.dateInscription = dateInscription;
-    }
+  public Personne(String prenom, String nom, String email, String mdp) {
+    this.prenom = prenom;
+    this.nom = nom;
+    this.email = email;
+    this.mdp = mdp;
+  }
 
-    public LocalDateTime getdateInscription() {
-        return dateInscription;
-    }
+  public Personne(int id, String prenom, String nom, String email) {
+    this.id = id;
+    this.prenom = prenom;
+    this.nom = nom;
+    this.email = email;
+  }
 
-    public Personne(String prenom, String nom, String email, String mdp) {
-        this.prenom = prenom;
-        this.nom = nom;
-        this.email = email;
-        this.mdp = mdp;
-    }
+  public Personne(int id, String prenom, String nom,
+          String email, boolean estFormateur, boolean estAdministration) {
+    this.id = id;
+    this.prenom = prenom;
+    this.nom = nom;
+    this.email = email;
+    this.estFormateur = estFormateur;
+    this.estAdministration = estAdministration;
+  }
 
-    public Personne(int id, String prenom, String nom, String email) {
-        this.id = id;
-        this.prenom = prenom;
-        this.nom = nom;
-        this.email = email;
-    }
+  public int getId() {
+    return id;
+  }
 
-    public Personne(int id, String prenom, String nom,
-            String email, boolean estFormateur, boolean estAdministration) {
-        this.id = id;
-        this.prenom = prenom;
-        this.nom = nom;
-        this.email = email;
-        this.estFormateur = estFormateur;
-        this.estAdministration = estAdministration;
-    }
+  public void setId(int id) {
+    this.id = id;
+  }
 
-    public int getId() {
-        return id;
-    }
+  public String getPrenom() {
+    return prenom;
+  }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+  public void setPrenom(String prenom) {
+    this.prenom = prenom;
+  }
 
-    public String getPrenom() {
-        return prenom;
-    }
+  public String getNom() {
+    return nom;
+  }
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
+  public void setNom(String nom) {
+    this.nom = nom;
+  }
 
-    public String getNom() {
-        return nom;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public String getMdp() {
+    return mdp;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public void setMdp(String mdp) {
+    this.mdp = mdp;
+  }
 
-    public String getMdp() {
-        return mdp;
-    }
+  public String getUrlPhoto() {
+    return urlPhoto;
+  }
 
-    public void setMdp(String mdp) {
-        this.mdp = mdp;
-    }
+  public void setUrlPhoto(String urlPhoto) {
+    this.urlPhoto = urlPhoto;
+  }
 
-    public String getUrlPhoto() {
-        return urlPhoto;
-    }
+  public String getJeton() {
+    return jeton;
+  }
 
-    public void setUrlPhoto(String urlPhoto) {
-        this.urlPhoto = urlPhoto;
-    }
+  public void setJeton(String jeton) {
+    this.jeton = jeton;
+  }
 
-    public String getJeton() {
-        return jeton;
-    }
+  public boolean isEstFormateur() {
+    return estFormateur;
+  }
 
-    public void setJeton(String jeton) {
-        this.jeton = jeton;
-    }
+  public void setEstFormateur(boolean estFormateur) {
+    this.estFormateur = estFormateur;
+  }
 
-    public boolean isEstFormateur() {
-        return estFormateur;
-    }
+  public boolean isEstAdministration() {
+    return estAdministration;
+  }
 
-    public void setEstFormateur(boolean estFormateur) {
-        this.estFormateur = estFormateur;
-    }
-
-    public boolean isEstAdministration() {
-        return estAdministration;
-    }
-
-    public void setEstAdministration(boolean estAdministration) {
-        this.estAdministration = estAdministration;
-    }
+  public void setEstAdministration(boolean estAdministration) {
+    this.estAdministration = estAdministration;
+  }
 
 }

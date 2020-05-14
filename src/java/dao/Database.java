@@ -47,7 +47,8 @@ public class Database {
   /**
    * Chaine de connexion (adresse TCP/IP de la base de données
    */
-  protected static String URL = "jdbc:mysql://localhost/" + DB_NAME;
+    protected static String URL = "jdbc:mysql://localhost/" + DB_NAME + "?zeroDateTimeBehavior=ConvertToNull&serverTimezone=UTC";
+
   // La chaine de connexion différe d'un SGBD à l'autre.
   // Pour Oracle : "jdbc:oracle:oci8:@localhost:1521:XE/" + DB_NAME
   // Pour Derby (BD en mémoire en Java) : "jdbc:derby://localhost:1527/" + DB_NAME

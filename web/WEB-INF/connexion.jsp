@@ -1,18 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Agriotes - connexion</title>
-    <link rel="stylesheet" href="agriotes.css"/>
-   </head>
-   
-  <body>
-      <p></p>
-      
-          <h1><c:if test="${messageBienvenue != null}"> <div class="bleu">${messageBienvenue}</div> </c:if></h1>
-    <h1 align='center'>Connexion</h1>
+<%@taglib prefix="a" tagdir="/WEB-INF/tags"%>
+<a:enTete titre="connexion"/>
+  <h1>Connexion</h1>
     <c:if test='${sessionScope["user"] == null}'>
         <form align='center' id="loginForm" action="connexion" method="POST">
            

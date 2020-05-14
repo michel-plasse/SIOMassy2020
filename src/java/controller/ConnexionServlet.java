@@ -105,7 +105,9 @@ import modele.Personne;
 @WebServlet(name = "ConnexionServlet", urlPatterns = {"/connexion"})
 public class ConnexionServlet extends HttpServlet {
 
-  private static final String VUE_INDEX = "/index.jsp";
+  private static final String VUE_INDEX = "index.jsp";
+  private static final String VUE_ACCUEIL = "/WEB-INF/accueil.jsp";
+
   private static final String VUE_FORM = "/WEB-INF/connexion.jsp";
   /**
    * Vue si erreur (exception)
@@ -143,7 +145,7 @@ public class ConnexionServlet extends HttpServlet {
           // Ajouter en session
           HttpSession maSession = request.getSession(true);
           maSession.setAttribute("user", user);
-          vue = VUE_CONNEXION_OK;
+          vue = VUE_ACCUEIL;
         } else {
           request.setAttribute("erreurLogin",
                   "Utilisateur inconnu ou mot de passe incorrect");
