@@ -18,7 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.codec.digest.DigestUtils;
 //import org.apache.commons.codec.digest.DigestUtils;
 
-@WebServlet("/rappelMdp")
+
+@WebServlet(name = "RappelMdpServlet", urlPatterns = {"/rappelMdp"})
 public class RappelMdpServlet extends HttpServlet {
 
   private static final String VUE_INDEX = "/index.jsp";

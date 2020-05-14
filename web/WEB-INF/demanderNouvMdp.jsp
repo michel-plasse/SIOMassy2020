@@ -20,7 +20,7 @@
     
     <c:if test='${sessionScope["user"] == null}'>
       
-        <form id="demanderNouvMdpForm" action="GestionMdpServlet" method="POST">
+        <form id="demanderNouvMdpForm" action="RappelMdpServlet" method="POST">
           Identifiant : <input type="text" name="login" value="${param["login"]}"/><br/>
         
 <!--          Verify Code :  <input type="code" name="code"/><br/>-->

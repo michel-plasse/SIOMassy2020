@@ -20,22 +20,14 @@
 
     <c:if test='${sessionScope["user"] == null}'>
 
-        <form id="changeMDPForm" action="rappelMdp" method="POST">
+        <form id="changeMDPForm" action="RappelMdpServlet" method="POST">
             Identifiant :     <input type="text" name="mail" value="${param["mail"]}"/><br/>
 
 
             <c:if test="${erreurLogin != null}">
                 <div class="error">${erreurLogin}</div>
             </c:if>
-            <c:if test="${erreurLogin != null}">
-            </c:if>
-
-
-
-            <c:if test="${erreurLogin != null}">
-
-            </c:if>
-
+           
             <a href="/connexion.jsp" ><button >valider</button></a>
 
         </form>
