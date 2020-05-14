@@ -31,8 +31,9 @@ public class PersonneDao {
             = "SELECT * FROM personne WHERE email=? AND date_inscription IS NOT NUL";
     public static final String INSERTION
             = "Insert into personne (nom,prenom,email,mdp,jeton,date_butoir_jeton) VALUES(?,?,?,?,?,?)";
-public static final String UPDATE_BY_EMAIL_PASSWORD
+    public static final String UPDATE_BY_EMAIL_PASSWORD
             = "UPDATE mdp FROM personne WHERE email=? ";
+
     public static void insert(Personne p) throws SQLException {
         Connection db = Database.getConnection();
         PreparedStatement stmt = db.prepareStatement(INSERTION); //"Insert into personne (nom,prenom,email,mdp,jeton,date_butoir_jeton) VALUES(?,?,?,?,?,?)"
@@ -59,7 +60,8 @@ public static final String UPDATE_BY_EMAIL_PASSWORD
         stmt.setTimestamp(1, now);
         stmt.executeUpdate();
     }
- public static void updatePersonByMdp(String mail) throws SQLException {
+
+    public static void updatePersonByMdp(String mail) throws SQLException {
         Connection db = Database.getConnection();
         PreparedStatement stmt = db.prepareStatement(UPDATE_BY_EMAIL_PASSWORD); //"update mdp FROM personne WHERE email= ? " 
         //stmt.setTimestamp(1, now);
@@ -104,13 +106,15 @@ public static final String UPDATE_BY_EMAIL_PASSWORD
         }
         return result;
     }
- public static boolean estValide(String mail) throws SQLException {
-    Connection db = Database.getConnection();
-    PreparedStatement stmt = db.prepareStatement(CHECK_BY_ACTIF); //"SELECT * FROM personne WHERE email=? and date_inscription IS NOT NULL;"
-    stmt.setString(1, mail);
-    ResultSet rs = stmt.executeQuery();
-    return rs.next();
-  }
+
+    public static boolean estValide(String mail) throws SQLException {
+        Connection db = Database.getConnection();
+        PreparedStatement stmt = db.prepareStatement(CHECK_BY_ACTIF); //"SELECT * FROM personne WHERE email=? and date_inscription IS NOT NULL;"
+        stmt.setString(1, mail);
+        ResultSet rs = stmt.executeQuery();
+        return rs.next();
+    }
+
     /**
      * Personne de login et mot de passe passés en paramètre, ou null si pas
      * trouvée. Le mot de passe est pour l'instant passé en clair, mais il devra
@@ -166,7 +170,6 @@ public static final String UPDATE_BY_EMAIL_PASSWORD
     public static int setJeton(String email, String jeton) throws SQLException {
         int positionJeton = 0;
         // WHERE email=? AND date_inscription IS NOT NULL
-        // METS LE DIAGRAMME DE SEQUENCE A JOUR (nom = setJeton)
 
         Connection con = Database.getConnection();
 
@@ -191,7 +194,7 @@ public static final String UPDATE_BY_EMAIL_PASSWORD
                     rs.getBoolean("est_formateur"),
                     rs.getString("jeton")
             );
-
+            positionJeton = 1;
         } else {
             positionJeton = 0;
         }

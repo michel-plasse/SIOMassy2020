@@ -49,6 +49,7 @@ public class RappelMdpServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String vue = VUE_CHANGEMENT_MDP;
     String mail = request.getParameter("mail");
+    
     // nous faisons d'abord un test sur tous les champs du formulaire
     if (mail == null || mail.trim().isEmpty()) {
       request.setAttribute("erreurLogin", "Veuillez renseigner tous les champs");

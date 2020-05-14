@@ -27,9 +27,8 @@ public class GestionMdpServlet extends HttpServlet {
 
     private static final String VUE_INDEX = "/index.jsp";
     private static final String VUE_dmdMDP = "/WEB-INF/demanderNouvMdp.jsp";
-    private static final String VUE_ERREUR = "WEB-INF/PageError.jsp";
-    private static final String VUE_FORM_INS = "/WEB-INF/inscription.jsp";
-    private static final String VUE_VERIFY = "/WEB-INF/verify.jsp";
+    private static final String VUE_ERREUR = "WEB-INF/exception.jsp";
+    private static final String VUE_CONFIRMDP = "/WEB-INF/confirmationChangementMdp.jsp";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -37,7 +36,7 @@ public class GestionMdpServlet extends HttpServlet {
     }
 
     @Override
- 
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -52,34 +51,36 @@ public class GestionMdpServlet extends HttpServlet {
         //Personne user = null;
         // nous faisons d'abord un test sur tous les champs du formulaire
         if (mail == null || mail.trim().isEmpty()) {
-      request.setAttribute("erreurLogin", "Veuillez renseigner tous les champs");
-    } else if (!mail.matches("(?:\\w|[\\-_])+(?:\\.(?:\\w|[\\-_])+)*\\@(?:\\w|[\\-_])+(?:\\.(?:\\w|[\\-_])+)+")) {
-      request.setAttribute("erreurLogin", "Ce mail est invalide, veuillez saisir un autre");
-    } else {
-     
-      try {
-        PersonneDao dao = new PersonneDao();
-        int nb = dao.setJeton(mail, jeton);
-        if (dao.estValide(mail)==true) {
-          // Jeton positionne : envoyer le mail avec JavaMailUtil
-          String texte = "Veuillez confirmer la modification de votre mot de passe en cliquant sur le lien ci-après :"
-              + JavaMailUtil.getCompletePath("confirmationChangementMdp?token=" + jeton, request);
-      String sujet = "Confirmez votre changement de mot de passe sur AGRIOTES";
-            try {
-                JavaMailUtil.sendMail(mail,"", "", sujet, texte);                       // Dans la classe JavaMailUtil, nous avons l'implémentation de ma méthode sendMail() qui permet t'établie l'envoi du mail
-            } catch (Exception ex) {
-                Logger.getLogger(GestionMdpServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-      vue = VUE_VERIFY;    // + passer la main a jsp VUE_MESSAGE (juste un message)
-        } else {
-          request.setAttribute("erreurLogin", "Email introuvable ou  modification pas confirmée");
-        }
-      } catch (SQLException ex) {
-          Logger.getLogger(GestionMdpServlet.class.getName()).log(Level.SEVERE, null, ex);
-          vue = VUE_ERREUR;
+            request.setAttribute("erreurLogin", "Veuillez renseigner tous les champs");
+        } else if (!mail.matches("(?:\\w|[\\-_])+(?:\\.(?:\\w|[\\-_])+)*\\@(?:\\w|[\\-_])+(?:\\.(?:\\w|[\\-_])+)+")) {
+            request.setAttribute("erreurLogin", "Ce mail est invalide, veuillez saisir un autre");
         }
 
-      }
-      request.getRequestDispatcher(vue).forward(request, response);                   // La servlet nous envoi vers la vue appropriée en envoyant avec les objets request et response
+        try {
+            PersonneDao dao = new PersonneDao();
+            int nb = dao.setJeton(mail, jeton);
+            Personne p = new Personne(prenom, nom, mail, mdp, jeton); 
+            PersonneDao.update(p);
+            
+            if (dao.estValide(mail) == true) {
+                // Jeton positionne : envoyer le mail avec JavaMailUtil
+                String texte = "Veuillez confirmer la modification de votre mot de passe en cliquant sur le lien ci-après :"
+                        + JavaMailUtil.getCompletePath("confirmationChangementMdp?token=" + jeton, request);
+                String sujet = "Confirmez votre changement de mot de passe sur AGRIOTES";
+                try {
+                    JavaMailUtil.sendMail(mail, "", "", sujet, texte);                       // Dans la classe JavaMailUtil, nous avons l'implémentation de ma méthode sendMail() qui permet t'établie l'envoi du mail
+                } catch (Exception ex) {
+                    Logger.getLogger(GestionMdpServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                vue = VUE_CONFIRMDP;    // + passer la main a jsp VUE_MESSAGE (juste un message)
+            } else {
+                request.setAttribute("erreurLogin", "Email introuvable ou  modification pas confirmée");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionMdpServlet.class.getName()).log(Level.SEVERE, null, ex);
+            vue = VUE_ERREUR;
+        }
+
+        request.getRequestDispatcher(vue).forward(request, response);                   // La servlet nous envoi vers la vue appropriée en envoyant avec les objets request et response
     }
 }
