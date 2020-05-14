@@ -1,39 +1,78 @@
 package modele;
 
-//make a stored function in the code to add parameters to the questionnaire table
-
-
-
+import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
+//todo
+//convert Time from seconds to minutes:seconds
 
-//domain classgit
+//NO UNDERSCORES
 
 public class Questionnaire {
-    private String id_questionnaire;
+    private int id;
     private String titre;
-    private Timestamp date_creation;
-    private String duree;
-    private String id_auteur;
+    private LocalDateTime dateCreation;
+    private Time duree;
+    private int idAuteur;
 
-    public Questionnaire(String id_questionnaire, String titre, Timestamp date_creation, String duree, String id_auteur) {
-        this.id_questionnaire = id_questionnaire;
+    public Questionnaire(int id, String titre, LocalDateTime dateCreation, Time duree, int idAuteur) {
+        this.id = id;
         this.titre = titre;
-        this.date_creation = date_creation;
+        this.dateCreation = dateCreation;
         this.duree = duree;
-        this.id_auteur = id_auteur;
+        this.idAuteur = idAuteur;
     }
 
-
-
-
-
-    public String getId_questionnaire() {
-        return id_questionnaire;
+    @Override
+    public String toString() {
+        return "Questionnaire{" +
+                "id=" + id +
+                ", titre='" + titre + '\'' +
+                ", dateCreation=" + dateCreation +
+                ", duree=" + duree +
+                ", idAuteur=" + idAuteur +
+                '}';
     }
 
-    public void setId_questionnaire(String id_questionnaire) {
-        this.id_questionnaire = id_questionnaire;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(LocalDateTime dateCreation) {
+        this.dateCreation = dateCreation;
+    }
+
+    public Time getDuree() {
+        return duree;
+    }
+
+    public void setDuree(Time duree) {
+        this.duree = duree;
+    }
+
+    public int getIdAuteur() {
+        return idAuteur;
+    }
+
+    public void setIdAuteur(int idAuteur) {
+        this.idAuteur = idAuteur;
+    }
+
+    public int getId_questionnaire() {
+        return id;
+    }
+
+    public void setId_questionnaire(int id_questionnaire) {
+        this.id = id_questionnaire;
     }
 
     public String getTitre() {
@@ -44,29 +83,6 @@ public class Questionnaire {
         this.titre = titre;
     }
 
-    public Timestamp getDate_creation() {
-        return date_creation;
-    }
-
-    public void setDate_creation(Timestamp date_creation) {
-        this.date_creation = date_creation;
-    }
-
-    public String getDuree() {
-        return duree;
-    }
-
-    public void setDuree(String duree) {
-        this.duree = duree;
-    }
-
-    public String getId_auteur() {
-        return id_auteur;
-    }
-
-    public void setId_auteur(String id_auteur) {
-        this.id_auteur = id_auteur;
-    }
 }
 
 
