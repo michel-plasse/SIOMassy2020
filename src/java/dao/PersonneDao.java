@@ -31,8 +31,8 @@ public class PersonneDao {
             = "SELECT * FROM personne WHERE email=? AND date_inscription IS NOT NUL";
     public static final String INSERTION
             = "Insert into personne (nom,prenom,email,mdp,jeton,date_butoir_jeton) VALUES(?,?,?,?,?,?)";
-    public static final String UPDATE_BY_EMAIL_PASSWORD
-            = "UPDATE mdp FROM personne WHERE email=? ";
+    public static final String SET_JETON
+            = "UPDATE personne SET jeton=? WHERE email=? ";
 
     public static void insert(Personne p) throws SQLException {
         Connection db = Database.getConnection();
@@ -63,7 +63,7 @@ public class PersonneDao {
 
     public static void updatePersonByMdp(String mail) throws SQLException {
         Connection db = Database.getConnection();
-        PreparedStatement stmt = db.prepareStatement(UPDATE_BY_EMAIL_PASSWORD); //"update mdp FROM personne WHERE email= ? " 
+        PreparedStatement stmt = db.prepareStatement(SET_JETON); //"update mdp FROM personne WHERE email= ? " 
         //stmt.setTimestamp(1, now);
         stmt.executeUpdate();
     }
@@ -168,39 +168,10 @@ public class PersonneDao {
      * @throws SQLException
      */
     public static int setJeton(String email, String jeton) throws SQLException {
-        int positionJeton = 0;
-        // WHERE email=? AND date_inscription IS NOT NULL
-
         Connection con = Database.getConnection();
-
-        PreparedStatement stmt = con.prepareStatement(GET_BY_EMAIL_DATE);
-        stmt.setString(1, email);
-        stmt.setString(2, jeton);
-
-        ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
-
-            Personne result = new Personne(
-                    rs.getInt("id_personne"),
-                    rs.getString("nom"),
-                    rs.getString("prenom"),
-                    rs.getString("mail"),
-                    rs.getString("tel"),
-                    rs.getString("adresse"),
-                    rs.getString("code_postal"),
-                    rs.getString("ville"),
-                    rs.getString("mot_de_passe"),
-                    rs.getBoolean("est_administration"),
-                    rs.getBoolean("est_formateur"),
-                    rs.getString("jeton")
-            );
-            positionJeton = 1;
-        } else {
-            positionJeton = 0;
-        }
-        stmt.close();
-        con.close();
-        return positionJeton;
-
+        PreparedStatement stmt = con.prepareStatement(SET_JETON);
+        stmt.setString(1, jeton);
+        stmt.setString(2, email);
+        return stmt.executeUpdate();
     }
 }

@@ -16,19 +16,28 @@
     </head>
 
     <body>
-        <h1>changementMDP</h1>
+        <h1>demanderNouvMdp</h1>
 
     <c:if test='${sessionScope["user"] == null}'>
 
-        <form id="changeMDPForm" action="RappelMdpServlet" method="POST">
-            Identifiant rrrr :     <input type="text" name="mail" value="${param["mail"]}"/><br/>
+        <form id="demanderNouvMdpForm" action="rappelMdp" method="POST">
+            Identifiant : <input type="text" name="login" value="${param["login"]}"/><br/>
 
+            <!--          Verify Code :  <input type="code" name="code"/><br/>-->
 
             <c:if test="${erreurLogin != null}">
                 <div class="error">${erreurLogin}</div>
             </c:if>
-           
-            <a href="/connexion.jsp" ><button >valider</button></a>
+            <c:if test="${erreurLogin != null}">
+            </c:if>
+
+
+
+            <c:if test="${erreurLogin != null}">
+
+            </c:if>
+            <button type="submit">valider</button>    
+            <!--<a href="/connexion.jsp" ><button >valider</button></a-->
 
         </form>
     </c:if>
