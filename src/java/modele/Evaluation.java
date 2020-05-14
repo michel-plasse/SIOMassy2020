@@ -10,7 +10,6 @@ public class Evaluation {
     private int idSessionFormation;
     private int idModule;
 
-    // ##################################    Constructeurs    ############################################
     public Evaluation() {
     }
 
@@ -22,7 +21,6 @@ public class Evaluation {
         this.idModule = idModule;
     }
 
-    // ############################### Getters et Setters ##################################################
     public int getIdEvaluation() {
         return idEvaluation;
     }
