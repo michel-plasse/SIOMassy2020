@@ -23,6 +23,13 @@ public class Projet {
         this.date_Fin = date_Fin;
     }
 
+    public Projet(int id, int id_session_formation, int id_createur, String titre) {
+        this.id = id;
+        this.id_session_formation = id_session_formation;
+        this.id_createur = id_createur;
+        this.titre = titre;
+    }
+
     public Projet(int id, int id_session_formation, int id_createur, String titre, Date date_Debut, Date date_Fin) {
         this.id = id;
         this.id_session_formation = id_session_formation;

@@ -65,11 +65,11 @@ public class ProjetDao {
         Statement stmt = db.createStatement();
         
         int sessionFormation = nouveau.getId_session_formation();
-        String sujet = nouveau.getTitre();
+        String titre = nouveau.getTitre();
         Date date_Debut = nouveau.getDate_Debut();
         Date date_Fin = nouveau.getDate_Fin();
 
-        stmt.executeUpdate("UPDATE projet SET(" + sessionFormation + "," + sujet + ",'" + date_Debut + ",'" + date_Fin + ",'");
+        stmt.executeUpdate("UPDATE projet SET(" + sessionFormation + "," + titre + ",'" + date_Debut + ",'" + date_Fin + ",'");
         return false;
     }    
 }

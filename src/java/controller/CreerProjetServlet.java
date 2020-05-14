@@ -8,6 +8,7 @@ package controller;
 import dao.ProjetDao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,7 +26,7 @@ import modele.Projet;
  *
  * @author maxim
  */
-@WebServlet(name = "ProjetServlet", urlPatterns = {"/ProjetServlet"})
+@WebServlet(name = "CreerProjetServlet", urlPatterns = {"/creerProjet"})
 public class CreerProjetServlet extends HttpServlet {
 
 
@@ -47,59 +48,82 @@ public class CreerProjetServlet extends HttpServlet {
     }
 
  
-    @Override
+    private final String VUE_FORM = "/WEB-INF/creerProjet.jsp";
+    private final String VUE_KO = "/WEB-INF/connexion.jsp";
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Personne user = (Personne) request.getSession(true).getAttribute("user");
-        if (user == null) {
-            request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-        } else {
-        request.getRequestDispatcher("/WEB-INF/creerProjet.jsp").forward(request, response);
-        }
+        request.getRequestDispatcher(VUE_FORM).forward(request, response);
     }
 
- 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Personne user = (Personne) request.getSession(true).getAttribute("user");
         user = new Personne();
-               
+        
+        if (user == null) {
+            request.getRequestDispatcher(VUE_KO).forward(request, response);
+        } else {
             boolean champsrenseignes = true;
-            System.out.println("post creerProjet");
+            String sidSession = request.getParameter("id_session_formation");
             String titre = request.getParameter("titre");
-            String sDateLimite = request.getParameter("dateLimite");
+            String datefin = request.getParameter("date_Fin");
             Date dateLimite = null;
-            int idSession = 0;
+            int id_session_formation = 0;
             int id_createur = user.getId();
-            
+
+            if (sidSession == null || sidSession.isEmpty()) {
+                champsrenseignes = false;
+                request.setAttribute("idSession", "Veuillez selectionner une session de formation.");
+            }
+            else {
+                try {
+                    id_session_formation = Integer.parseInt(sidSession);
+                    System.out.println("idSession = " + id_session_formation);
+                } catch (NumberFormatException exc) {
+                    champsrenseignes = false;
+                    request.setAttribute("idSession", "La session de formation doit être un entier positif.");
+                }
+
+            }
             if (titre == null || titre.isEmpty()) {
                 champsrenseignes = false;
-                request.setAttribute("sujet", "Veuillez entrer le nom de projet..");
+                request.setAttribute("titre", "Veuillez entrer le nom de projet..");
                 System.out.println("Rentre dans if condition");
             }
-            
-            if (sDateLimite == null || sDateLimite.isEmpty()) {
+           
+            if (datefin == null || datefin.isEmpty()) {
                 champsrenseignes = false;
-                request.setAttribute("dateLimite", "Veuillez choisir une date limite..");
+                request.setAttribute("date_Fin", "Veuillez choisir une date limite.");
                 System.out.println("Rentre dans if condition");
             } else {
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-DD");
                 try {
-                    dateLimite = df.parse(sDateLimite);
+                    dateLimite = df.parse(datefin);
                 } catch (ParseException ex) {
                     Logger.getLogger(CreerProjetServlet.class.getName()).log(Level.SEVERE, null, ex);
                     champsrenseignes = false;
-                    request.setAttribute("dateLimite", "Veuillez saisir une date valide (aaaa-mm-jj)");
+                    request.setAttribute("date_Fin", "Veuillez saisir une date valide (aaaa-mm-jj)");
                 }
             }
             if (champsrenseignes) {
-                Date dateCreation = new Date();
-                    Projet projetAjoutee = new Projet(0, idSession, id_createur, titre, dateCreation, dateLimite);
+                try {
+                    Date dateCreation = new Date();
+                    Projet projetAjoutee = new Projet(0, id_session_formation, id_createur, titre, dateLimite, dateCreation);
+                    
                     ProjetDao dao = new ProjetDao();
-                    request.getRequestDispatcher("/WEB-INF/creerProjet.jsp").forward(request, response);
+                    dao.insert(projetAjoutee);
+                    
+                    request.setAttribute("message", "Projet numero" + projetAjoutee.getId() + " a été correctement créé " );
+                    request.getRequestDispatcher(VUE_FORM).forward(request, response);
+                } catch (SQLException e) {
+                    request.getRequestDispatcher("WEB-INF/exception.jsp").forward(request, response);
                 }
-            request.getRequestDispatcher("/WEB-INF/creerProjet.jsp").forward(request, response);
+
+            } else {
+                request.getRequestDispatcher(VUE_FORM).forward(request, response);
+            }
         }
     }
-
+}
