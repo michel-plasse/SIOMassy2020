@@ -77,7 +77,7 @@ public class ModifierProfilServlet extends HttpServlet {
     } else if (!mdp1.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")) {
       request.setAttribute("mdpEstInvalide", true);
     } else if (!mdp1.equals(mdp2)) {
-      request.setAttribute("mdpEstDifferent ", true);
+      request.setAttribute("mdpEstDifferent", true);
     } else {
       try {
         PersonneDao.majByIdPersonne(personne);

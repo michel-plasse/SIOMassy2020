@@ -10,15 +10,12 @@
 <%-- The list of normal or fragment attributes can be specified here: --%>
 <%@attribute name="test"%>
 <c:if test="${test}">
-  <div>  
-  Le mot de passe doit contenir :
+  <div class =error >  
+  L'adresse mail doit contenir :
     <ul>
-      <li> - un minimum de 8 caractères</li>
-      <li> - une ou plusieures majuscules </li>
-      <li> - une ou plusieures minuscules </li>
-      <li> - un ou plusieurs chiffres </li> 
-      <li> - un ou plusieurs caractères spéciaux dans la liste : @#$%^&+=</li>
-      <li> - ne doit pas contenir des espaces</li>
+      <li> une chaîne de caractères </li>
+      <li>&nbsp;  & &nbsp; un "."&nbsp; </li>
+      <li>&nbsp; & &nbsp; un "@" </li>
     </ul>
   </div>
 </c:if> 
