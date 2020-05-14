@@ -26,7 +26,7 @@ import modele.Projet;
  * @author maxim
  */
 @WebServlet(name = "ProjetServlet", urlPatterns = {"/ProjetServlet"})
-public class ProjetServlet extends HttpServlet {
+public class CreerProjetServlet extends HttpServlet {
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -67,12 +67,11 @@ public class ProjetServlet extends HttpServlet {
                
             boolean champsrenseignes = true;
             System.out.println("post creerProjet");
-            String sidSession = request.getParameter("id_session_formation");
             String titre = request.getParameter("titre");
             String sDateLimite = request.getParameter("dateLimite");
             Date dateLimite = null;
             int idSession = 0;
-            int idFormateur = user.getId();
+            int id_createur = user.getId();
             
             if (titre == null || titre.isEmpty()) {
                 champsrenseignes = false;
@@ -89,17 +88,18 @@ public class ProjetServlet extends HttpServlet {
                 try {
                     dateLimite = df.parse(sDateLimite);
                 } catch (ParseException ex) {
-                    Logger.getLogger(ProjetServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(CreerProjetServlet.class.getName()).log(Level.SEVERE, null, ex);
                     champsrenseignes = false;
                     request.setAttribute("dateLimite", "Veuillez saisir une date valide (aaaa-mm-jj)");
                 }
             }
             if (champsrenseignes) {
                 Date dateCreation = new Date();
-                    Projet projetAjoutee = new Projet(0, idSession, idFormateur, titre, dateLimite, dateCreation);
+                    Projet projetAjoutee = new Projet(0, idSession, id_createur, titre, dateCreation, dateLimite);
                     ProjetDao dao = new ProjetDao();
                     request.getRequestDispatcher("/WEB-INF/creerProjet.jsp").forward(request, response);
                 }
-            }
+            request.getRequestDispatcher("/WEB-INF/creerProjet.jsp").forward(request, response);
+        }
     }
 
