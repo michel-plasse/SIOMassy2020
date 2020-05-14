@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import modele.MembresCanal;
 
 /**
@@ -33,22 +34,7 @@ public class SupprimerMembresCanal extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AjouterMembresServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AjouterMembresServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
+    
     private MembresCanal MembresCanal;
     private int idCanal;
 
@@ -61,7 +47,10 @@ public class SupprimerMembresCanal extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession(true);
+        MembresCanal membres = (MembresCanal) session.getAttribute("user");
+        request.getRequestDispatcher(VUE_OK).forward(request, response);
+
     }
 
     @Override
@@ -69,22 +58,25 @@ public class SupprimerMembresCanal extends HttpServlet {
             throws ServletException, IOException {
 
         response.setContentType("text/html");
+        String vue = VUE_OK;
         PrintWriter out = response.getWriter();
         int idCanal = Integer.parseInt(request.getParameter("id_canal"));
-
+        MembresCanalDao membres = new MembresCanalDao();
         try {
-            MembresCanalDao membres = new MembresCanalDao();
-
+            
             membres.supprimerMembreByIdCanal(idCanal);
-            out.println(" Membre supprimé");
+            vue = VUE_OK;
 
-        } catch (SQLException ex) {
+        } catch (SQLException exc) {
             out.println(" Membre pas supprimé");
 
-            java.util.logging.Logger.getLogger(AjouterMembresCanal.class.getName()).log(Level.SEVERE, null, ex);
+            exc.printStackTrace();
+            request.setAttribute("exception", exc);
+            vue = VUE_ERREUR;
+
         }
 
-        response.sendRedirect(this.getServletContext().getContextPath() + "/supprimerMembresCanal?idCanal=" + idCanal);
+        request.getRequestDispatcher(vue).forward(request, response);
     }
 
 }

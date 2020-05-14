@@ -42,16 +42,12 @@ public class AjouterMembresCanal extends HttpServlet {
 
     MembresCanal MembresCanal = null;
 
-
-      @Override
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    HttpSession session = request.getSession(true);
-    MembresCanal membres = (MembresCanal) session.getAttribute("MembresCanal");
-    request.getRequestDispatcher(VUE_OK).forward(request, response);
-    
+   
     }
-            
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -62,8 +58,8 @@ public class AjouterMembresCanal extends HttpServlet {
         String vue = VUE_OK;
 
         MembresCanalDao membres = new MembresCanalDao();
-        String idCanal = request.getParameter("id_canal");
-        String idPersonne = request.getParameter("id_personne");
+        int idCanal = Integer.parseInt(request.getParameter("id_canal"));
+        int idPersonne = Integer.parseInt(request.getParameter("id_personne"));
 
         out.println(" Membre ajouté");
 
@@ -74,8 +70,10 @@ public class AjouterMembresCanal extends HttpServlet {
             request.setAttribute("idCanal", idCanal);
             request.setAttribute("idPersonne", idPersonne);
             vue = VUE_OK;
-        } catch (SQLException ex) {
-            Logger.getLogger(AjouterMembresCanal.class).log(Level.SEVERE, null, ex);
+        } catch (SQLException exc) {
+            exc.printStackTrace();
+            request.setAttribute("exception", exc);
+
             vue = VUE_ERREUR;
         }
 

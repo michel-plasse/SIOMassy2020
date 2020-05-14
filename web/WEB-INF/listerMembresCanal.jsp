@@ -26,36 +26,37 @@
             <hr>
 
             <table width = "300px" border="1">
-
-
                 <tr>
                     <th>ID canal</th>
-
                     <th>ID personne</th>
-
-
-
+                    <th>Supprimer</th>
                 </tr>
 
                 <c:forEach items="${membres}" var="membre">
-
-
                     <tr>  
+                        <td>
+                            ${membre.idCanal}
+                        </td>
 
-                        <td><center>${membre.idCanal}</center></td>
+                        <td>${membre.idPersonne}</td>
 
-                        <td><center>${membre.idPersonne}</center></td>
-
-                                 
+                        <td>
+                            <form method = "POST" action="SupprimerMembresCanal">
+                                <button type="submit"> Supprimer</button>
+                            </form> 
+                        </td> 
                     </tr>
 
                 </c:forEach>
 
-
-
             </table>
 
-            <p><a><form method = "GET" action="MembresCanalServlet">Gerer les membres d'un canal</a></p>
+            <td>
+                <form method = "POST" action="AjouterMembresCanal">
+                    <button type="submit">Ajouter</button>
+                </form>
+            </td>
+
 
 
 

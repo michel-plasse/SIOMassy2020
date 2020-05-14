@@ -9,37 +9,11 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Gstion des membres </h1>
+        <h1>Gestion des membres </h1>
+        <p>Membre supprimé</p>
 
-
-
-        <form method="POST" action="/GererMembresServlet.java">
-            <table width = "300px" border="1">
-                <tr>
-                    <td colspan ="2"><h1>Gérer les membres </h1></td>
-                </tr>
-
-
-                <tr>
-                    <td>ID du canal</td>
-                    <td><input type ="text" name ="idCanal" id="idCanal"></td>
-                </tr>
-
-                <tr>
-                    <td>ID de la personne</td>                    
-                    <td><input type ="text" name ="idPersonne" id="idPersonne"></td>
-                </tr>
-
-                <td>
-                    <form action="supprimerMembreCanal" method="POST">
-                        <input type="hidden" name="idCanal" value="${membre.idCanal}"/>
-                        <input type="hidden" name="idMembre" value="${membre.idPersonne}"/>
-                        <button type="submit" >Supprimer</button>
-                </td>
-
-            </table>
-
-        </form>
-        <p><a href="membresCanal">Liste des membres d'un canal</a></p>
+        <p>
+            <a href="listerMembresCanal">Liste des membres d'un canal</a>
+        </p>
     </body>
 </html>

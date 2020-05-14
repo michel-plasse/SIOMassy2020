@@ -5,21 +5,24 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Les membres</title>
-    <link rel="stylesheet" href="agriotes.css"/>
-  </head>
-  <body>
-    <h1>Ajout de membres</h1>
-      <form id="ajouter" action="ajouterMembresCanal" method="POST">
-        Id Canal :  <input type="text" name="idCanal" value="${param["idCanal"]}"/><br/>
-        Id personne :  <input type="text" name="idPersonne" value="${param["idPersonne"]}"/><br/>
-        <button type="submit">Ajouter</button>
-       
-      </form>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Les membres</title>
+        <link rel="stylesheet" href="agriotes.css"/>
+    </head>
+    <body>
+        <h1>Ajout de membres</h1>
+        <form id="ajouter" action="ajouterMembresCanal" method="POST">
+            Id Canal :  <input type="text" name="idCanal" value="${param["idCanal"]}"/><br/>
+            Id personne :  <input type="text" name="idPersonne" value="${param["idPersonne"]}"/><br/>
+            <button type="submit">Ajouter</button>
 
-  </body>
+        </form>
+
+        <p><a href="listerMembresCanal">Liste des membres d'un canal</a></p>
+
+
+    </body>
 </html>
 
 <!--
@@ -62,35 +65,35 @@
 
                 </tr>
 
-                <c:forEach items="${membres}" var="membre">
+<c:forEach items="${membres}" var="membre">
 
 
-                    <tr>  
+    <tr>  
 
-                        <td><center>${membre.idCanal}</center></td>
+        <td><center>${membre.idCanal}</center></td>
 
-                        <td><center>${membre.idPersonne}</center></td>
+        <td><center>${membre.idPersonne}</center></td>
 
-                        <form method = "POST" action="AjouterMembresCanal">
-                            <td>Edit</td>
-                        </form>
-
-                        <form method = "POST" action="SupprimerMembresCanal">
-                            <td>Delete</td>
-                        </form>            
-                    </tr>
-
-                </c:forEach>
-
-
-
-            </table>
-
-            <p><a><form method = "GET" action="MembresCanalServlet">Gerer les membres d'un canal</a></p>
-
-
-
+        <form method = "POST" action="AjouterMembresCanal">
+            <td>Edit</td>
         </form>
+
+        <form method = "POST" action="SupprimerMembresCanal">
+            <td>Delete</td>
+        </form>            
+    </tr>
+
+</c:forEach>
+
+
+
+</table>
+
+<p><a><form method = "GET" action="MembresCanalServlet">Gerer les membres d'un canal</a></p>
+
+
+
+</form>
 
 </body>
 </html>-->

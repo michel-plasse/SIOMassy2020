@@ -25,7 +25,10 @@ public class MembresCanalDao {
     public static final String AFFICHER_MEMBRE_CANAL
             = "SELECT  mc.id_canal, mc.id_personne FROM membre_canal mc WHERE mc.id_canal = ?";
             //+ "JOIN personne p ON mc.id_personne = p.id_personne, p.nom, "
-            
+      
+    
+        public static final String AFFICHER_TOUS_LES_MEMBRES
+            = "SELECT  * FROM membre_canal ";
 
     public static final String INSERER_MEMBRE_CANAL
             = "Insert into membre_canal  (id_canal, id_personne) VALUES(?,?)";
@@ -45,6 +48,20 @@ public class MembresCanalDao {
         Connection db = Database.getConnection();
         PreparedStatement stmt = db.prepareStatement(AFFICHER_MEMBRE_CANAL);
         stmt.setInt(1, idCanal);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            MembresCanal membres = new MembresCanal(
+                    rs.getInt("id_canal"),
+                    rs.getInt("id_personne"));
+            result.add(membres);
+        }
+        return result;
+    }
+    
+        public static List<MembresCanal> getAll() throws SQLException {
+        List<MembresCanal> result = new ArrayList<>();
+        Connection db = Database.getConnection();
+        PreparedStatement stmt = db.prepareStatement(AFFICHER_TOUS_LES_MEMBRES);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
             MembresCanal membres = new MembresCanal(
