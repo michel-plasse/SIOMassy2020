@@ -46,9 +46,9 @@ public class GestionMdpServlet extends HttpServlet {
         random.nextInt(9999999);                                  // Selection aléatoire d'un nombre entre 0 est 9999999
         String jeton = DigestUtils.md5Hex("" + random);
         String msg;
-        
+
         //Personne user = null;
- // nous faisons d'abord un test sur tous les champs du formulaire
+        // nous faisons d'abord un test sur tous les champs du formulaire
         if (mail == null || mail.trim().isEmpty()) {
             request.setAttribute("erreurLogin", "Veuillez renseigner tous les champs");
             // la vue reste à VUE_FORM_INS
@@ -63,28 +63,40 @@ public class GestionMdpServlet extends HttpServlet {
                     + "<li> - doit contenir au moins un caractère spécial dans la liste : @#$%^&+=</li>\n"
                     + "<li> - ne doit pas contenir des espaces</li>\n"
                     + "</ul>");
-        try {
-            if (mail == null || mail.trim().isEmpty() //|| password == null || password.trim().isEmpty()
-                    ) {
-                request.setAttribute("erreurLogin", "Les champs sont obligatoires");
-            } else {
-                user = PersonneDao.getByLoginPassword(mail, mdp);
-                if (user != null) {
-                    // Ajouter en session
-                    HttpSession maSession = request.getSession(true);
-                    maSession.setAttribute("user", user);
-                    vue = VUE_INDEX;
-                } else {
-                    request.setAttribute("erreurLogin",
-                            "Utilisateur inconnu ou mot de passe incorrect");
-                }
-            }
-        } catch (SQLException exc) {
-            Logger.getLogger(ConnexionServlet.class.getName()).log(Level.SEVERE, null, exc);
-            request.setAttribute("exception", exc);
-            vue = VUE_ERREUR;
         }
-        // Passer la main à la JSP
-        request.getRequestDispatcher(VUE_dmdMDP).forward(request, response);
+        try {   PersonneDao.deletePersonBydate(new Timestamp(System.currentTimeMillis()));
+            // String jeton;
+
+        } catch (SQLException ex) {
+            try {
+                switch (ex.getErrorCode()) {
+                    case Database.DOUBLON:
+                        boolean estConfirme = PersonneDao.estValide(mail);
+                        msg = (estConfirme) ? "Email déjà enregistré et confirmé"
+                                : "Email déjà enregistré, veuillez confirmer votre inscription en cliquant sur le lien inclus dans le mail qui vous a été adressé";
+                        break;
+                    default:
+                        msg = "Pb avec la base de données "
+                                + ex.getMessage(); // seulement en dev (pb de sécurité)
+                        vue = VUE_ERREUR;
+                }
+                request.setAttribute("erreurLogin", msg);
+            } catch (SQLException ex1) {
+                Logger.getLogger(GestionMdpServlet.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+
+        }
+        try {
+            request.getRequestDispatcher(vue).forward(request, response);                   // La servlet nous envoi vers la vue appropriée en envoyant avec les objets request et response
+        } catch (ServletException ex) {
+            Logger.getLogger(GestionMdpServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(GestionMdpServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
