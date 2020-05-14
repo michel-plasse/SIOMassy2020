@@ -21,7 +21,7 @@
     <c:if test='${sessionScope["user"] == null}'>
 
         <form id="changeMDPForm" action="RappelMdpServlet" method="POST">
-            Identifiant :     <input type="text" name="mail" value="${param["mail"]}"/><br/>
+            Identifiant rrrr :     <input type="text" name="mail" value="${param["mail"]}"/><br/>
 
 
             <c:if test="${erreurLogin != null}">

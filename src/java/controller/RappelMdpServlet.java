@@ -16,17 +16,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.codec.digest.DigestUtils;
+import tools.JavaMailUtil;
 //import org.apache.commons.codec.digest.DigestUtils;
 
 
-@WebServlet(name = "RappelMdpServlet", urlPatterns = {"/rappelMdp"})
+@WebServlet("/demanderNouvMdp")
 public class RappelMdpServlet extends HttpServlet {
 
   private static final String VUE_INDEX = "/index.jsp";
-
   private static final String VUE_ERREUR = "/WEB-INF/exception.jsp";
-  private static final String VUE_VERIFY = "/WEB-INF/verify.jsp";
-  private static final String VUE_CHANGEMENT_MDP = "/WEB-INF/rappelMdp.jsp";
+  private static final String VUE_VERIFY = "/WEB-INF/confirmationChangementMdp.jsp";
+  private static final String VUE_CHANGEMENT_MDP = "/WEB-INF/demanderNouvMdp.jsp";
 
 //    @Override
 //    protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -62,9 +62,17 @@ public class RappelMdpServlet extends HttpServlet {
       try {
         PersonneDao dao = new PersonneDao();
         int nb = dao.setJeton(mail, jeton);
-        if (nb == 1) {
+        if (dao.estValide(mail)==true) {
           // Jeton positionne : envoyer le mail avec JavaMailUtil
-          // + passer la main a jsp VUE_MESSAGE (juste un message)
+          String texte = "Veuillez confirmer la modification de votre mot de passe en cliquant sur le lien ci-après :"
+              + JavaMailUtil.getCompletePath("confirmationChangementMdp?token=" + jeton, request);
+      String sujet = "Confirmez votre changement de mot de passe sur AGRIOTES";
+            try {
+                JavaMailUtil.sendMail(mail,"", "", sujet, texte);                       // Dans la classe JavaMailUtil, nous avons l'implémentation de ma méthode sendMail() qui permet t'établie l'envoi du mail
+            } catch (Exception ex) {
+                Logger.getLogger(RappelMdpServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+      vue = VUE_VERIFY;    // + passer la main a jsp VUE_MESSAGE (juste un message)
         } else {
           request.setAttribute("erreurLogin", "Email introuvable ou inscription pas confirmée");
         }

@@ -31,7 +31,8 @@ public class PersonneDao {
             = "SELECT * FROM personne WHERE email=? AND date_inscription IS NOT NUL";
     public static final String INSERTION
             = "Insert into personne (nom,prenom,email,mdp,jeton,date_butoir_jeton) VALUES(?,?,?,?,?,?)";
-
+public static final String UPDATE_BY_EMAIL_PASSWORD
+            = "UPDATE mdp FROM personne WHERE email=? ";
     public static void insert(Personne p) throws SQLException {
         Connection db = Database.getConnection();
         PreparedStatement stmt = db.prepareStatement(INSERTION); //"Insert into personne (nom,prenom,email,mdp,jeton,date_butoir_jeton) VALUES(?,?,?,?,?,?)"
@@ -58,7 +59,12 @@ public class PersonneDao {
         stmt.setTimestamp(1, now);
         stmt.executeUpdate();
     }
-
+ public static void updatePersonByMdp(String mail) throws SQLException {
+        Connection db = Database.getConnection();
+        PreparedStatement stmt = db.prepareStatement(UPDATE_BY_EMAIL_PASSWORD); //"update mdp FROM personne WHERE email= ? " 
+        //stmt.setTimestamp(1, now);
+        stmt.executeUpdate();
+    }
     public static final String CHECK_BY_ACTIF
             = "SELECT * FROM personne WHERE email=? and date_inscription IS NOT NULL";
 

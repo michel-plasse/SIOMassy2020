@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.codec.digest.DigestUtils;
+import tools.JavaMailUtil;
 
 @WebServlet(name = "GestionMdpServlet", urlPatterns = {"/demanderNouvMdp"})
 public class GestionMdpServlet extends HttpServlet {
@@ -36,6 +37,7 @@ public class GestionMdpServlet extends HttpServlet {
     }
 
     @Override
+ 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -50,53 +52,34 @@ public class GestionMdpServlet extends HttpServlet {
         //Personne user = null;
         // nous faisons d'abord un test sur tous les champs du formulaire
         if (mail == null || mail.trim().isEmpty()) {
-            request.setAttribute("erreurLogin", "Veuillez renseigner tous les champs");
-            // la vue reste à VUE_FORM_INS
-        } else if (!mail.matches("(?:\\w|[\\-_])+(?:\\.(?:\\w|[\\-_])+)*\\@(?:\\w|[\\-_])+(?:\\.(?:\\w|[\\-_])+)+")) {
-            request.setAttribute("erreurLogin", "Ce mail est invalide, veuillez saisir un autre");
-            // la vue reste à VUE_FORM_INS
-        } else if (!mdp.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")) {
-            request.setAttribute("erreurLogin", "<ul>\n"
-                    + "<p><u>Le mot de passe :</u></p>\n"
-                    + "<li> - doit contenir au moins 8 caractères</li>\n"
-                    + "<li> - doit au moins un chiffre</li>\n"
-                    + "<li> - doit contenir au moins un caractère spécial dans la liste : @#$%^&+=</li>\n"
-                    + "<li> - ne doit pas contenir des espaces</li>\n"
-                    + "</ul>");
-        }
-        try {   PersonneDao.deletePersonBydate(new Timestamp(System.currentTimeMillis()));
-            // String jeton;
-
-        } catch (SQLException ex) {
+      request.setAttribute("erreurLogin", "Veuillez renseigner tous les champs");
+    } else if (!mail.matches("(?:\\w|[\\-_])+(?:\\.(?:\\w|[\\-_])+)*\\@(?:\\w|[\\-_])+(?:\\.(?:\\w|[\\-_])+)+")) {
+      request.setAttribute("erreurLogin", "Ce mail est invalide, veuillez saisir un autre");
+    } else {
+     
+      try {
+        PersonneDao dao = new PersonneDao();
+        int nb = dao.setJeton(mail, jeton);
+        if (dao.estValide(mail)==true) {
+          // Jeton positionne : envoyer le mail avec JavaMailUtil
+          String texte = "Veuillez confirmer la modification de votre mot de passe en cliquant sur le lien ci-après :"
+              + JavaMailUtil.getCompletePath("confirmationChangementMdp?token=" + jeton, request);
+      String sujet = "Confirmez votre changement de mot de passe sur AGRIOTES";
             try {
-                switch (ex.getErrorCode()) {
-                    case Database.DOUBLON:
-                        boolean estConfirme = PersonneDao.estValide(mail);
-                        msg = (estConfirme) ? "Email déjà enregistré et confirmé"
-                                : "Email déjà enregistré, veuillez confirmer votre inscription en cliquant sur le lien inclus dans le mail qui vous a été adressé";
-                        break;
-                    default:
-                        msg = "Pb avec la base de données "
-                                + ex.getMessage(); // seulement en dev (pb de sécurité)
-                        vue = VUE_ERREUR;
-                }
-                request.setAttribute("erreurLogin", msg);
-            } catch (SQLException ex1) {
-                Logger.getLogger(GestionMdpServlet.class.getName()).log(Level.SEVERE, null, ex1);
+                JavaMailUtil.sendMail(mail,"", "", sujet, texte);                       // Dans la classe JavaMailUtil, nous avons l'implémentation de ma méthode sendMail() qui permet t'établie l'envoi du mail
+            } catch (Exception ex) {
+                Logger.getLogger(GestionMdpServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+      vue = VUE_VERIFY;    // + passer la main a jsp VUE_MESSAGE (juste un message)
+        } else {
+          request.setAttribute("erreurLogin", "Email introuvable ou  modification pas confirmée");
         }
-        try {
-            request.getRequestDispatcher(vue).forward(request, response);                   // La servlet nous envoi vers la vue appropriée en envoyant avec les objets request et response
-        } catch (ServletException ex) {
-            Logger.getLogger(GestionMdpServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(GestionMdpServlet.class.getName()).log(Level.SEVERE, null, ex);
+      } catch (SQLException ex) {
+          Logger.getLogger(GestionMdpServlet.class.getName()).log(Level.SEVERE, null, ex);
+          vue = VUE_ERREUR;
         }
 
-    }
-
-    private void processRequest(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      }
+      request.getRequestDispatcher(vue).forward(request, response);                   // La servlet nous envoi vers la vue appropriée en envoyant avec les objets request et response
     }
 }
