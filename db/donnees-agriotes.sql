@@ -6,18 +6,20 @@ BEGIN
   DELETE FROM membre_session;
   DELETE FROM personne;
   DELETE FROM session_formation;
-  INSERT INTO personne (id_personne, nom, prenom, email, mdp) values 
-  (1, 'Ricardo', 'Yáo', 'stagiaire1@gmail.com', 'azerty'),
-  (2, 'Kilyan', 'Melys', 'stagiaire2@gmail.com', 'azerty'),
-  (3, 'Baptiste', 'Thym', 'stagiaire3@gmail.com', 'azerty'),
-  (4, 'Reda', 'Geraldine', 'stagiaire4@gmail.com', 'azerty'),
-  (5, 'Kenzy', 'Ruo', 'stagiaire5@gmail.com', 'azerty'),
-  (6, 'Mohamed', 'Roux', 'stagiaire6@gmail.com', 'azerty'),
-  (7, 'Eskander', 'Skand', 'stagiaire7@gmail.com', 'azerty'),
-  (8, 'Felix', 'Cat', 'stagiaire8@gmail.com', 'azerty'),
-  (9, 'Shafiqullah', 'Chris', 'stagiaire9@gmail.com', 'azerty'),
-  (10, 'Michel', 'Ruo', 'formateur1@gmail.com', 'azerty'),
-  (11, 'Brigitte', 'Daniele', 'formateur2@gmail.com', 'azerty');
+  INSERT INTO personne (id_personne, nom, prenom, email, mdp, est_formateur, est_administration) values 
+  (1, 'Ricardo', 'Yáo', 'stagiaire1@gmail.com', 'azerty', 0, 0),
+  (2, 'Kilyan', 'Melys', 'stagiaire2@gmail.com', 'azerty', 0, 0),
+  (3, 'Baptiste', 'Thym', 'stagiaire3@gmail.com', 'azerty', 0, 0),
+  (4, 'Reda', 'Geraldine', 'stagiaire4@gmail.com', 'azerty', 0, 0),
+  (5, 'Kenzy', 'Ruo', 'stagiaire5@gmail.com', 'azerty', 0, 0),
+  (6, 'Mohamed', 'Roux', 'stagiaire6@gmail.com', 'azerty', 0, 0),
+  (7, 'Eskander', 'Skand', 'stagiaire7@gmail.com', 'azerty', 0, 0),
+  (8, 'Felix', 'Cat', 'stagiaire8@gmail.com', 'azerty', 0, 0),
+  (9, 'Shafiqullah', 'Chris', 'stagiaire9@gmail.com', 'azerty', 0, 0),
+  (10, 'Michel', 'Ruo', 'formateur1@gmail.com', 'azerty', 1, 0),
+  (11, 'Brigitte', 'Daniele', 'formateur2@gmail.com', 'azerty', 1, 0),
+  (12, 'Adeline', 'Brun', 'administration1@gmail.com', 'azerty', 0, 1),
+  (13, 'Enora', 'Marquis', 'administration2@gmail.com', 'azerty', 0, 1);
 
   INSERT INTO session_formation(id_session_formation, nom, date_debut, date_fin) values 
   (1,'BTS SIO 2019-2020','2019-09-02','2020-05-29'),

@@ -61,7 +61,7 @@ public class RappelMdpServlet extends HttpServlet {
                 if (nb == 1) {
                     // Jeton positionne : envoyer le mail avec JavaMailUtil
                     String texte = "Veuillez confirmer la modification de votre mot de passe en cliquant sur le lien ci-après :"
-                            + JavaMailUtil.getCompletePath("confirmationChangementMdp?jeton=" + jeton, request);
+                            + JavaMailUtil.getCompletePath("changerMdp?jeton=" + jeton, request);
                     String sujet = "Confirmez votre changement de mot de passe sur AGRIOTES";
                     JavaMailUtil.sendMail(mail, "", "", sujet, texte);                       // Dans la classe JavaMailUtil, nous avons l'implémentation de ma méthode sendMail() qui permet t'établie l'envoi du mail
                     vue = VUE_CONFIRMDP;    // + passer la main a jsp VUE_MESSAGE (juste un message)

@@ -33,7 +33,11 @@ public class PersonneDao {
             = "Insert into personne (nom,prenom,email,mdp,jeton,date_butoir_jeton) VALUES(?,?,?,?,?,?)";
     public static final String SET_JETON
             = "UPDATE personne SET jeton=? WHERE email=? ";
-
+    public static final String MAJ_BY_ID_PERSONNE
+          = "UPDATE personne SET nom =?, prenom =?,email = ?, mdp =?  WHERE id_personne =? ";
+            
+            
+            
     public static void insert(Personne p) throws SQLException {
         Connection db = Database.getConnection();
         PreparedStatement stmt = db.prepareStatement(INSERTION); //"Insert into personne (nom,prenom,email,mdp,jeton,date_butoir_jeton) VALUES(?,?,?,?,?,?)"
@@ -49,21 +53,21 @@ public class PersonneDao {
 
     public static void deletePerson(String jeton) throws SQLException {
         Connection db = Database.getConnection();
-        PreparedStatement stmt = db.prepareStatement(DELETE_BY_JETON); //"DELETE FROM personne WHERE jeton=? "; 
+        PreparedStatement stmt = db.prepareStatement(DELETE_BY_JETON); //"DELETE FROM personne WHERE jeton=? ";
         stmt.setString(1, jeton);
         stmt.executeUpdate();
     }
 
     public static void deletePersonBydate(Timestamp now) throws SQLException {
         Connection db = Database.getConnection();
-        PreparedStatement stmt = db.prepareStatement(DELETE_BY_DATE_BUTOIR); //"DELETE FROM personne WHERE date_butoir_jeton <= ? " 
+        PreparedStatement stmt = db.prepareStatement(DELETE_BY_DATE_BUTOIR); //"DELETE FROM personne WHERE date_butoir_jeton <= ? "
         stmt.setTimestamp(1, now);
         stmt.executeUpdate();
     }
 
     public static void updatePersonByMdp(String mail) throws SQLException {
         Connection db = Database.getConnection();
-        PreparedStatement stmt = db.prepareStatement(SET_JETON); //"update mdp FROM personne WHERE email= ? " 
+        PreparedStatement stmt = db.prepareStatement(SET_JETON); //"update mdp FROM personne WHERE email= ? "
         //stmt.setTimestamp(1, now);
         stmt.executeUpdate();
     }
@@ -139,14 +143,17 @@ public class PersonneDao {
                     ? null : rs.getTimestamp("date_inscription").toLocalDateTime();
             LocalDateTime dateButoirJeton = (rs.getTimestamp("date_butoir_jeton") == null)
                     ? null : rs.getTimestamp("date_butoir_jeton").toLocalDateTime();
-            String Jeton = (rs.getString("jeton") == null) ? "" : rs.getString("jeton");
+      String jeton = (rs.getString("jeton") == null) ? "" : rs.getString("jeton");
             result = new Personne(
                     rs.getInt("id_personne"),
                     rs.getString("nom"),
                     rs.getString("prenom"),
                     rs.getString("email"),
                     rs.getString("mdp"),
-                    Jeton,
+              rs.getString("url_photo"),
+              rs.getBoolean ("est_Administration"),
+              rs.getBoolean ("est_Formateur"),
+              jeton,
                     dateInscription,
                     dateButoirJeton
             );
@@ -173,5 +180,20 @@ public class PersonneDao {
         stmt.setString(1, jeton);
         stmt.setString(2, email);
         return stmt.executeUpdate();
+    }
+
+    public static void majByIdPersonne(Personne personne) throws SQLException {
+
+        try (Connection db = Database.getConnection()) {
+            try (PreparedStatement stmt = db.prepareStatement(MAJ_BY_ID_PERSONNE)) {
+                stmt.setString(1, personne.getNom());
+                stmt.setString(2, personne.getPrenom());
+                stmt.setString(3, personne.getEmail());
+                stmt.setString(4, personne.getMdp());
+                stmt.setInt(5, personne.getId());
+                stmt.executeUpdate();
+            }
+            db.close();
+        }
     }
 }
