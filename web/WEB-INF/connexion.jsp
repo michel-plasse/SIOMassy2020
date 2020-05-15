@@ -1,16 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <link rel="stylesheet" href="css/style.css"/>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Agriotes - connexion</title>
-    <link rel="stylesheet" href="agriotes.css"/>
-  </head>
-  <body>
-    <h1>Connexion2</h1>
-    §§§§§§§§§§§§§
+<%@taglib prefix="a" tagdir="/WEB-INF/tags"%>
+<a:enTete titre="connexion"/>
+  <h1>Connexion</h1>
     <c:if test='${sessionScope["user"] == null}'>
 
     <form id="loginForm" action="connexion" method="POST">
@@ -27,7 +19,7 @@
         <button type="submit">Déconnecter ${sessionScope["user"].email}</button>
       </form>
     </c:if>  
-            <form id="CHGMDPForm" action="demanderNouvMdp" method="POST">
+            <form id="CHGMDPForm" action="rappelMdp" method="POST">
         <c:if test="${erreurLogin != null}"></c:if>
         <button type="submit">modifier mot de passe
             

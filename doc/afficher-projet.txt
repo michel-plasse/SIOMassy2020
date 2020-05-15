@@ -1,0 +1,9 @@
+@startuml
+participant Navigateur
+participant Vue
+
+Navigateur -> Controleur: GET /projet?idProjet=12
+Controleur -> Dao: ProjetDao dao = ...\nList<Projet> projets = dao.getById(idProjet);
+Controleur -> Vue: projet.jsp
+Vue -> Navigateur: détail du projet
+@enduml
