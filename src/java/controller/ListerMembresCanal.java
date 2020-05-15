@@ -6,9 +6,7 @@
 package controller;
 
 import dao.MembresCanalDao;
-import dao.PersonneDao;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -16,39 +14,43 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modele.Canal;
-import modele.MembresCanal;
-import modele.Personne;
+import modele.Membre;
 
 /**
  *
  * @author Cissé-LENOVO
  */
-@WebServlet(name = "ListerMembresCanal", urlPatterns = {"/ListerMembresCanal"})
+@WebServlet(name = "ListerMembresCanal", urlPatterns = {"/membresCanal"})
 public class ListerMembresCanal extends HttpServlet {
-
+    private int idCanal;
+    private int idPersonne;
     /**
      * Vue si succes
      */
-    private static final String VUE_OK = "WEB-INF/listerMembresCanal.jsp";
+    private static final String VUE_OK = "WEB-INF/membresCanal.jsp";
     /**
      * Vue si erreur (exception)
      */
     private static final String VUE_ERREUR = "WEB-INF/exception.jsp";
 
+
+
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Soyons optimistes
         String vue = VUE_OK;
 
         // Recuperer les donnees des membres d'un canal
+        int idCanal = 1;
+
         try {
-            List<MembresCanal> membres = MembresCanalDao.getAll();
-            // Ajouter 2 post it            
+            List<Membre> membres = MembresCanalDao.getMembres(idCanal);
 
             request.setAttribute("membres", membres);
+            request.setAttribute("idCanal", idCanal);
+            //response.sendRedirect("/membresCanal?idCanal="+idCanal);
         } catch (SQLException exc) {
             exc.printStackTrace();
             request.setAttribute("exception", exc);
@@ -58,5 +60,7 @@ public class ListerMembresCanal extends HttpServlet {
         request.getRequestDispatcher(vue).forward(request, response);
 
     }
+
+
 
 }

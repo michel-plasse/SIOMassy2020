@@ -12,16 +12,16 @@ import java.util.logging.Logger;
  *
  * @author Cissé-LENOVO
  */
-public class MembresCanal {
+public class Membre {
     private int idCanal;
     private int idPersonne;
     
-    public MembresCanal(){
+    public Membre(){
         idCanal =0;
         idPersonne = 0;
     }
 
-    public MembresCanal(int idCanal, int idPersonne) {
+    public Membre(int idCanal, int idPersonne) {
         this.idCanal = idCanal;
         this.idPersonne = idPersonne;
     }
@@ -46,7 +46,7 @@ public class MembresCanal {
 
   
     
-    private static final Logger LOG = Logger.getLogger(MembresCanal.class.getName());
+    private static final Logger LOG = Logger.getLogger(Membre.class.getName());
 
     @Override
     public int hashCode() {
@@ -54,5 +54,6 @@ public class MembresCanal {
         return hash;
     }
 
+   
 
 }

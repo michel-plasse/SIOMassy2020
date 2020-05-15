@@ -16,13 +16,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import modele.MembresCanal;
+import modele.Membre;
 
 /**
  *
  * @author Cissé-LENOVO
  */
-@WebServlet(name = "SupprimerMembresCanal", urlPatterns = {"/supprimerMembresCanal"})
+@WebServlet(name = "SupprimerMembresCanal", urlPatterns = {"/membresCanal"})
 public class SupprimerMembresCanal extends HttpServlet {
 
     /**
@@ -34,24 +34,14 @@ public class SupprimerMembresCanal extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-    private MembresCanal MembresCanal;
+    private Membre MembresCanal;
     private int idCanal;
 
-    private static final String VUE_OK = "WEB-INF/supprimerMembresCanal.jsp";
+    private static final String VUE_OK = "WEB-INF/membresCanal.jsp";
     /**
      * Vue si erreur (exception)
      */
     private static final String VUE_ERREUR = "WEB-INF/exception.jsp";
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
-        MembresCanal membres = (MembresCanal) session.getAttribute("user");
-        request.getRequestDispatcher(VUE_OK).forward(request, response);
-
-    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -59,16 +49,15 @@ public class SupprimerMembresCanal extends HttpServlet {
 
         response.setContentType("text/html");
         String vue = VUE_OK;
-        PrintWriter out = response.getWriter();
-        int idCanal = Integer.parseInt(request.getParameter("id_canal"));
-        MembresCanalDao membres = new MembresCanalDao();
-        try {
-            
-            membres.supprimerMembreByIdCanal(idCanal);
-            vue = VUE_OK;
 
+        int idCanal = Integer.parseInt(request.getParameter("id_canal"));
+
+        MembresCanalDao dao = new MembresCanalDao();
+        try {
+
+            dao.supprimerMembre(idCanal);
+            response.sendRedirect("/membresCanal?idCanal=" +idCanal);
         } catch (SQLException exc) {
-            out.println(" Membre pas supprimé");
 
             exc.printStackTrace();
             request.setAttribute("exception", exc);
@@ -76,7 +65,6 @@ public class SupprimerMembresCanal extends HttpServlet {
 
         }
 
-        request.getRequestDispatcher(vue).forward(request, response);
     }
 
 }
