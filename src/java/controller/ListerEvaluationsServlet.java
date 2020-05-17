@@ -16,47 +16,44 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import modele.Evaluation;
 import modele.Personne;
 
 /**
  *
  * @author azery
  */
-@WebServlet(name = "ListerEvaluationsServlet", urlPatterns = {"/listeEvaluations"})
+@WebServlet(name = "ListerEvaluationsServlet", urlPatterns = {"/evaluations"})
 public class ListerEvaluationsServlet extends HttpServlet {
 
- 
-   private final String VUE_OK = "/WEB-INF/listeEvaluations.jsp";
-   private final String VUE_ERREUR = "/WEB-INF/exception.jsp";
-
+  private final String VUE_OK = "/WEB-INF/listeEvaluations.jsp";
+  private final String VUE_ERREUR = "/WEB-INF/exception.jsp";
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
     String vue = VUE_OK;
-        try {
-            
-           //  List<Evaluation> evaluations = dao.getEvaluationByFormateur(personne.getId());
-           List<Personne> evaluations = EvaluationDao.getEvaluationByFormateur();
-           request.setAttribute("evaluation", evaluations);
-            
-        } catch (SQLException exc) {
-            Logger.getLogger(ConnexionServlet.class.getName()).log(Level.SEVERE, null, exc);
-            request.setAttribute("exception", exc);
-            vue = VUE_ERREUR;
-        }
-        getServletContext().getRequestDispatcher(vue).forward(request, response);
-    
-  }
+    try {
+      HttpSession session = request.getSession(true);
+      Personne p = (Personne) session.getAttribute("user");
+      List<Evaluation> evaluations = EvaluationDao.getEvaluationByFormateur(p.getId());
+      request.setAttribute("evaluation", evaluations);
 
+    } catch (SQLException exc) {
+      Logger.getLogger(ConnexionServlet.class.getName()).log(Level.SEVERE, null, exc);
+      request.setAttribute("exception", exc);
+      vue = VUE_ERREUR;
+    }
+    getServletContext().getRequestDispatcher(vue).forward(request, response);
+  }
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    
+
   }
 
-  
   @Override
   public String getServletInfo() {
     return "Short description";
