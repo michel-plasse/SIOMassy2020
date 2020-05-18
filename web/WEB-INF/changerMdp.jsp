@@ -22,7 +22,7 @@
     </div>
     <h1>Changer votre Mot de Passe</h1><hr>
     <p><strong>Inscrivez-vous</strong></p>
-    <form action="changerMdp" method="get">
+    <form action="changerMdp" method="post">
       <table>
         <tr>
          <tr>

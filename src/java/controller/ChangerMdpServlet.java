@@ -34,7 +34,7 @@ import tools.JavaMailUtil;
 @WebServlet(name = "ChangerMdpServlet", urlPatterns = {"/changerMdp"})
 public class ChangerMdpServlet extends HttpServlet {
 
-    private static final String VUE_FORM_CHG = "/WEB-INF/changementMdp.jsp";
+    private static final String VUE_FORM_CHG = "/WEB-INF/changerMdp.jsp";
     private static final String VUE_INDEX = "/index.jsp";
     private static final String VUE_FORM_CON = "/WEB-INF/connexion.jsp";
     // Pour tester private static final String VUE_VERIFY= "/WEB-INF/verify.jsp";
@@ -62,7 +62,7 @@ public class ChangerMdpServlet extends HttpServlet {
             ResultSet rs = stmt.executeQuery(jeton);
       if (rs.next(jeton)) {
       PersonneDao dao = new PersonneDao();
-      Personne personne = dao.getByJeton(String mail, jeton);
+      Personne personne = dao.getByJeton(String mail, String jeton);
 //        //long diff = now.getTime()-t.getTime();              
 //        //if (diff<=86400000){
 //        if (t.getTime() > timestamp.getTime()) {
@@ -80,12 +80,12 @@ public class ChangerMdpServlet extends HttpServlet {
 //          request.setAttribute("messageBienvenue", "Vous avez dépassé le temps accordé pour valider votre inscription, Nous vous invitons à vous réinscrire");
 //        }
 //
-//      }
+      }
             // Pour tester vue=VUE_VERIFY;
 
         } catch (SQLException ex) {
-            Logger.getLogger(ConfirmationEmailServlet.class.getName()).log(Level.SEVERE, null, ex);
-            vue = VUE_INDEX;
+            Logger.getLogger(ChangerMdpServlet.class.getName()).log(Level.SEVERE, null, ex);
+            vue = VUE_FORM_CHG;
 
         }
         //response.sendRedirect(vue);
