@@ -81,7 +81,16 @@ public class Personne {
     this.estFormateur = estFormateur;
     this.estAdministration = estAdministration;
   }
-
+ public Personne(int id, String nom, String prenom, String email, String mdp,  String jeton, LocalDateTime dateinscription, LocalDateTime dateButoirJeton) {
+    this.id = id;
+    this.nom = nom;
+    this.prenom = prenom;
+    this.email = email;
+    this.mdp = mdp;
+    this.jeton = jeton;
+    this.dateInscription = dateinscription;
+    this.dateButoirJeton = dateButoirJeton;}
+ 
   public int getId() {
     return id;
   }
