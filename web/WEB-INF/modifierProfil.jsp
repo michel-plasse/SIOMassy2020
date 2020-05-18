@@ -1,15 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "a" tagdir="/WEB-INF/tags"%>
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Agriotes - Modifier Profil</title>
-    <link rel="stylesheet" href="agriotes.css"/>
-  </head>
-  <a:enTete titre="Modification des informations Personnelles"/>
-  <h1> Modification des informations personnelles </h1>
+  <a:enTete titre="Modifier mon profil"/>
+  <h1> Modifier mon profil </h1>
   <% session.getAttribute("user");%>
   <c:if test="${user == null}">
     <p class="erreur">Vous devez vous connecter pour mettre à jour votre profil</p>
