@@ -35,7 +35,7 @@ public class PersonneDao {
             = "UPDATE personne SET jeton=? WHERE email=? ";
     public static final String MAJ_BY_ID_PERSONNE
             = "UPDATE personne SET nom =?, prenom =?,email = ?, mdp =?  WHERE id_personne =? ";
-    public static final String GET_BY_Jeton
+    public static final String GET_BY_JETON
             = "SELECT * FROM personne WHERE jeton=? ";
 public static final String CHECK_BY_ACTIF
             = "SELECT * FROM personne WHERE email=? and date_inscription IS NOT NULL";
@@ -174,7 +174,13 @@ public static final String CHECK_BY_ACTIF
         stmt.setString(2, email);
         return stmt.executeUpdate();
     }
-
+ public static int getByJeton(String email, String jeton) throws SQLException {
+        Connection con = Database.getConnection();
+        PreparedStatement stmt = con.prepareStatement(GET_BY_JETON);
+        stmt.setString(1, jeton);
+        stmt.setString(2, email);
+        return stmt.executeUpdate();
+    }
     public static void majByIdPersonne(Personne personne) throws SQLException {
 
         try (Connection db = Database.getConnection()) {

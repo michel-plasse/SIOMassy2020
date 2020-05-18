@@ -58,9 +58,11 @@ public class ChangerMdpServlet extends HttpServlet {
             Connection db = Database.getConnection();
             PreparedStatement stmt = db.prepareStatement("SELECT * from personne where jeton= ?");
             stmt.setString(1, jeton);
-            ResultSet rs = stmt.executeQuery();
-//      if (rs.next()) {
-//       PersonneDao.GET_BY_Jeton = rs.getpa("jeton");
+           
+            ResultSet rs = stmt.executeQuery(jeton);
+      if (rs.next(jeton)) {
+      PersonneDao dao = new PersonneDao();
+      Personne personne = dao.getByJeton(String mail, jeton);
 //        //long diff = now.getTime()-t.getTime();              
 //        //if (diff<=86400000){
 //        if (t.getTime() > timestamp.getTime()) {
@@ -146,7 +148,7 @@ public class ChangerMdpServlet extends HttpServlet {
 //      vue = VUE_VERIFY;                                                   // la valeur de vue change à "/WEB-INF/verify.jsp"
     } catch (SQLException ex) {
       try {
-        Logger.getLogger(InscriptionServlet.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(ChangerMdpServlet.class.getName()).log(Level.SEVERE, null, ex);
         switch (ex.getErrorCode()) {
           case Database.DOUBLON:
             boolean estConfirme = PersonneDao.estValide(mail);
@@ -160,10 +162,10 @@ public class ChangerMdpServlet extends HttpServlet {
         }
         request.setAttribute("erreurLogin", msg);
       } catch (SQLException ex1) {
-        Logger.getLogger(InscriptionServlet.class.getName()).log(Level.SEVERE, null, ex1);
+        Logger.getLogger(ChangerMdpServlet.class.getName()).log(Level.SEVERE, null, ex1);
       }
     } catch (Exception ex) {
-      Logger.getLogger(InscriptionServlet.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(ChangerMdpServlet.class.getName()).log(Level.SEVERE, null, ex);
     }
     request.getRequestDispatcher(VUE_FORM_CON).forward(request, response);                   // La servlet nous envoi vers la vue appropriée en envoyant avec les objets request et response
  }

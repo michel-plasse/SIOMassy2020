@@ -46,6 +46,10 @@ public class Personne {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public Personne(String mail, String mdp) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
   public void setdateButoirJeton(LocalDateTime dateButoirJeton) {
     this.dateButoirJeton = dateButoirJeton;
   }
