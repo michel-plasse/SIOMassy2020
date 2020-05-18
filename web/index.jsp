@@ -12,6 +12,7 @@
         <div class="sidenav">
           <a href="inscription">Inscription</a> <hr>
           <a href="connexion">Connexion</a> <hr>
+          <a href="rappelMdp">Modifier Mot de Passe</a> 
           
         </div>
         

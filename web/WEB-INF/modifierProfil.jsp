@@ -9,55 +9,55 @@
     <link rel="stylesheet" href="agriotes.css"/>
   </head>
   <a:enTete titre="Modification des informations Personnelles"/>
-
-  
+  <h1> Modification des informations personnelles </h1>
   <% session.getAttribute("user");%>
-
   <c:if test="${user == null}">
     <p class="erreur">Vous devez vous connecter pour mettre à jour votre profil</p>
   </c:if>
-
   <c:if test="${user != null}"  >
-    <br>
     <c:if test="${user.urlPhoto != null}"  >
       <img src="img/${user.urlPhoto}" />
     </c:if>
-    <br>
     <c:if test="${user.estFormateur == true}"  >
       <p> FORMATEUR </p>
     </c:if>
-
     <c:if test="${user.estAdministration == true}"  >
       <p> ADMINISTRATEUR </p>
     </c:if>
-
-    <c:if test="${user.estFormateur !=true } && ${user.estAdministration!=true}">
+    <c:if test="${user.estFormateur == false } && ${user.estAdministration == false}">
       <p> STAGIAIRE </p>
     </c:if>
-    <hr>
-    <form id="loginForm" action="modifierProfil" method="POST">
-      <div align="left" style="padding-left: 200px">
-        <label for="nom"> Nom </label> 
-        <input type="text" name="nom" id="nom" value="${user.nom}" required="true"/>
+    <body>
+      <form id="loginForm" action="modifierProfil" method="POST">
+        <div style="padding-top:10px">
+          <table>
+            <tr>
+              <th><label for="nom"> Nom </label></th> 
+              <td><input type="text" name="nom" id="nom" value="${user.nom}" required="true"/></td>
+            </tr>
+            <tr>
+              <th> <label for="prenom"> Prenom </label></th>
+              <td><input type="text" name="prenom" id="prenom" value="${user.prenom}" required="true"/> </td>
+            </tr>
+            <tr>
+              <th><label for="email"> Mail </label> </th> 
+              <td><input type="text" name="email" id="email" value="${user.email}" required="true"/> </td> 
+                <a:erreurEmail test="${emailEstInvalide}"/>
+            </tr>
+            <tr>
+              <th><label for="mdp1"> Mot De Passe </label></th> 
+              <td class="tdModifProfil"><input type="password" name="mdp1" id="mdp1" value="${user.mdp}" required="true"/></td> 
+                <a:erreurMdp test="${mdpEstInvalide}"/>       
+              <th><label for="mdp2"> Veuillez confirmer votre Mot De Passe </label></th> 
+              <td><input type="password" name="mdp2" id="mdp2" value="${user.mdp}" required="true"/></td> 
+              <td><a:erreurMdpDiff test="${mdpEstDifferent}"/></td>
+            </tr>
+          </table>
+        </div>
         <br>
-        <label for="prenom"> Prenom </label> <input type="text" name="prenom" id="prenom" value="${user.prenom}" required="true"/>
-        <br>
-        <label for="email"> Email </label> 
-        <input type="text" name="email" id="email" value="${user.email}" required="true"/> 
-        <a:erreurEmail test="${emailEstInvalide}"/>
-        <br>
-        <label for="mdp1"> Mot De Passe </label> 
-        <input type="password" name="mdp1" id="mdp1" value="${user.mdp}" required="true"/> 
-        <a:erreurMdp test="${mdpEstInvalide}"/>       
-        <label for="mdp2"> Veuillez resaisir votre Mot De Passe en cas de modification </label> 
-        <input type="password" name="mdp2" id="mdp2" value="${user.mdp}" required="true"/> 
-        <a:erreurMdpDiff test="${mdpEstDifferent}"/>
-      </div>
-      <br>
-      <hr>
-      <button name = "bouton_valid" value = "Enregister" type = "submit">Mise à jour des informations personnelles </button>  
-      <button name = "bouton_valid" value = "Abandonner" type = "submit" >Abandonner la mise à jour </button>
-    </form>
-    
-  </c:if>
+        <hr>
+        <button name = "bouton_valid" value = "Enregister" type = "submit">Mise à jour des informations personnelles </button>  
+        <button name = "bouton_valid" value = "Abandonner" type = "submit" >Abandonner la mise à jour </button>
+      </form>
+    </c:if>
 </html>
