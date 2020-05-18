@@ -27,18 +27,19 @@ public class Personne {
     this.dateButoirJeton = LocalDateTime.now().plusHours(24);
 
   }
-
-  public Personne(int id, String nom, String prenom, String email, String mdp, String jeton, LocalDateTime dateinscription, LocalDateTime dateButoirJeton) {
+  public Personne(int id, String nom, String prenom, String email, String mdp, String urlPhoto, Boolean estAdministration, Boolean estFormateur, String jeton, LocalDateTime dateinscription, LocalDateTime dateButoirJeton) {
     this.id = id;
     this.nom = nom;
     this.prenom = prenom;
     this.email = email;
     this.mdp = mdp;
+    this.urlPhoto = urlPhoto;
+    this.estAdministration = estAdministration;
+    this.estFormateur = estFormateur;
     this.jeton = jeton;
     this.dateInscription = dateinscription;
     this.dateButoirJeton = dateButoirJeton;
     // Constructeur utilisé pour créer le USER dans ConnexionServlet
-
   }
 
   public void setdateButoirJeton(LocalDateTime dateButoirJeton) {
@@ -80,7 +81,16 @@ public class Personne {
     this.estFormateur = estFormateur;
     this.estAdministration = estAdministration;
   }
-
+ public Personne(int id, String nom, String prenom, String email, String mdp,  String jeton, LocalDateTime dateinscription, LocalDateTime dateButoirJeton) {
+    this.id = id;
+    this.nom = nom;
+    this.prenom = prenom;
+    this.email = email;
+    this.mdp = mdp;
+    this.jeton = jeton;
+    this.dateInscription = dateinscription;
+    this.dateButoirJeton = dateButoirJeton;}
+ 
   public int getId() {
     return id;
   }
