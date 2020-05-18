@@ -5,7 +5,7 @@
  */
 package controller;
 
-import dao.MembresCanalDao;
+import dao.CanalDao;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
@@ -47,9 +47,9 @@ public class AjouterMembresCanal extends HttpServlet {
         response.setContentType("text/html");
         String vue = VUE_OK;
 
-        MembresCanalDao dao = new MembresCanalDao();
+        CanalDao dao = new CanalDao();
         try {
-            int idCanal = Integer.parseInt(request.getParameter("id_canal"));
+            int idCanal = Integer.parseInt(request.getParameter("idCanal"));
 
         } catch (NumberFormatException e) {
             request.setAttribute("message", "Veuillez saisir un entier pour l'idCanal");
@@ -61,10 +61,8 @@ public class AjouterMembresCanal extends HttpServlet {
 
         }
         try {
-            Membre membre = new Membre();
-            membre.setIdCanal(idCanal);
-            membre.setIdPersonne(idPersonne);
-            dao.ajouterMembre(membre);
+            
+            dao.ajouterMembre(idCanal, idPersonne);
             //URL Rewritting
             //response.sendRedirect("ajouterMembresCanal?idCanal=1");
 

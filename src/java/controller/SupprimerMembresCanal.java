@@ -5,17 +5,14 @@
  */
 package controller;
 
-import dao.MembresCanalDao;
+import dao.CanalDao;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import modele.Membre;
 
 /**
@@ -38,6 +35,7 @@ public class SupprimerMembresCanal extends HttpServlet {
 
     private Membre MembresCanal;
     private int idCanal;
+    private int idPersonne;
 
     private static final String VUE_OK = "WEB-INF/index.jsp";
     /**
@@ -58,11 +56,17 @@ public class SupprimerMembresCanal extends HttpServlet {
             request.setAttribute("message", "Veuillez saisir un entier pour l'idCanal");
 
         }
+        try {
+            int idPersonne = Integer.parseInt(request.getParameter("id_canal"));
+        } catch (NumberFormatException e) {
+            request.setAttribute("message", "Veuillez saisir un entier pour l'idCanal");
 
-        MembresCanalDao dao = new MembresCanalDao();
+        }
+
+        CanalDao dao = new CanalDao();
         try {
 
-            dao.supprimerMembre(idCanal);
+            dao.supprimerMembre(idCanal, idPersonne);
             //response.sendRedirect("supprimerMembresCanal?idCanal=1");
         } catch (SQLException exc) {
 

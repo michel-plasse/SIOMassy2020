@@ -5,7 +5,7 @@
  */
 package controller;
 
-import dao.MembresCanalDao;
+import dao.CanalDao;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -41,10 +41,10 @@ public class MembresCanal extends HttpServlet {
         // Soyons optimistes
         String vue = VUE_OK;
 
-        int idCanal = 1;
+        int idCanal = 2;
         // Recuperer les donnees des membres d'un canal
         try {
-            List<Membre> membres = MembresCanalDao.getMembres(idCanal);
+            List<Membre> membres = CanalDao.getMembres(idCanal);
             // Ajouter 2 post it            
 
             request.setAttribute("membres", membres);
