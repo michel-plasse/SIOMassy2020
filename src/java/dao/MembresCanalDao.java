@@ -24,17 +24,16 @@ public class MembresCanalDao {
     
     public static final String AFFICHER_MEMBRE_CANAL
             = "SELECT  mc.id_canal, mc.id_personne FROM membre_canal mc WHERE mc.id_canal = ?";
-            //+ "JOIN personne p ON mc.id_personne = p.id_personne, p.nom, "
       
     
         public static final String AFFICHER_TOUS_LES_MEMBRES
             = "SELECT  * FROM membre_canal ";
 
     public static final String INSERER_MEMBRE_CANAL
-            = "Insert into membre_canal(id_canal, id_personne) VALUES(?,?)";
+            = "Insert into membre_canal  (id_personne) VALUES(?)";
     
     public static final String DELETE_MEMBRE_CANAL
-          = "DELETE FROM membre_canal WHERE id_canal=? ";
+          = "DELETE FROM membre_canal mc WHERE mc.id_canal=? ";
      
     /**
      *

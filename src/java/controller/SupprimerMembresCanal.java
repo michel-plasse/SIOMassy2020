@@ -22,7 +22,7 @@ import modele.Membre;
  *
  * @author Cissé-LENOVO
  */
-@WebServlet(name = "SupprimerMembresCanal", urlPatterns = {"/membresCanal"})
+@WebServlet("/index")
 public class SupprimerMembresCanal extends HttpServlet {
 
     /**
@@ -34,10 +34,12 @@ public class SupprimerMembresCanal extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private static final long serialVersionUID = 1L;
+
     private Membre MembresCanal;
     private int idCanal;
 
-    private static final String VUE_OK = "WEB-INF/membresCanal.jsp";
+    private static final String VUE_OK = "WEB-INF/index.jsp";
     /**
      * Vue si erreur (exception)
      */
@@ -50,13 +52,18 @@ public class SupprimerMembresCanal extends HttpServlet {
         response.setContentType("text/html");
         String vue = VUE_OK;
 
-        int idCanal = Integer.parseInt(request.getParameter("id_canal"));
+        try {
+            int idCanal = Integer.parseInt(request.getParameter("id_canal"));
+        } catch (NumberFormatException e) {
+            request.setAttribute("message", "Veuillez saisir un entier pour l'idCanal");
+
+        }
 
         MembresCanalDao dao = new MembresCanalDao();
         try {
 
             dao.supprimerMembre(idCanal);
-            response.sendRedirect("/membresCanal?idCanal=" +idCanal);
+            //response.sendRedirect("supprimerMembresCanal?idCanal=1");
         } catch (SQLException exc) {
 
             exc.printStackTrace();
@@ -64,6 +71,7 @@ public class SupprimerMembresCanal extends HttpServlet {
             vue = VUE_ERREUR;
 
         }
+        request.getRequestDispatcher(vue).forward(request, response);
 
     }
 

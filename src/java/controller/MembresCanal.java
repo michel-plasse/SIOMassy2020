@@ -20,10 +20,11 @@ import modele.Membre;
  *
  * @author Cissé-LENOVO
  */
-@WebServlet(name = "ListerMembresCanal", urlPatterns = {"/membresCanal"})
-public class ListerMembresCanal extends HttpServlet {
-    private int idCanal;
-    private int idPersonne;
+@WebServlet("/membresCanal")
+public class MembresCanal extends HttpServlet {
+
+    private static final long serialVersionUID = 1L;
+
     /**
      * Vue si succes
      */
@@ -33,24 +34,24 @@ public class ListerMembresCanal extends HttpServlet {
      */
     private static final String VUE_ERREUR = "WEB-INF/exception.jsp";
 
-
-
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        // Soyons optimistes
         String vue = VUE_OK;
 
-        // Recuperer les donnees des membres d'un canal
         int idCanal = 1;
-
+        // Recuperer les donnees des membres d'un canal
         try {
             List<Membre> membres = MembresCanalDao.getMembres(idCanal);
+            // Ajouter 2 post it            
 
             request.setAttribute("membres", membres);
             request.setAttribute("idCanal", idCanal);
-            //response.sendRedirect("/membresCanal?idCanal="+idCanal);
+            //URL Rewritting
+            //response.sendRedirect("membresCanal?idCanal="+idCanal);
+
         } catch (SQLException exc) {
             exc.printStackTrace();
             request.setAttribute("exception", exc);
@@ -60,7 +61,6 @@ public class ListerMembresCanal extends HttpServlet {
         request.getRequestDispatcher(vue).forward(request, response);
 
     }
-
-
+    
 
 }

@@ -41,19 +41,4 @@ public class Membre {
     public void setIdPersonne(int idPersonne) {
         this.idPersonne = idPersonne;
     }
-
-  
-
-  
-    
-    private static final Logger LOG = Logger.getLogger(Membre.class.getName());
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        return hash;
-    }
-
-   
-
 }
