@@ -34,10 +34,18 @@ public class PersonneDao {
     public static final String SET_JETON
             = "UPDATE personne SET jeton=? WHERE email=? ";
     public static final String MAJ_BY_ID_PERSONNE
-          = "UPDATE personne SET nom =?, prenom =?,email = ?, mdp =?  WHERE id_personne =? ";
-            
-            
-            
+            = "UPDATE personne SET nom =?, prenom =?,email = ?, mdp =?  WHERE id_personne =? ";
+    public static final String GET_BY_Jeton
+            = "SELECT * FROM personne WHERE jeton=? ";
+public static final String CHECK_BY_ACTIF
+            = "SELECT * FROM personne WHERE email=? and date_inscription IS NOT NULL";
+
+    public static final String DELETE_BY_JETON
+            = "DELETE FROM personne WHERE jeton=? ";
+
+    public static final String DELETE_BY_DATE_BUTOIR
+            = "DELETE FROM personne WHERE date_butoir_jeton <= ? ";
+    
     public static void insert(Personne p) throws SQLException {
         Connection db = Database.getConnection();
         PreparedStatement stmt = db.prepareStatement(INSERTION); //"Insert into personne (nom,prenom,email,mdp,jeton,date_butoir_jeton) VALUES(?,?,?,?,?,?)"
@@ -71,22 +79,7 @@ public class PersonneDao {
         //stmt.setTimestamp(1, now);
         stmt.executeUpdate();
     }
-    public static final String CHECK_BY_ACTIF
-            = "SELECT * FROM personne WHERE email=? and date_inscription IS NOT NULL";
-
-    public static final String DELETE_BY_JETON
-            = "DELETE FROM personne WHERE jeton=? ";
-
-    public static final String DELETE_BY_DATE_BUTOIR
-            = "DELETE FROM personne WHERE date_butoir_jeton <= ? ";
-
-    /**
-     * Stagiaires d'une session de formation
-     *
-     * @param idSession id de la session
-     * @return les stagiaires sous forme d'une List<Personne>
-     * @throws SQLException
-     */
+    
     /**
      * Stagiaires d'une session de formation
      *
@@ -143,17 +136,17 @@ public class PersonneDao {
                     ? null : rs.getTimestamp("date_inscription").toLocalDateTime();
             LocalDateTime dateButoirJeton = (rs.getTimestamp("date_butoir_jeton") == null)
                     ? null : rs.getTimestamp("date_butoir_jeton").toLocalDateTime();
-      String jeton = (rs.getString("jeton") == null) ? "" : rs.getString("jeton");
+            String jeton = (rs.getString("jeton") == null) ? "" : rs.getString("jeton");
             result = new Personne(
                     rs.getInt("id_personne"),
                     rs.getString("nom"),
                     rs.getString("prenom"),
                     rs.getString("email"),
                     rs.getString("mdp"),
-              rs.getString("url_photo"),
-              rs.getBoolean ("est_Administration"),
-              rs.getBoolean ("est_Formateur"),
-              jeton,
+                    rs.getString("url_photo"),
+                    rs.getBoolean("est_Administration"),
+                    rs.getBoolean("est_Formateur"),
+                    jeton,
                     dateInscription,
                     dateButoirJeton
             );
