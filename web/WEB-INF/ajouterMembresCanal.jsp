@@ -20,7 +20,7 @@
         </div> 
         <h1>Ajout de membres</h1>
         <form method="post" action="ajouterMembresCanal" >
-            Id Canal :  <input type="text" name="idCanal" />
+             <input type="hidden" name="idCanal" value="${membre.idCanal}" />
             Id personne :  <input type="text" name="idPersonne"/>
             <button type="submit">Ajouter</button>
         </form>

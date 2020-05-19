@@ -15,27 +15,28 @@
             <a href="membresCanal?idCanal="${idCanal}>Membres du Canal 1</a> <hr>
         </div> 
         <h1>Les membres du canal ${idCanal}</h1>
-
         <hr>
-
-        <table width = "300px" border="1">
-            <tr>
-                <th>ID canal</th>
-                <th>ID personne</th>
-                <th>Supprimer</th>
-            </tr>
-            <c:forEach items="${membres}" var="membre">
-                <tr>  
-                    <td>${membre.idCanal}</td>
-                    <td>${membre.idPersonne}</td>
-                    <td>
-                        <form action="index" method="post">
-                            <button type="submit">Supprimer</button>
-                        </form>
-                    </td>
+        <form action="supprimerMembresCanal" method="post">
+            <table width = "300px" border="1">
+                <tr>
+                    <th>ID canal</th>
+                    <th>ID personne</th>
+                    <th>Supprimer</th>
                 </tr>
-            </c:forEach>
-        </table>
+                <c:forEach items="${membres}" var="membre">
+                    <tr>  
+                        <td>${membre.idCanal}</td>
+                        <td>${membre.idPersonne}</td>
+                        <td>
+                            <input type="hidden" name="idCanal" value="${membre.idCanal}"/>
+                            <input type="hidden" name="idPersonne" value="${membre.idPersonne}"/>
+                            <button type="submit">Supprimer</button>
+
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </form>
 
         <a href="ajouterMembresCanal?idCanal=1">Ajouter</a><hr>                      
     </body>
