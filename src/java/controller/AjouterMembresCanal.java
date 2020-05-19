@@ -29,13 +29,12 @@ public class AjouterMembresCanal extends HttpServlet {
      * Vue si erreur (exception)
      */
     private static final String VUE_ERREUR = "WEB-INF/exception.jsp";
-    private int idCanal;
-    private int idPersonne;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String vue = VUE_OK;
         //response.sendRedirect("ajouterMembresCanal?idCanal=1");
+        
         request.getRequestDispatcher(vue).forward(request, response);
 
     }
@@ -44,24 +43,25 @@ public class AjouterMembresCanal extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        int idCanal = 1;
+        int idPersonne = 1;
         response.setContentType("text/html");
         String vue = VUE_OK;
 
         CanalDao dao = new CanalDao();
         try {
-            int idCanal = Integer.parseInt(request.getParameter("idCanal"));
+            idCanal = Integer.parseInt(request.getParameter("idCanal"));
 
         } catch (NumberFormatException e) {
             request.setAttribute("message", "Veuillez saisir un entier pour l'idCanal");
         }
         try {
-            int idPersonne = Integer.parseInt(request.getParameter("id_personne"));
+            idPersonne = Integer.parseInt(request.getParameter("idPersonne"));
         } catch (NumberFormatException e2) {
             request.setAttribute("message", "Veuillez saisir un entier pour l'idPersonne");
-
         }
         try {
-            
+
             dao.ajouterMembre(idCanal, idPersonne);
             //URL Rewritting
             //response.sendRedirect("ajouterMembresCanal?idCanal=1");

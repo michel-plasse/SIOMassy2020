@@ -19,7 +19,7 @@ import modele.Membre;
  *
  * @author Cissé-LENOVO
  */
-@WebServlet("/index")
+@WebServlet("/supprimerMembresCanal")
 public class SupprimerMembresCanal extends HttpServlet {
 
     /**
@@ -32,16 +32,19 @@ public class SupprimerMembresCanal extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     private static final long serialVersionUID = 1L;
-
-    private Membre MembresCanal;
-    private int idCanal;
-    private int idPersonne;
-
-    private static final String VUE_OK = "WEB-INF/index.jsp";
+    private static final String VUE_OK = "WEB-INF/supprimerMembresCanal.jsp";
     /**
      * Vue si erreur (exception)
      */
     private static final String VUE_ERREUR = "WEB-INF/exception.jsp";
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String vue = VUE_OK;
+        //response.sendRedirect("ajouterMembresCanal?idCanal=1");
+
+        request.getRequestDispatcher(vue).forward(request, response);
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -49,31 +52,28 @@ public class SupprimerMembresCanal extends HttpServlet {
 
         response.setContentType("text/html");
         String vue = VUE_OK;
-
+        //on affecte un entier à l'idCanal et à l'idPersonne
+        int idCanal = 1;
+        int idPersonne = 1;
         try {
-            int idCanal = Integer.parseInt(request.getParameter("id_canal"));
+            idCanal = Integer.parseInt(request.getParameter("idCanal"));
         } catch (NumberFormatException e) {
             request.setAttribute("message", "Veuillez saisir un entier pour l'idCanal");
-
         }
         try {
-            int idPersonne = Integer.parseInt(request.getParameter("id_canal"));
+            idPersonne = Integer.parseInt(request.getParameter("idPersonne"));
         } catch (NumberFormatException e) {
             request.setAttribute("message", "Veuillez saisir un entier pour l'idCanal");
-
         }
-
         CanalDao dao = new CanalDao();
         try {
-
             dao.supprimerMembre(idCanal, idPersonne);
-            //response.sendRedirect("supprimerMembresCanal?idCanal=1");
+            //response.sendRedirect("membresCanal?idCanal="+idCanal+"&?idPersonne="+idPersonne);
         } catch (SQLException exc) {
 
             exc.printStackTrace();
             request.setAttribute("exception", exc);
             vue = VUE_ERREUR;
-
         }
         request.getRequestDispatcher(vue).forward(request, response);
 

@@ -41,7 +41,7 @@ public class MembresCanal extends HttpServlet {
         // Soyons optimistes
         String vue = VUE_OK;
 
-        int idCanal = 2;
+        int idCanal = 1;
         // Recuperer les donnees des membres d'un canal
         try {
             List<Membre> membres = CanalDao.getMembres(idCanal);
