@@ -17,8 +17,8 @@
         <form action="supprimerMembresCanal" method="post">
             <table width = "300px" border="1">
                 <tr>
-                    <th>ID canal</th>
-                    <th>ID personne</th>
+                    <th>Id canal</th>
+                    <th>Id personne</th>
                     <th>Supprimer</th>
                 </tr>
                 <c:forEach items="${membres}" var="membre">
@@ -29,13 +29,11 @@
                             <input type="hidden" name="idCanal" value="${membre.idCanal}"/>
                             <input type="hidden" name="idPersonne" value="${membre.idPersonne}"/>
                             <button type="submit">Supprimer</button>
-
                         </td>
                     </tr>
                 </c:forEach>
             </table>
         </form>
-
         <a href="ajouterMembresCanal?idCanal=1">Ajouter</a><hr>                      
     </body>
 </html>

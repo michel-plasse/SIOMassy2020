@@ -13,7 +13,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modele.Membre;
 
 /**
  *
@@ -41,7 +40,6 @@ public class SupprimerMembresCanal extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String vue = VUE_OK;
-        //response.sendRedirect("ajouterMembresCanal?idCanal=1");
 
         request.getRequestDispatcher(vue).forward(request, response);
     }

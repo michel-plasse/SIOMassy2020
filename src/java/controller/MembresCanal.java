@@ -49,7 +49,6 @@ public class MembresCanal extends HttpServlet {
 
             request.setAttribute("membres", membres);
             request.setAttribute("idCanal", idCanal);
-            //URL Rewritting
             //response.sendRedirect("membresCanal?idCanal="+idCanal);
 
         } catch (SQLException exc) {

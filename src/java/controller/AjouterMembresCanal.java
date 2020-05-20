@@ -13,7 +13,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modele.Membre;
 
 /**
  *
@@ -63,7 +62,6 @@ public class AjouterMembresCanal extends HttpServlet {
         try {
 
             dao.ajouterMembre(idCanal, idPersonne);
-            //URL Rewritting
             //response.sendRedirect("ajouterMembresCanal?idCanal=1");
 
         } catch (SQLException exc) {
