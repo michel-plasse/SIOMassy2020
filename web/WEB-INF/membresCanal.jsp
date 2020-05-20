@@ -10,9 +10,7 @@
     </head>
     <body>
         <div class="sidenav">
-            <a href="connexion">Connexion</a>
-            <hr>
-            <a href="membresCanal?idCanal="${idCanal}>Membres du Canal 1</a> <hr>
+            <a href="deconnexion">Déconnexion</a>
         </div> 
         <h1>Les membres du canal ${idCanal}</h1>
         <hr>

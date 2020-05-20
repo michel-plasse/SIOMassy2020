@@ -34,4 +34,5 @@ public class CanalDaoTest {
         assertEquals(3, result.size());
     }
     
+    
 }

@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,7 +8,7 @@
     </head>
     <body>
         <h1>Membre supprimé avec succès</h1>
-        
-        <h1>Les membres du canal ${idCanal}</h1>
+        <hr>
+        <a href="membresCanal?idCanal="${idCanal}>Les membres du canal ${idCanal}</a>
     </body>
 </html>

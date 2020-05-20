@@ -40,14 +40,11 @@ public class CanalDao {
             = "SELECT  * FROM membre_canal ";
 
     public static final String INSERER_MEMBRE_CANAL
-            = "Insert into membre_canal  (id_personne) VALUES(?)";
+            = "Insert into membre_canal  (id_canal, id_personne) VALUES(?, ?)";
 
     public static final String DELETE_MEMBRE_CANAL
-            = "DELETE FROM membre_canal WHERE id_canal=? ";
+            = "DELETE FROM membre_canal WHERE id_canal=? and id_personne=? ";
 
-    private static int IdCanal;
-
-    private static int IdPersonne;
 
     /**
      *
@@ -85,25 +82,21 @@ public class CanalDao {
         return result;
     }
 //"Insert into membre_canal (id_canal, id_personne) VALUES(?,?)"
-
     public static void ajouterMembre(int idCanal, int idPersonne) throws SQLException {
         Connection db = Database.getConnection();
         PreparedStatement stmt = db.prepareStatement(INSERER_MEMBRE_CANAL);
-        stmt.setInt(1, IdCanal);
-        stmt.setInt(2, IdPersonne);
+        stmt.setInt(1, idCanal);
+        stmt.setInt(2, idPersonne);
         stmt.executeUpdate();
-
     }
 //"DELETE FROM membre_canal WHERE idCanal=? "; 
-
     public static void supprimerMembre(int idCanal, int idPersonne) throws SQLException {
         Connection db = Database.getConnection();
         PreparedStatement stmt = db.prepareStatement(DELETE_MEMBRE_CANAL);
         stmt.setInt(1, idCanal);
-        stmt.setInt(1, idCanal);
+        stmt.setInt(2, idPersonne);
         stmt.executeUpdate();
     }
-
     public static List<Canal> getAll() throws SQLException {
         List<Canal> result = new ArrayList<Canal>();
         Connection db = Database.getConnection();
@@ -119,6 +112,4 @@ public class CanalDao {
         }
         return result;
     }
-
-
 }
