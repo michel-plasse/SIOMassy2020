@@ -6,17 +6,17 @@
 <c:if test='${sessionScope["user"] == null}'>
 
   <form id="loginForm" action="connexion" method="POST">
-    Identifiant :  <input type="text" name="login" value="${param["login"]}"/><br/>
-    Mot de passe :  <input type="password" name="password"/><br/>
+    Identifiant :  <input type="text" name="login" id="login" value="${param["login"]}"/><br/>
+    Mot de passe :  <input type="password" name="password" id="password"/><br/>
     <button type="submit">Connexion</button>    
 
     <c:if test="${erreurLogin != null}">
-      <div class="error">${erreurLogin}</div>
+      <div class="error" id="msgLogin">${erreurLogin}</div>
     </c:if>
   </form>
   <c:if test='${sessionScope["user"] != null}'>
     <form id="loginForm" action="deconnexion" method="POST">
-      <button type="submit">Déconnecter ${sessionScope["user"].email}</button>
+      <button type="submit" id="boutonDeconnecter">Déconnecter ${sessionScope["user"].email}</button>
     </form>
   </c:if>  
 </c:if>
