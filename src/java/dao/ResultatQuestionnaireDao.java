@@ -29,7 +29,7 @@ public class ResultatQuestionnaireDao {
                 + "p.id_personne = pq.id_stagiaire\n"
                 + "WHERE pq.id_questionnaire = ?";
         PreparedStatement stmt = connection.prepareStatement(requete);
-        stmt.setInt(1, idQuestionnaire);
+        stmt.setInt(2, idQuestionnaire);
         ResultSet resultSet = stmt.executeQuery();
         while (resultSet.next()) {
             Personne p = new Personne(

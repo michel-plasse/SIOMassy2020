@@ -23,15 +23,14 @@
                 <th>Prénom du stagiaire</th>
                 <th>Date de debut du questionnaire</th>
                 <th>Date de fin du questionnaire</th>
-                <th>Note du stagiaire</th>
             </tr>
-            <c:forEach items="${questionnaires}" var="questionnaire">
+            <c:forEach items="${personne}" var="stagiaire">
             <tr>
-                <td>${questionnaire.id}</td>
-                <td>${questionnaire.titre}</td>
-                <td>${questionnaire.dateCreation}</td>
-                <td>${questionnaire.duree}</td>
-                <td>${questionnaire.idAuteur}</td>
+                <td>${personne.prenom}</td>
+                <td>${personne.nom}</td>
+                <td>${personne.dateDebut}</td>
+                <td>${personne.dateFin}</td>
+               
             </tr>
             </c:forEach>
         </table>
