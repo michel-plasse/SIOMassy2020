@@ -9,6 +9,6 @@ package modele;
  *
  * @author wowmi
  */
-public class ResultatQuestionnaireDao {
+public class ResultatQuestionnaire {
     
 }
