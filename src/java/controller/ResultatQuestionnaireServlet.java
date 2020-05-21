@@ -27,6 +27,6 @@ import javax.servlet.annotation.WebServlet;
 @WebServlet("/questionnaires")
 public class ResultatQuestionnaireServlet extends HttpServlet {
     
-    private final String VUE_OK = "/WEB-INF/resultatquestionnaire.jsp";
+    private final String VUE_OK = "/WEB-INF/resultatQuestionnaire.jsp";
     private final String VUE_ERREUR = "/WEB-INF/exception.jsp";
 }
