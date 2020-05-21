@@ -19,7 +19,7 @@ import modele.Personne;
 import modele.Questionnaire;
 import modele.ResultatQuestionnaire;
 
-@WebServlet("/ResultatQuestionnaireServlet")
+@WebServlet("/resultatQuestionnaire")
 public class ResultatQuestionnaireServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;

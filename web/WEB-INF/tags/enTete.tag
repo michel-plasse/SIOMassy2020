@@ -20,6 +20,7 @@ dans l'onglet du navigateur)
         <a href="modifierProfil">Modifier profil</a>
         <a href="questionnaires">Questionnaires</a>
         <a href="creerQuestionnaire">Creer un questionnaire</a>
+        <a href="resultatQuestionnaire">Consulter le résultat du questionnaire 1</a>
         <a href="evaluations">Evaluations</a>
         <a href="creerEvaluation">Creer une évaluation</a>
         <a href="projets">Projets</a>

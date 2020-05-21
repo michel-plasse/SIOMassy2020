@@ -1,41 +1,27 @@
-<%-- 
-    Document   : questionnairesDuFormateur
-    Created on : 18 mai 2020, 17:00:55
-    Author     : wowmi
---%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "a" tagdir="/WEB-INF/tags"%>
+<a:enTete titre="Consulter rÃ©sultats questionnaire"/>
 
-<%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Liste des questionnaires passés</title>
 
-</head>
-<body>
+<h1>Liste des stagiaires ayant participÃ© au questionnaire</h1>
+<table>
+    <tr>
+        <th>Nom du stagiaire</th>
+        <th>PrÃ©nom du stagiaire</th>
+        <th>Date de debut du questionnaire</th>
+        <th>Date de fin du questionnaire</th>
+    </tr>
+    <c:forEach items="${resquest}" var="resquest">
+        <tr>
 
-<div>
-    <section>
-        <h1>Liste des stagiaires</h1>
-        <table>
-            <tr>
-                <th>Nom du stagiaire</th>
-                <th>Prénom du stagiaire</th>
-                <th>Date de debut du questionnaire</th>
-                <th>Date de fin du questionnaire</th>
-            </tr>
-            <c:forEach items="${resquest}" var="resquest">
-            <tr>
-                
-                <td>${resquest.prenom}</td>
-                <td>${resquest.nom}</td>
-                <td>${resquest.dateDebut}</td>
-                <td>${resquest.dateFin}</td>
-        
-            </tr>
-            </c:forEach>
-        </table>
-    </section>
-</div >
+            <td>${resquest.prenom}</td>
+            <td>${resquest.nom}</td>
+            <td>${resquest.dateDebut}</td>
+            <td>${resquest.dateFin}</td>
+
+        </tr>
+    </c:forEach>
+</table>
 </body>
 </html>
