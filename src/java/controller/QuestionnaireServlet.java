@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@WebServlet(name="questionnaires", urlPatterns = {"/questionnaires"})
+@WebServlet("/QuestionnairesServlet")
 public class QuestionnaireServlet extends HttpServlet {
 
     private final String VUE_OK = "/WEB-INF/questionnairesFormateur.jsp";
