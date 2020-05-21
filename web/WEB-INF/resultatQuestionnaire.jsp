@@ -1,17 +1,41 @@
 <%-- 
-    Document   : resultatQuestionnaire
-    Created on : 21 mai 2020, 10:10:36
+    Document   : questionnairesDuFormateur
+    Created on : 18 mai 2020, 17:00:55
     Author     : wowmi
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des questionnaires passés</title>
+
+</head>
+<body>
+
+<div>
+    <section>
+        <h1>Liste des stagiaires</h1>
+        <table>
+            <tr>
+                <th>Nom du stagiaire</th>
+                <th>Prénom du stagiaire</th>
+                <th>Date de debut du questionnaire</th>
+                <th>Date de fin du questionnaire</th>
+                <th>Note du stagiaire</th>
+            </tr>
+            <c:forEach items="${questionnaires}" var="questionnaire">
+            <tr>
+                <td>${questionnaire.id}</td>
+                <td>${questionnaire.titre}</td>
+                <td>${questionnaire.dateCreation}</td>
+                <td>${questionnaire.duree}</td>
+                <td>${questionnaire.idAuteur}</td>
+            </tr>
+            </c:forEach>
+        </table>
+    </section>
+</div >
+</body>
 </html>

@@ -5,10 +5,17 @@
  */
 package modele;
 
+import java.sql.Time;
+import java.time.LocalDateTime;
+
 /**
  *
  * @author wowmi
  */
 public class ResultatQuestionnaire {
+    private int note;
+    private String prenom;
+    private LocalDateTime dateDebut;
+    private LocalDateTime dateFin;
     
 }
