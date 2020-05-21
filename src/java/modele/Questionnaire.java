@@ -1,20 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modele;
 
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-/**
- *
- * @author wowmi
- */
-public class Questionnaire {
+//todo
+//convert Time from seconds to minutes:seconds
 
+//NO UNDERSCORES
+
+public class Questionnaire {
     private int id;
     private String titre;
     private LocalDateTime dateCreation;
@@ -29,20 +24,23 @@ public class Questionnaire {
         this.idAuteur = idAuteur;
     }
 
+    @Override
+    public String toString() {
+        return "Questionnaire{" +
+                "id=" + id +
+                ", titre='" + titre + '\'' +
+                ", dateCreation=" + dateCreation +
+                ", duree=" + duree +
+                ", idAuteur=" + idAuteur +
+                '}';
+    }
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getTitre() {
-        return titre;
-    }
-
-    public void setTitre(String titre) {
-        this.titre = titre;
     }
 
     public LocalDateTime getDateCreation() {
@@ -68,4 +66,24 @@ public class Questionnaire {
     public void setIdAuteur(int idAuteur) {
         this.idAuteur = idAuteur;
     }
+
+    public int getId_questionnaire() {
+        return id;
+    }
+
+    public void setId_questionnaire(int id_questionnaire) {
+        this.id = id_questionnaire;
+    }
+
+    public String getTitre() {
+        return titre;
+    }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
+
 }
+
+
+
