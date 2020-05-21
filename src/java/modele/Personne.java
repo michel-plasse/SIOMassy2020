@@ -9,8 +9,6 @@ public class Personne {
   private boolean estFormateur, estAdministration;
   private LocalDateTime dateInscription;
   private LocalDateTime dateButoirJeton;
-  private LocalDateTime dateDebut;
-  private LocalDateTime dateFin;
 
   public Personne() {
     id = 0;
@@ -19,14 +17,7 @@ public class Personne {
     email = null;
   }
 
-    public Personne(String nom, String prenom, LocalDateTime dateDebut, LocalDateTime dateFin) {
-    this.nom = nom;
-    this.prenom = prenom;
-    this.dateDebut = dateDebut;
-    this.dateFin = dateFin;
-    // Constructeur utilisé pour créer le USER dans ConnexionServlet
-  }
-  
+   
   
   public Personne(String prenom, String nom, String email, String mdp, String jeton) { // utilisé pour le insert
     this.prenom = prenom;

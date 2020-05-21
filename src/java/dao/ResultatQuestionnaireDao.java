@@ -11,8 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import modele.Personne;
-import modele.Questionnaire;
+import modele.ResultatQuestionnaire;
 
 /**
  *
@@ -20,28 +19,36 @@ import modele.Questionnaire;
  */
 public class ResultatQuestionnaireDao {
 
-    public List<Personne> getStagiaire(int idQuestionnaire) throws SQLException {
-        List<Personne> personnes = new ArrayList<>();
-        Connection connection = Database.getConnection();
-        String requete = "SELECT nom, prenom, date_debut, date_fin\n"
-                + "FROM personne p\n"
-                + "INNER JOIN passage_questionnaire pq ON \n"
-                + "p.id_personne = pq.id_stagiaire\n"
-                + "WHERE pq.id_questionnaire = ?";
-        PreparedStatement stmt = connection.prepareStatement(requete);
-        stmt.setInt(2, idQuestionnaire);
-        ResultSet resultSet = stmt.executeQuery();
-        while (resultSet.next()) {
-            Personne p = new Personne(
-                    resultSet.getString("nom"),
-                    resultSet.getString("prenom"),
-                    resultSet.getTimestamp("date_debut").toLocalDateTime(),
-                    resultSet.getTimestamp("date_fin").toLocalDateTime()
-            );
-            personnes.add(p);
+    public static final String GET_BY_ID_SESSION
+            = "SELECT nom, prenom, date_debut, date_fin FROM passage_questionnaire,personne WHERE id_personne = id_stagiaire AND id_questionnaire = ?";
+            
+           
+            
+
+    /**
+     * Liste des élèves ayant répondu à un questionnaire
+     *
+     * @param idQuestionnaire identifiant du questionnaire
+     * @return liste des stagiaires ayant répondu à un questionnaire sous forme
+     * d'une List<ResultatQuestionnaire>
+     * @throws SQLException
+     */
+    public static List<ResultatQuestionnaire> getresquest(int idQuestionnaire) throws SQLException {
+        List<ResultatQuestionnaire> resquest = new ArrayList<ResultatQuestionnaire>();
+        Connection db = Database.getConnection();
+        PreparedStatement stmt = db.prepareStatement(GET_BY_ID_SESSION);
+        stmt.setInt(1, idQuestionnaire);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            ResultatQuestionnaire p = new ResultatQuestionnaire(
+                    rs.getString("nom"),
+                    rs.getString("prenom"),
+                    rs.getTimestamp("date_debut").toLocalDateTime(),
+                    rs.getTimestamp("date_fin").toLocalDateTime());
+            resquest.add(p);
         }
 
-        return personnes;
-
+        return resquest;
     }
+
 }

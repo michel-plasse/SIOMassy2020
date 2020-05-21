@@ -24,13 +24,14 @@
                 <th>Date de debut du questionnaire</th>
                 <th>Date de fin du questionnaire</th>
             </tr>
-            <c:forEach items="${personne}" var="stagiaire">
+            <c:forEach items="${resquest}" var="resquest">
             <tr>
-                <td>${personne.prenom}</td>
-                <td>${personne.nom}</td>
-                <td>${personne.dateDebut}</td>
-                <td>${personne.dateFin}</td>
-               
+                
+                <td>${resquest.prenom}</td>
+                <td>${resquest.nom}</td>
+                <td>${resquest.dateDebut}</td>
+                <td>${resquest.dateFin}</td>
+        
             </tr>
             </c:forEach>
         </table>

@@ -1,5 +1,6 @@
 package controller;
 
+import dao.PersonneDao;
 import dao.QuestionnaireDao;
 import dao.ResultatQuestionnaireDao;
 import java.io.IOException;
@@ -16,42 +17,45 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.Personne;
 import modele.Questionnaire;
-
+import modele.ResultatQuestionnaire;
 
 @WebServlet("/ResultatQuestionnaireServlet")
 public class ResultatQuestionnaireServlet extends HttpServlet {
+
     private static final long serialVersionUID = 1L;
-       
 
-    public ResultatQuestionnaireServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+    /**
+     * Vue si succes
+     */
+    private static final String VUE_OK = "/WEB-INF/resultatQuestionnaire.jsp";
 
+    /**
+     * Vue si erreur (exception)
+     */
+    private static final String VUE_ERREUR = "WEB-INF/exception.jsp";
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     * response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Soyons optimistes
+        String vue = VUE_OK;
+        // d'abord en dur
+        int idQuestionnaire = 1;
+        // Recuperer les donnees (ici, les stagiaires)
         try {
-            ResultatQuestionnaireDao dao = new ResultatQuestionnaireDao();
-            List<Personne> personnes = dao.getStagiaire(1);
-            request.setAttribute("stagiaires", personnes);
-        } catch (SQLException exception){
-            Logger.getLogger(QuestionnaireServlet.class.getName()).log(Level.SEVERE, null, exception);
-            request.setAttribute("exception",exception);
-            
+
+            List<ResultatQuestionnaire> resquest = ResultatQuestionnaireDao.getresquest(idQuestionnaire);
+            request.setAttribute("resquest", resquest);
+        } catch (SQLException exc) {
+            exc.printStackTrace();
+            request.setAttribute("exception", exc);
+            vue = VUE_ERREUR;
         }
-       
-    
-        
-        
-        
-        
-        this.getServletContext().getRequestDispatcher("/WEB-INF/resultatQuestionnaire.jsp").forward(request, response);
-    }
-
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
+        // Passer la main a la vue
+        request.getRequestDispatcher(vue).forward(request, response);
     }
 
 }
