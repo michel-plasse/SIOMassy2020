@@ -53,23 +53,26 @@ public class SupprimerMembresCanal extends HttpServlet {
         //on affecte un entier à l'idCanal et à l'idPersonne
         int idCanal = 1;
         int idPersonne = 1;
-        try {
-            idCanal = Integer.parseInt(request.getParameter("idCanal"));
-        } catch (NumberFormatException e) {
-            request.setAttribute("message", "Veuillez saisir un entier pour l'idCanal");
-        }
-        try {
-            idPersonne = Integer.parseInt(request.getParameter("idPersonne"));
-        } catch (NumberFormatException e) {
-            request.setAttribute("message", "Veuillez saisir un entier pour l'idCanal");
-        }
         CanalDao dao = new CanalDao();
+
+        while (true) {
+            try {
+                idCanal = Integer.parseInt(request.getParameter("idCanal"));
+                break;
+            } catch (NumberFormatException e) {
+                request.setAttribute("message", "Veuillez saisir un nombre valide pour l'idCanal");
+            }
+            try {
+                idPersonne = Integer.parseInt(request.getParameter("idPersonne"));
+                break;
+            } catch (NumberFormatException e2) {
+                request.setAttribute("message", "Veuillez saisir un nombre valide pour l'idPersonne");
+            }
+        }
         try {
             dao.supprimerMembre(idCanal, idPersonne);
             //response.sendRedirect("membresCanal?idCanal="+idCanal+"&?idPersonne="+idPersonne);
         } catch (SQLException exc) {
-
-            exc.printStackTrace();
             request.setAttribute("exception", exc);
             vue = VUE_ERREUR;
         }

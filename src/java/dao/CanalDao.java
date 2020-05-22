@@ -47,8 +47,8 @@ public class CanalDao {
 
 
     /**
-     *
      * @param idCanal
+     * idCanal
      * @return
      * @throws SQLException
      */

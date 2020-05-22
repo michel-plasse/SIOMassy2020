@@ -33,7 +33,7 @@ public class AjouterMembresCanal extends HttpServlet {
             throws ServletException, IOException {
         String vue = VUE_OK;
         //response.sendRedirect("ajouterMembresCanal?idCanal=1");
-        
+
         request.getRequestDispatcher(vue).forward(request, response);
 
     }
@@ -48,16 +48,20 @@ public class AjouterMembresCanal extends HttpServlet {
         String vue = VUE_OK;
 
         CanalDao dao = new CanalDao();
-        try {
-            idCanal = Integer.parseInt(request.getParameter("idCanal"));
-
-        } catch (NumberFormatException e) {
-            request.setAttribute("message", "Veuillez saisir un entier pour l'idCanal");
-        }
-        try {
-            idPersonne = Integer.parseInt(request.getParameter("idPersonne"));
-        } catch (NumberFormatException e2) {
-            request.setAttribute("message", "Veuillez saisir un entier pour l'idPersonne");
+        
+        while (true) {
+            try {
+                idCanal = Integer.parseInt(request.getParameter("idCanal"));
+                break;
+            } catch (NumberFormatException e) {
+                request.setAttribute("message", "Veuillez saisir un nombre valide pour l'idCanal");
+            }
+            try {
+                idPersonne = Integer.parseInt(request.getParameter("idPersonne"));
+                break;
+            } catch (NumberFormatException e2) {
+                request.setAttribute("message", "Veuillez saisir un nombre valide pour l'idPersonne");
+            }
         }
         try {
 

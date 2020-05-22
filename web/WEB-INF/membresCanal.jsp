@@ -14,7 +14,7 @@
         </div> 
         <h1>Les membres du canal ${idCanal}</h1>
         <hr>
-        <form action="supprimerMembresCanal" method="post">
+        <form action="membresCanal" method="post">
             <table width = "300px" border="1">
                 <tr>
                     <th>Id canal</th>
