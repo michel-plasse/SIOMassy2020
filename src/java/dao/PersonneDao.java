@@ -35,9 +35,11 @@ public class PersonneDao {
             = "UPDATE personne SET jeton=? WHERE email=? ";
     public static final String MAJ_BY_ID_PERSONNE
             = "UPDATE personne SET nom =?, prenom =?,email = ?, mdp =?  WHERE id_personne =? ";
+    public static final String MAJ_BY_MAIL_PERSONNE
+            = "UPDATE personne SET  mdp =?  WHERE email = ? ";
     public static final String GET_BY_JETON
             = "SELECT * FROM personne WHERE jeton=? ";
-public static final String CHECK_BY_ACTIF
+    public static final String CHECK_BY_ACTIF
             = "SELECT * FROM personne WHERE email=? and date_inscription IS NOT NULL";
 
     public static final String DELETE_BY_JETON
@@ -45,7 +47,7 @@ public static final String CHECK_BY_ACTIF
 
     public static final String DELETE_BY_DATE_BUTOIR
             = "DELETE FROM personne WHERE date_butoir_jeton <= ? ";
-    
+
     public static void insert(Personne p) throws SQLException {
         Connection db = Database.getConnection();
         PreparedStatement stmt = db.prepareStatement(INSERTION); //"Insert into personne (nom,prenom,email,mdp,jeton,date_butoir_jeton) VALUES(?,?,?,?,?,?)"
@@ -79,7 +81,7 @@ public static final String CHECK_BY_ACTIF
         //stmt.setTimestamp(1, now);
         stmt.executeUpdate();
     }
-    
+
     /**
      * Stagiaires d'une session de formation
      *
@@ -174,13 +176,15 @@ public static final String CHECK_BY_ACTIF
         stmt.setString(2, email);
         return stmt.executeUpdate();
     }
- public static int getByJeton(String email, String jeton) throws SQLException {
+
+    public static int getByJeton(String email, String jeton) throws SQLException {
         Connection con = Database.getConnection();
         PreparedStatement stmt = con.prepareStatement(GET_BY_JETON);
         stmt.setString(1, jeton);
         stmt.setString(2, email);
         return stmt.executeUpdate();
     }
+
     public static void majByIdPersonne(Personne personne) throws SQLException {
 
         try (Connection db = Database.getConnection()) {
@@ -195,4 +199,31 @@ public static final String CHECK_BY_ACTIF
             db.close();
         }
     }
+
+    public static void majByMailPersonne(Personne personne) throws SQLException {
+
+        try (Connection db = Database.getConnection()) {
+            try (PreparedStatement stmt = db.prepareStatement(MAJ_BY_MAIL_PERSONNE)) {
+                stmt.setString(4, personne.getMdp());
+                stmt.executeUpdate();
+            }
+            db.close();
+        }
+    }
+
+    public int getByJeton(String jeton) throws SQLException {
+        {
+            Connection con = Database.getConnection();
+            PreparedStatement stmt = con.prepareStatement(GET_BY_JETON);
+            stmt.setString(1, jeton);
+            return stmt.executeUpdate();
+        }
+    }
+public static boolean jetonEstValide(String jeton) throws SQLException {
+        Connection db = Database.getConnection();
+        PreparedStatement stmt = db.prepareStatement(GET_BY_JETON); //"SELECT * FROM personne WHERE email=? and date_inscription IS NOT NULL;"
+        stmt.setString(1, jeton);
+        ResultSet rs = stmt.executeQuery();
+        return rs.next();
+}
 }

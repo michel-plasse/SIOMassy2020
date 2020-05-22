@@ -32,7 +32,6 @@ public class ConfirmationEmailServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-
     String Token = request.getParameter("token");
     //Timestamp timestampvalidation = new Timestamp(System.currentTimeMillis());
     LocalDateTime now = LocalDateTime.now();

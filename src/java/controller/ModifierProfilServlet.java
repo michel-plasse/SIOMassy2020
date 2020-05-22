@@ -56,20 +56,21 @@ public class ModifierProfilServlet extends HttpServlet {
       request.getRequestDispatcher(vue).forward(request, response);
     }
     vue = VUE_FORM;                      // modifierProfil.jsp
-    String nom = request.getParameter("nom");
-    String prenom = request.getParameter("prenom");
+//    String nom = request.getParameter("nom");
+//    String prenom = request.getParameter("prenom");
     String email = request.getParameter("email");
     String mdp1 = request.getParameter("mdp1");
     String mdp2 = request.getParameter("mdp2");
     HttpSession session = request.getSession(true);
     Personne personne = (Personne) session.getAttribute("user");
-    personne.setNom(nom);
-    personne.setPrenom(prenom);
+//    personne.setNom(nom);
+//    personne.setPrenom(prenom);
     personne.setEmail(email);
     personne.setMdp(mdp1);    
     // nous faisons d'abord un test sur tous les champs du formulaire
-    if (nom == null || nom.trim().isEmpty() || prenom == null || prenom.trim().isEmpty()
-            || email == null || email.trim().isEmpty() || mdp1 == null || mdp1.trim().isEmpty() || mdp2 == null || mdp2.trim().isEmpty()) {
+    if (//nom == null || nom.trim().isEmpty() || prenom == null || prenom.trim().isEmpty()
+            //||
+            email == null || email.trim().isEmpty() || mdp1 == null || mdp1.trim().isEmpty() || mdp2 == null || mdp2.trim().isEmpty()) {
       request.setAttribute("erreurLogin", "Veuillez renseigner tous les champs");
       
     } else if (!email.matches("(?:\\w|[\\-_])+(?:\\.(?:\\w|[\\-_])+)*\\@(?:\\w|[\\-_])+(?:\\.(?:\\w|[\\-_])+)+")) {
@@ -80,7 +81,7 @@ public class ModifierProfilServlet extends HttpServlet {
       request.setAttribute("mdpEstDifferent", true);
     } else {
       try {
-        PersonneDao.majByIdPersonne(personne);
+        PersonneDao.majByMailPersonne(personne);
         vue = VUE_ACCUEIL;
         request.setAttribute("majOK", true);
       } catch (SQLException ex) {
