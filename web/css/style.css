@@ -1,9 +1,20 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 14 avr. 2020, 15:17:31
+    Author     : aline
+*/
+
 .error {
   color: red;
 }
 .bleu {
     color: blue
 }
+
 body {
   text-align: center;
   font-size: 20px;
@@ -12,6 +23,7 @@ body {
   font-family: 'PT Sans', sans-serif;
   background:#e0e0e0;
 }
+
 .sidenav {
   font-size: 10px;
   height: 100%;
@@ -24,6 +36,9 @@ body {
   overflow-x: hidden;
   padding-top: 15px;
 }
+
+
+
 .sidenav a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
@@ -31,18 +46,23 @@ body {
   color: #818181;
   display: block;
 }
+
 .sidenav a:hover {
   color: #f1f1f1;
 }
+
 table{
 margin:auto;
 text-align: left;
+
 }
+
 .agrandir
 {
     width: 400px;
     height: 30px;
 }
+
 ::placeholder {
   color: grey;
   font-size: 1em;

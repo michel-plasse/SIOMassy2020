@@ -57,6 +57,7 @@ public class ModifierProfilServlet extends HttpServlet {
     }
     vue = VUE_FORM;                      // modifierProfil.jsp
     String nom = request.getParameter("nom");
+    String photo = request.getParameter("photo");
     String prenom = request.getParameter("prenom");
     String email = request.getParameter("email");
     String mdp1 = request.getParameter("mdp1");
@@ -66,27 +67,27 @@ public class ModifierProfilServlet extends HttpServlet {
     personne.setNom(nom);
     personne.setPrenom(prenom);
     personne.setEmail(email);
-    personne.setMdp(mdp1);    
+    personne.setMdp(mdp1);
+    personne.setUrlPhoto(photo);
     // nous faisons d'abord un test sur tous les champs du formulaire
     if (nom == null || nom.trim().isEmpty() || prenom == null || prenom.trim().isEmpty()
             || email == null || email.trim().isEmpty() || mdp1 == null || mdp1.trim().isEmpty() || mdp2 == null || mdp2.trim().isEmpty()) {
       request.setAttribute("erreurLogin", "Veuillez renseigner tous les champs");
-      
-    } else if (!email.matches("(?:\\w|[\\-_])+(?:\\.(?:\\w|[\\-_])+)*\\@(?:\\w|[\\-_])+(?:\\.(?:\\w|[\\-_])+)+")) {
+    } else if (!personne.emailIsValid(email)) {
       request.setAttribute("emailEstInvalide", true);
-    } else if (!mdp1.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")) {
+    } else if (!personne.mdpIsValid(mdp1)) {
       request.setAttribute("mdpEstInvalide", true);
     } else if (!mdp1.equals(mdp2)) {
-      request.setAttribute("mdpEstDifferent ", true);
+      request.setAttribute("mdpEstDifferent", true);
     } else {
-      try {
-        PersonneDao.majByIdPersonne(personne);
-        vue = VUE_ACCUEIL;
-        request.setAttribute("majOK", true);
-      } catch (SQLException ex) {
-        Logger.getLogger(ModifierProfilServlet.class.getName()).log(Level.SEVERE, null, ex);
-        vue = VUE_ERREUR;
-      }
+        try {
+          PersonneDao.majByIdPersonne(personne);
+          vue = VUE_ACCUEIL;
+          request.setAttribute("majOK", "Mise à jour effectuée");
+        } catch (SQLException ex) {
+          Logger.getLogger(ModifierProfilServlet.class.getName()).log(Level.SEVERE, null, ex);
+          vue = VUE_ERREUR;
+        }
     }
     request.getRequestDispatcher(vue).forward(request, response);
   }

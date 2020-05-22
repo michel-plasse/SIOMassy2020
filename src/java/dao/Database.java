@@ -41,13 +41,13 @@ public class Database {
    */
   protected static final String DRIVER_NAME = "com.mysql.jdbc.Driver";
   protected static final String DB_NAME = "agriotes2020";
-  protected static final String USER = "agriotes_user";
-  protected static final String PASSWORD = "agriotes_pwd";
+  protected static final String USER = "agriotes2020_user";
+  protected static final String PASSWORD = "agriotes2020_pwd";
 
   /**
    * Chaine de connexion (adresse TCP/IP de la base de données
    */
-    protected static String URL = "jdbc:mysql://localhost/" + DB_NAME + "?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC";
+    protected static String URL = "jdbc:mysql://localhost/" + DB_NAME + "?zeroDateTimeBehavior=ConvertToNull&serverTimezone=UTC";
 
   // La chaine de connexion différe d'un SGBD à l'autre.
   // Pour Oracle : "jdbc:oracle:oci8:@localhost:1521:XE/" + DB_NAME
