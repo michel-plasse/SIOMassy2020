@@ -5,6 +5,8 @@
  */
 package modele;
 
+import java.util.Objects;
+
 /**
  *
  * @author akber
@@ -69,6 +71,53 @@ public class Message {
     public void setDate_publication(String date_publication) {
         this.date_publication = date_publication;
     }
+
+    @Override
+    public String toString() {
+        return "Message{" + "id_messageCanal=" + id_messageCanal + ", id_auteur=" + id_auteur + ", id_canal=" + id_canal + ", contenu=" + contenu + ", date_publication=" + date_publication + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 41 * hash + this.id_messageCanal;
+        hash = 41 * hash + this.id_auteur;
+        hash = 41 * hash + this.id_canal;
+        hash = 41 * hash + Objects.hashCode(this.contenu);
+        hash = 41 * hash + Objects.hashCode(this.date_publication);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Message other = (Message) obj;
+        if (this.id_messageCanal != other.id_messageCanal) {
+            return false;
+        }
+        if (this.id_auteur != other.id_auteur) {
+            return false;
+        }
+        if (this.id_canal != other.id_canal) {
+            return false;
+        }
+        if (!Objects.equals(this.contenu, other.contenu)) {
+            return false;
+        }
+        if (!Objects.equals(this.date_publication, other.date_publication)) {
+            return false;
+        }
+        return true;
+    }
+    
     
     
     

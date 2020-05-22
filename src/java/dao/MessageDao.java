@@ -23,14 +23,15 @@ import modele.Message;
 public class MessageDao {
     
 
-
+/**
       public static final String INSERT_MESSAGE_BY_ID = 
           " INSERT INTO message_canal (id_message_canal, date_publication, contenu, id_auteur, id_canal)"
         + " values (?, ?, ?, ?, ?)";
       
-      
-      public static final String RETREIVE_MESSAGE = 
-              " SELECT * FROM message_canal ";
+ */
+    
+      public static final String AFFICHER_MESSAGE = 
+              " SELECT * FROM message_canal ORDER BY id_message_canal";
 
   /**
    * Stagiaires d'une session de formation
@@ -40,7 +41,7 @@ public class MessageDao {
    * @throws SQLException
    */
       
-      
+   /**   
   public void insert(Message message) throws SQLException {
         Connection db = Database.getConnection();
 
@@ -54,14 +55,13 @@ public class MessageDao {
     }
       
       
+     */ 
       
       
-      
-  public static List<Message> getByIdSessionFormation(int idCanal) throws SQLException {
+  public static List<Message> getMessage(int idCanal) throws SQLException {
     List<Message> result = new ArrayList<Message>();
     Connection db = Database.getConnection();
-    PreparedStatement stmt = db.prepareStatement(RETREIVE_MESSAGE);
-    stmt.setInt(1, idCanal);
+    PreparedStatement stmt = db.prepareStatement(AFFICHER_MESSAGE);
     ResultSet rs = stmt.executeQuery();
     while (rs.next()) {
       Message message = new Message(
@@ -75,5 +75,7 @@ public class MessageDao {
     return result;
   
   }
-    
+   
+  
+  
 }
