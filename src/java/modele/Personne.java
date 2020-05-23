@@ -26,7 +26,6 @@ public class Personne {
     this.dateButoirJeton = LocalDateTime.now().plusHours(24);
 
   }
-
   public Personne(int id, String nom, String prenom, String email, String mdp, String urlPhoto, Boolean estAdministration, Boolean estFormateur, String jeton, LocalDateTime dateinscription, LocalDateTime dateButoirJeton) {
     this.id = id;
     this.nom = nom;

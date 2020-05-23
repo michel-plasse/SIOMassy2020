@@ -53,3 +53,7 @@ text-align: left;
     height: 50px;
     background-color: #33DCFF;
 }
+td, th, tr {
+border: 1px solid black;
+width: 50%;
+}
