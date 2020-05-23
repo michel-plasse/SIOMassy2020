@@ -4,61 +4,68 @@ import java.time.LocalDateTime;
 
 public class Evaluation {
 
-    private int idEvaluation;
-    private LocalDateTime dateEffet;
-    private int idCreateur;
-    private int idSessionFormation;
-    private int idModule;
+  private int idEvaluation;
+  private LocalDateTime dateEffet;
+  private int idCreateur;
+  private int idSessionFormation;
+  private int idModule;
 
-    public Evaluation() {
-    }
+  public Evaluation() {
+  }
 
-    public Evaluation(int idEvaluation, LocalDateTime dateEffet, int idCreateur, int idSessionFormation, int idModule) {
-        this.idEvaluation = idEvaluation;
-        this.dateEffet = dateEffet;
-        this.idCreateur = idCreateur;
-        this.idSessionFormation = idSessionFormation;
-        this.idModule = idModule;
-    }
+  public Evaluation(int idEvaluation, LocalDateTime dateEffet, int idCreateur, int idSessionFormation, int idModule) {
+    this.idEvaluation = idEvaluation;
+    this.dateEffet = dateEffet;
+    this.idCreateur = idCreateur;
+    this.idSessionFormation = idSessionFormation;
+    this.idModule = idModule;
+  }
 
-    public int getIdEvaluation() {
-        return idEvaluation;
-    }
+  public Evaluation(int idModule, int idSesionFormation, LocalDateTime dateEffet) {
+    this.idModule = idModule;
+    this.idSessionFormation = idSesionFormation;
+    this.dateEffet = dateEffet;
 
-    public void setIdEvaluation(int idEvaluation) {
-        this.idEvaluation = idEvaluation;
-    }
+  }
 
-    public LocalDateTime getDateEffet() {
-        return dateEffet;
-    }
+  public int getIdEvaluation() {
+    return idEvaluation;
+  }
 
-    public void setDateEffet(LocalDateTime dateEffet) {
-        this.dateEffet = dateEffet;
-    }
+  public void setIdEvaluation(int idEvaluation) {
+    this.idEvaluation = idEvaluation;
+  }
 
-    public int getIdCreateur() {
-        return idCreateur;
-    }
+  public LocalDateTime getDateEffet() {
+    return dateEffet;
+  }
 
-    public void setIdCreateur(int idCreateur) {
-        this.idCreateur = idCreateur;
-    }
+  public void setDateEffet(LocalDateTime dateEffet) {
+    this.dateEffet = dateEffet;
+  }
 
-    public int getIdSessionFormation() {
-        return idSessionFormation;
-    }
+  public int getIdCreateur() {
+    return idCreateur;
+  }
 
-    public void setIdSessionFormation(int idSessionFormation) {
-        this.idSessionFormation = idSessionFormation;
-    }
+  public void setIdCreateur(int idCreateur) {
+    this.idCreateur = idCreateur;
+  }
 
-    public int getIdModule() {
-        return idModule;
-    }
+  public int getIdSessionFormation() {
+    return idSessionFormation;
+  }
 
-    public void setIdModule(int idModule) {
-        this.idModule = idModule;
-    }
+  public void setIdSessionFormation(int idSessionFormation) {
+    this.idSessionFormation = idSessionFormation;
+  }
+
+  public int getIdModule() {
+    return idModule;
+  }
+
+  public void setIdModule(int idModule) {
+    this.idModule = idModule;
+  }
 
 }
