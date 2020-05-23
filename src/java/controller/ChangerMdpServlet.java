@@ -123,10 +123,10 @@ public class ChangerMdpServlet extends HttpServlet {
         try {
             Connection db = Database.getConnection();
 
-            PersonneDao.updatePersonByMdp(mail);
-            Personne p = new Personne(mail, mdp, jeton);           // Instance d'un objet p avec un constructeur paramétré qui initialise l'attribut est_Actif à false et la date_insertion à l'haure et date du système 
-            
-//      String texte = "Veuillez confirmez votre inscription en cliquant sur le lien ci-après :"
+//            PersonneDao.updatePersonByMdp(mail);
+//            Personne p = new Personne(mail, mdp, jeton);           // Instance d'un objet p avec un constructeur paramétré qui initialise l'attribut est_Actif à false et la date_insertion à l'haure et date du système 
+//            
+////      String texte = "Veuillez confirmez votre inscription en cliquant sur le lien ci-après :"
 //              + JavaMailUtil.getCompletePath("confirmationEmail, request);
 //      String sujet = "votre mot de passe est modifié";
 //

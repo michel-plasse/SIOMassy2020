@@ -7,7 +7,6 @@ public class Personne {
   private int id;
   private String prenom, nom, email, mdp, urlPhoto, jeton;
   private boolean estFormateur, estAdministration;
-
   private LocalDateTime dateInscription;
   private LocalDateTime dateButoirJeton;
 
@@ -27,6 +26,7 @@ public class Personne {
     this.dateButoirJeton = LocalDateTime.now().plusHours(24);
 
   }
+
   public Personne(int id, String nom, String prenom, String email, String mdp, String urlPhoto, Boolean estAdministration, Boolean estFormateur, String jeton, LocalDateTime dateinscription, LocalDateTime dateButoirJeton) {
     this.id = id;
     this.nom = nom;
@@ -41,14 +41,6 @@ public class Personne {
     this.dateButoirJeton = dateButoirJeton;
     // Constructeur utilisé pour créer le USER dans ConnexionServlet
   }
-
-    public Personne(String mail, String mdp, String jeton) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public Personne(String mail, String mdp) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
   public void setdateButoirJeton(LocalDateTime dateButoirJeton) {
     this.dateButoirJeton = dateButoirJeton;
@@ -171,4 +163,11 @@ public class Personne {
     this.estAdministration = estAdministration;
   }
 
+  public boolean emailIsValid(String email) {
+    return email.matches("(?:\\w|[\\-_])+(?:\\.(?:\\w|[\\-_])+)*\\@(?:\\w|[\\-_])+(?:\\.(?:\\w|[\\-_])+)+");
+  }
+
+  public boolean mdpIsValid(String mdp) {
+    return mdp.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$");
+  }
 }
