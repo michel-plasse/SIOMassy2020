@@ -84,27 +84,27 @@ public class CreerProjetServlet extends HttpServlet {
             Date dateLimite = null;
             int id_session_formation = 1;
             int id_createur = user.getId();
+            
+            if (sidSession == null || sidSession.isEmpty()) {
+                champsrenseignes = false;
+                request.setAttribute("idSession", "Veuillez selectionner une session de formation.");
+            }
+            else {
+                try {
+                    id_session_formation = Integer.parseInt(sidSession);
+                    System.out.println("idSession = " + id_session_formation);
+                } catch (NumberFormatException exc) {
+                    champsrenseignes = false;
+                    request.setAttribute("idSession", "La session de formation doit être un entier positif.");
+                }
 
-//            if (sidSession == null || sidSession.isEmpty()) {
-//                champsrenseignes = false;
-//                request.setAttribute("idSession", "Veuillez selectionner une session de formation.");
-//            }
-//            else {
-//                try {
-//                    id_session_formation = Integer.parseInt(sidSession);
-//                    System.out.println("idSession = " + id_session_formation);
-//                } catch (NumberFormatException exc) {
-//                    champsrenseignes = false;
-//                    request.setAttribute("idSession", "La session de formation doit être un entier positif.");
-//                }
-//
-//            }
+            }
             if (titre == null || titre.isEmpty()) {
                 champsrenseignes = false;
                 request.setAttribute("titre", "Veuillez entrer le nom de projet..");
                 System.out.println("Rentre dans if condition");
             }
-           
+           // verification de la date de fin
             if (datefin == null || datefin.isEmpty()) {
                 champsrenseignes = false;
                 request.setAttribute("date_Fin", "Veuillez choisir une date limite.");
@@ -119,11 +119,13 @@ public class CreerProjetServlet extends HttpServlet {
                     request.setAttribute("date_Fin", "Veuillez saisir une date valide (aaaa-mm-jj)");
                 }
             }
+            
             if (champsrenseignes) {
                 try {
-                    Date dateCreation = new Date();
+                    Date dateCreation = new Date();         // date de début initialisé au moment de la création
                     Projet projetAjoutee = new Projet(0, id_session_formation, id_createur, titre, dateLimite, dateCreation);
                     
+                    // ajout du projet a l'aide du constructeur dans modele
                     ProjetDao dao = new ProjetDao();
                     dao.insert(projetAjoutee);
                     

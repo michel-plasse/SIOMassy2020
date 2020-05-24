@@ -29,13 +29,9 @@
                     
                 </table>
 
-            <input type="submit" onclick="insert()" value="Valider" />
+            <input type="submit" value="Valider" />
 
             <input type="submit" value="Annuler" />
-            
-            <button name="modif" onclick="update()">modifier</button>
-            
-            <button name="supp" onclick="delete()">suprimer</button>
             
         </head>
     <body>
