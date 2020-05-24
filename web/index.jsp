@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,6 +13,7 @@
         <div class="sidenav">
           <a href="inscription">Inscription</a> <hr>
           <a href="connexion">Connexion</a> <hr>
+          <a href="rappelMdp">Modifier Mot de Passe</a> 
           
         </div>
         

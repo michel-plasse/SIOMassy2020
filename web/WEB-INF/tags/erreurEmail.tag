@@ -10,12 +10,7 @@
 <%-- The list of normal or fragment attributes can be specified here: --%>
 <%@attribute name="test"%>
 <c:if test="${test}">
-  <div class =error >  
-  L'adresse mail doit contenir :
-    <ul>
-      <li> une chaîne de caractères </li>
-      <li>&nbsp;  & &nbsp; un "."&nbsp; </li>
-      <li>&nbsp; & &nbsp; un "@" </li>
-    </ul>
-  </div>
+  <span class =error >  
+      Ce mail est invalide, veuillez saisir un autre
+  </span>
 </c:if> 

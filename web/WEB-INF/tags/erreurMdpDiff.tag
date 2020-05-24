@@ -10,7 +10,7 @@
 <%-- The list of normal or fragment attributes can be specified here: --%>
 <%@attribute name="test"%>
 <c:if test="${test}">
-  <div class=error>  
+  <span class=error>  
   Les deux mots de passe doivent identiques et contenir :
     <ul>
       <li> - un minimum de 8 caractères</li>
@@ -20,6 +20,5 @@
       <li> - un ou plusieurs caractères spéciaux dans la liste : @#$%^&+=</li>
       <li> - ne doit pas contenir des espaces</li>
     </ul>
-  </br>
-  </div>
+  </span>
 </c:if> 
