@@ -7,31 +7,37 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <body>
+    
         <head>        
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <h1>Creation du projet</h1>
-            <form id="ProjetForm" method="post">
+            <form method="post">
                 
                 <table>
+                    
+                    
+                    
                     <tr>
                         <td>Titre du projet :</td>
                         <td><input type="text" name="titre" /></td>
-                    </tr>
+                    </tr>${titre}
+                    
                     <tr>
-                        <td>Date de creation :</td>
-                        <td><input type="date" name="date_Debut"/></td>
-                    </tr>
-                    <tr>
-                        <td>Date de fin : </td>
+                        <td>Date Limite : </td>
                         <td><input type="date" name="date_Fin"/></td>
-                    </tr>
+                    </tr>${date_Fin}
+                    
                 </table>
 
-            <input type="submit" value="Valider" />
+            <input type="submit" onclick="insert()" value="Valider" />
 
             <input type="submit" value="Annuler" />
             
+            <button name="modif" onclick="update()">modifier</button>
+            
+            <button name="supp" onclick="delete()">suprimer</button>
+            
         </head>
+    <body>
     </body>
 </html>

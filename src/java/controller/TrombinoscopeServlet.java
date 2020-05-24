@@ -38,7 +38,7 @@ public class TrombinoscopeServlet extends HttpServlet {
 			List<Personne> stagiaires = PersonneDao.getByIdSessionFormation(idSession);
 			// Ajouter 2 post it
 			request.setAttribute("stagiaires", stagiaires);
-      request.setAttribute("idSession", idSession);
+                        request.setAttribute("idSession", idSession);
 		} catch (SQLException exc) {
 			exc.printStackTrace();
 			request.setAttribute("exception", exc);

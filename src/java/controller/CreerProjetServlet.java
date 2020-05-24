@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -53,9 +54,20 @@ public class CreerProjetServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+		int idSession = 1;
+        try {
+            List<Projet>projet = ProjetDao.getByIdSessionFormation(idSession);
+      
+                request.setAttribute("projet", projet);
+                request.setAttribute("idSession", idSession);
+        } catch (SQLException ex) {
+            Logger.getLogger(CreerProjetServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
         request.getRequestDispatcher(VUE_FORM).forward(request, response);
     }
 
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -70,23 +82,23 @@ public class CreerProjetServlet extends HttpServlet {
             String titre = request.getParameter("titre");
             String datefin = request.getParameter("date_Fin");
             Date dateLimite = null;
-            int id_session_formation = 0;
+            int id_session_formation = 1;
             int id_createur = user.getId();
 
-            if (sidSession == null || sidSession.isEmpty()) {
-                champsrenseignes = false;
-                request.setAttribute("idSession", "Veuillez selectionner une session de formation.");
-            }
-            else {
-                try {
-                    id_session_formation = Integer.parseInt(sidSession);
-                    System.out.println("idSession = " + id_session_formation);
-                } catch (NumberFormatException exc) {
-                    champsrenseignes = false;
-                    request.setAttribute("idSession", "La session de formation doit être un entier positif.");
-                }
-
-            }
+//            if (sidSession == null || sidSession.isEmpty()) {
+//                champsrenseignes = false;
+//                request.setAttribute("idSession", "Veuillez selectionner une session de formation.");
+//            }
+//            else {
+//                try {
+//                    id_session_formation = Integer.parseInt(sidSession);
+//                    System.out.println("idSession = " + id_session_formation);
+//                } catch (NumberFormatException exc) {
+//                    champsrenseignes = false;
+//                    request.setAttribute("idSession", "La session de formation doit être un entier positif.");
+//                }
+//
+//            }
             if (titre == null || titre.isEmpty()) {
                 champsrenseignes = false;
                 request.setAttribute("titre", "Veuillez entrer le nom de projet..");
@@ -127,3 +139,4 @@ public class CreerProjetServlet extends HttpServlet {
         }
     }
 }
+

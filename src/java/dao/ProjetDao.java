@@ -10,7 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import modele.Personne;
 import modele.Projet;
 
 
@@ -22,20 +25,49 @@ import modele.Projet;
 
 public class ProjetDao {
     
+      public static final String GET_BY_ID_SESSION
+          = "SELECT * "
+          + "FROM projet "
+          + "WHERE id_session_formation=?"
+          + ")";
+
+    public static List<Projet> getByIdSessionFormation(int idSession) throws SQLException {
+        List<Projet> result = new ArrayList<Projet>();
+        Connection db = Database.getConnection();
+        PreparedStatement stmt = db.prepareStatement(GET_BY_ID_SESSION);
+        stmt.setInt(1, idSession);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Projet projet;
+            projet = new Projet(
+                    rs.getInt("id_projet"),
+                    rs.getInt("id_session_formation"),
+                    rs.getInt("id_createur"),
+                    rs.getString("titre"),
+                    rs.getDate("date_debut"),
+                    rs.getDate("date_fin"));
+      result.add(projet);
+    }
+    return result;
+  
+          
+    }
+    
     public void insert(Projet projet) throws SQLException {
 
         try {
             Connection db = Database.getConnection();
             
-            String sql = "INSERT INTO projet(id, id_session_formation, id_createur, titre, date_Debut, date_Fin)"
-                    + " VALUES (?,?,?,?,?, ?)";
+            String sql = "INSERT INTO projet(id_projet, titre, date_debut, date_fin, id_session_formation, id_createur)"
+                    + " VALUES (?,?,?,?,?,?)";
             PreparedStatement stmt = db.prepareStatement(sql);
             stmt.setInt(1, projet.getId());
-            stmt.setInt(2, projet.getId_session_formation());
-            stmt.setInt(3, projet.getId_createur());
-            stmt.setString(4, projet.getTitre());
-            stmt.setDate(5, new java.sql.Date(projet.getDate_Debut().getTime()));
-            stmt.setDate(6, new java.sql.Date(projet.getDate_Fin().getTime()));
+            stmt.setString(2, projet.getTitre());
+            stmt.setDate(3, new java.sql.Date(projet.getDate_Debut().getTime()));
+            stmt.setDate(4, new java.sql.Date(projet.getDate_Fin().getTime()));
+            stmt.setInt(5, projet.getId_session_formation());
+            stmt.setInt(6, projet.getId_createur());
+            
             System.out.println(projet);
             stmt.executeUpdate();
             // Recuperer le id
@@ -53,14 +85,13 @@ public class ProjetDao {
             }
     }
     
-    public boolean delete(int id) throws SQLException {
+    public void delete(int id) throws SQLException {
         Connection db = Database.getConnection();
         Statement stmt = db.createStatement();
         stmt.executeUpdate("DELETE FROM projet WHERE id_projet =" + id + ";");
-        return false;
     }
     
-    public boolean update(int idAncien, Projet nouveau) throws SQLException {
+    public void update(int id_projet, Projet nouveau) throws SQLException {
         Connection db = Database.getConnection();
         Statement stmt = db.createStatement();
         
@@ -69,8 +100,8 @@ public class ProjetDao {
         Date date_Debut = nouveau.getDate_Debut();
         Date date_Fin = nouveau.getDate_Fin();
 
-        stmt.executeUpdate("UPDATE projet SET(" + sessionFormation + "," + titre + ",'" + date_Debut + ",'" + date_Fin + ",'");
-        return false;
-    }    
+        stmt.executeUpdate("UPDATE projet SET(" + titre + "," + date_Debut + ",'" + date_Fin + ",'" + sessionFormation + ",'");
+        
+    }
 }
 		
