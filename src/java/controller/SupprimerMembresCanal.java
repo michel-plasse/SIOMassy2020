@@ -51,8 +51,8 @@ public class SupprimerMembresCanal extends HttpServlet {
         response.setContentType("text/html");
         String vue = VUE_OK;
         //on affecte un entier à l'idCanal et à l'idPersonne
-        int idCanal = 1;
-        int idPersonne = 1;
+        int idCanal =1;
+        int idPersonne = 5;
         CanalDao dao = new CanalDao();
 
         while (true) {

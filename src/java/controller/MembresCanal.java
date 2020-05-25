@@ -22,26 +22,29 @@ import modele.Membre;
  */
 @WebServlet("/membresCanal")
 public class MembresCanal extends HttpServlet {
-
+    
     private static final long serialVersionUID = 1L;
-
+    
     /**
      * Vue si succes
      */
     private static final String VUE_OK = "WEB-INF/membresCanal.jsp";
+    
     /**
      * Vue si erreur (exception)
      */
+    
     private static final String VUE_ERREUR = "WEB-INF/exception.jsp";
-
     @Override
+    
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         // Soyons optimistes
         String vue = VUE_OK;
-
+        
         int idCanal = 1;
+        
         // Recuperer les donnees des membres d'un canal
         try {
             List<Membre> membres = CanalDao.getMembres(idCanal);
@@ -50,9 +53,9 @@ public class MembresCanal extends HttpServlet {
             request.setAttribute("membres", membres);
             request.setAttribute("idCanal", idCanal);
             //response.sendRedirect("membresCanal?idCanal="+idCanal);
-
+            
         } catch (SQLException exc) {
-            exc.printStackTrace();
+            
             request.setAttribute("exception", exc);
             vue = VUE_ERREUR;
         }

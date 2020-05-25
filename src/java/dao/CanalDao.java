@@ -45,10 +45,8 @@ public class CanalDao {
     public static final String DELETE_MEMBRE_CANAL
             = "DELETE FROM membre_canal WHERE id_canal=? and id_personne=? ";
 
-
     /**
-     * @param idCanal
-     * idCanal
+     * @param idCanal idCanal
      * @return
      * @throws SQLException
      */
