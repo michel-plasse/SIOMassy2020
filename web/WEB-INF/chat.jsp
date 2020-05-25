@@ -10,6 +10,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" href="css/agriotes.css">
+        <script src="jquery-3.5.0.min.js" type="text/javascript"></script>
 
 
     </head>
@@ -23,12 +25,30 @@
                     canaux[i].style.fontWeight = "normal";
                 }
                 document.getElementById("canal" + idCanalCourant).style.fontWeight = "bold";
-                console.log(canaux.length);
-                document.getElementById("droite").innerHTML=idCanalCourant;
+                $.ajax({
+                       type : "GET",
+                       url:"canal?id_canal="+idCanalCourant,
+                       datatype:'HTML',
+                       
+                       success:function(data)
+                       {
+                           $("#droite").html(data);
+                       },
+                       error:function(xhr,message)
+                       {
+                           $("#canal"+ idCanalCourant).html(xhr.status +"" + "" + message);
+                       }
+                           
+                    
+                       
+                });
+                
+                
+                
             }
         </script>
-        <div id="gauche"> 
-            <h1 align="center">Agriotes Tchat</h1>
+        <div id="gauche" align="left"> 
+            <h1 align="center">Bienvenue sur le chat Agriotes</h1>
             <hr>
             nombre de canaux:
             ${canaux.size()}
@@ -43,10 +63,27 @@
                 </c:forEach>           
             </ul>
         </div>
-            <div id="droite">
+            
+                
+            
+            nombre de message:
+            ${messages.size()}
+            <br>
+
+            <div id="droite" align="center">
+                <ul>
+                <c:forEach items="${messages}" var="message">
+                    <li id="message${message.contenu}">
+                        Date :     ${message.date_publication} 
+                        Contenu :   ${message.contenu} 
+                        NOM : ${message.id_messageCanal}
+                        
+                    </li>
+                </c:forEach>
+                </ul>
                
             </div>
-                </form>
                 
+             
     </body>
 </html>

@@ -1,0 +1,118 @@
+﻿  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script src="../script/base64.js"></script>
+
+<script>
+    urlWS = "http://www.mplasse.com/cinema/ws/";
+    $(document).ready(function () {
+        // Fait du div artisteDialog une boite mobile masquee et modale
+        $("#director").autocomplete({
+            // Suggested data source
+            source: function (request, response) {
+                // Code pour récupérer les suggestions. Ici, par ajax.
+                $.ajax({
+                    // page URL
+                    url: urlWS + "artistes",
+                    // The WS parameter "nom" is to be found in the reali
+                    data: {"nom": $("#director").val()},
+                    // GET XML
+                    dataType: "xml",
+                    // What to do if success (reponseXML is the received XML tree)
+                    success: function (reponseXML) {
+                        // Get "artiste" elements of the result and replace each
+                        // by a pair(value, id)
+                        var data = $("artiste", reponseXML).map(function () {
+                            var text = $(this).attr("nom") + " (" + $(this).attr("prenom") + ")";
+                            return {
+                                id: $(this).attr("id"),
+                                value: text,
+                                label: text
+                            };
+                        });
+                        // Return this array of pairs
+                        response(data);
+                    }
+                });
+            },
+            // What to do when selecting one suggested item
+            select: function (event, ui) {
+                // event : origin event, ui : the suggesting component
+                $("#directorId").val(ui.item.id); // ui.item : selected item
+            },
+            change: function (event, ui) {
+                // Empty the hidden field if the value is not in the list
+                $("#directorId").val("");
+            },
+            delay: 100, // ms
+            minLength: 0 // minimum number of input characters
+        });
+
+        $("#createFilm").submit(function (event) {
+            // We need to encode the authentication
+            var auth = "Basic " + Base64.encode("admin:admin");
+            $.ajax({
+                url: urlWS + "films",
+                type: "POST",
+                data: $("#createFilm").serialize(),
+                // We add the auth header before sending the request
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Authorization", auth);
+                },
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (reponse, status, xhr) {
+                    var location = xhr.getResponseHeader('Location');
+                    $("#message").html("Movie created available at : <a href='" + urlWS + location + "'>" + location + "</a>");
+                    // Vider les champs
+                    $("#directorId").val("");
+                    $("#director").val("");
+                    $("#titre").val("");
+                },
+                error: function (reponse) {
+                    $("#message").html(reponse.responseText);
+                }
+            });
+        })
+    });
+</script>
+</head>
+
+<body>
+    <h1>New movie</h1>
+    <form id="createFilm" action="javascript:">
+        <fieldset style="display: inline">
+            <legend>Movie</legend>
+            <table>
+                <tr>
+                    <td>Title</td>
+                    <td><input name="titre" id="titre"/></td>
+                </tr>
+                <tr>
+                    <td>Movie kind</td>
+                    <td>
+                        <select name="idGenre" id="idGenre">
+                            <option value="C">Comédie</option>
+                            <option value="D">Drame</option>
+                            <option value="J">Jeunesse</option>
+                            <option value="O">Comédie dramatique</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Director</td>
+                    <td>
+                        <input type="text" id="director"/>
+                        <input type="hidden" id="directorId" name="directorId"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center;">
+                        <button id="insertFilm">Insérer</button>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <div id="message">Message area</div>
+    </form>

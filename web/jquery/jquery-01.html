@@ -1,0 +1,32 @@
+﻿<html>
+    <head>
+        <script src="../script/jquery-1.11.2.min.js"></script>
+        <style>
+            div {
+                border: solid 1px orange;
+                padding: 1em;
+            }
+        </style>
+    </head>
+    <body>
+        <button id="myButton">Modify the content<br/>
+            of the element below<br/>
+            with jQuery</button>
+        <input type="text" id="myInput"/>
+        <div id="result">Here the element</div>
+
+        <script>
+            // Behaviour after page loading (the HTML shell)
+            $(document).ready(function () {
+                // Callback of a click on the button of id myButton
+                $("#myButton").click(function (event) {
+                    // Put in this element innerHTML
+                    // the value of input field of id myInput
+                    $("#result").html($("#myInput").val());
+                    // Note that html and val are setter routines
+                    // with a parameter and getter ones without
+                });
+            });
+        </script>
+    </body>
+</html>

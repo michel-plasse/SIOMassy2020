@@ -1,0 +1,53 @@
+﻿  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Add to the director input field an input suggestion
+        $("#director").autocomplete({
+            // Data to suggest
+            source: "suggested-artists.json",
+            delay: 20, // ms
+            minLength: 1 // Minimum number of input characters
+        });
+    });
+</script>
+</head>
+
+<body>
+    <form id="newMovie" action="javascript:">
+        <fieldset style="display: inline">
+            <legend>New movie</legend>
+            <table>
+                <tr>
+                    <td>Title</td>
+                    <td><input name="title" id="title"/></td>
+                </tr>
+                <tr>
+                    <td>Movie kind</td>
+                    <td>
+                        <select name="genre" id="genre">
+                            <option value="C">Comedy</option>
+                            <option value="D">Drama</option>
+                            <option value="J">Youth</option>
+                            <option value="O">Dramatic comedy</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Director</td>
+                    <td>
+                        <input type="text" id="director"/>
+                        <input type="hidden" id="idDirector" name="idDirector"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center;">
+                        <button id="insertFilm">Create</button>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <div id="message">Message area</div>
+    </form>

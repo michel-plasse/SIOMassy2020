@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+   <head>
+      <title>Test de JQuery</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <script src="../script/jquery-1.11.2.min.js"></script>
+      <script src="../script/base64.js"></script>
+   </head>
+   <body>
+      <h1>Ajax avec JQuery</h1>
+      <ul>
+         <li><a id="htmlCall" href="javascript:">Get HTML fragment</a></li>
+         <li><a id="putCall" href="javascript:">Call a put</a></li>
+         <li><a id="externalGetCall" href="javascript:">Call to an extenal
+               resource with GET method</a>
+         </li>
+         <li><a id="externalPutCall" href="javascript:">Call to an extenal
+               resource with PUT method</a>
+         </li>
+         <li><a id="xmlCall" href="javascript:">Get XML content</a></li>
+      </ul>
+      <div id="zone" style="background: #EEEEEE; border: solid 1px orange;">Une zone</div>
+      <script type="text/javascript" >
+         // What to do when page loading is complete
+         $(document).ready(function () {
+            // Reaction to a click on the htmlCall link
+            $("#htmlCall").click(function (event) {
+               $.ajax({
+                  // HTTP method
+                  type: "GET",
+                  url: "fragment.html",
+                  // Type of response body
+                  dataType: "html",
+                  // What to do in case of error (status 400-599)
+                  // xhr stands for the underlying XMLHttpRequest object
+                  error: function (xhr, string) {
+                     $("#zone").html("Error: " + xhr.status);
+                  },
+                  // What to do if success (status 200-299)
+                  success: function (data) {
+                     $("#zone").html(data);
+                  }
+               });
+            });
+            $("#putCall").click(function (event) {
+               // We need to encode the authentication
+               var auth = "Basic " + Base64.encode("admin:admin");
+               $.ajax({
+                  type: "PUT",
+                  url: "../tutorial/person-1",
+                  // Body parameters to send
+                  data: {
+                     name: "Somebody"
+                  },
+                  beforeSend: function (xhr) {
+                     xhr.setRequestHeader("Authorization", auth);
+                  },
+                  // What to do in case of failure (400-599)
+                  error: function (xhr, string) {
+                     $("#zone").html("Erreur : " + xhr.status + " "
+                             + xhr.statusText + "<br/>" + xhr.responseText);
+                  },
+                  // What to do if success (200-299)
+                  success: function (data) {
+                     $("#zone").html("Person 1 updated");
+                  }
+               });
+            });
+            $("#externalGetCall").click(function (event) {
+               $.ajax({
+                  type: "GET",
+                  url: "http://www.mplasse.com/cinema/ws/artiste-1",
+                  error: function (xhr, string) {
+                     $("#zone").html("Erreur : " + xhr.status + " "
+                             + xhr.statusText + "<br/>" + xhr.responseText);
+                  },
+                  // What to do if success (200-299)
+                  success: function (xml) {
+                     $("#zone").html("Artist 1 updated");
+                  }
+               });
+            });
+            $("#externalPutCall").click(function (event) {
+               // We need to encode the authentication
+               var auth = "Basic " + Base64.encode("admin:admin");
+               $.ajax({
+                  type: "PUT",
+                  url: "http://www.mplasse.com/cinema/ws/artiste-1",
+                  // Body parameters to send
+                  data: {
+                     prenom: "Fanny",
+                     nom: "Ardant"
+                  },
+                  // We add the auth header before sending the request
+                  beforeSend: function (xhr) {
+                     xhr.setRequestHeader("Authorization", auth);
+                  },
+                  xhrFields: {
+                     withCredentials: true
+                  },
+                  // What to do in case of failure (400-599)
+                  error: function (xhr, string) {
+                     $("#zone").html("Erreur : " + xhr.status + " "
+                             + xhr.statusText + "<br/>" + xhr.responseText);
+                  },
+                  // What to do if success (200-299)
+                  success: function (xml) {
+                     $("#zone").html("Artist 1 updated");
+                  }
+               });
+            });
+            $("#xmlCall").click(function (event) {
+               $.ajax({
+                  type: "GET",
+                  // We get a static XML file
+                  url: "communes.xml",
+                  dataType: "xml",
+                  // Failure case
+                  error: function (xhr, string) {
+                     $("#zone").html("Erreur : " + xhr.status);
+                  },
+                  // Success case
+                  success: function (xml) {
+                     var zip = $(xml).find("communes").attr("cp");
+                     $("#zone").html("<p>Cities with zip code " + zip + ":</p>");
+                     // Create a ul and append it at body end
+                     var ul = $("<ul/>").appendTo("#zone");
+                     // Apply to each commune element the function
+                     $(xml).find("commune").each(function () {
+                        // Which creates a li element with the content
+                        // of the commune item as html content
+                        $("<li/>", {
+                           text: $(this).text()
+                        }).appendTo($(ul));
+                     })
+                  }
+               });
+            });
+         });
+      </script>
+   </body>
+</html>
