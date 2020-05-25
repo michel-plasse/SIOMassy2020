@@ -124,13 +124,12 @@ public class CreerProjetServlet extends HttpServlet {
             if (champsrenseignes) {
                 try {
                     Date dateCreation = new Date();         // date de début initialisé au moment de la création
-                    Projet projetAjoutee = new Projet(0, id_session_formation, id_createur, titre, dateLimite, dateCreation);
-                    
-                    // ajout du projet a l'aide du constructeur dans modele
+                    Projet p = new Projet(0, id_session_formation, id_createur, titre, dateLimite, dateCreation);                    // ajout du projet a l'aide du constructeur dans modele
+
                     ProjetDao dao = new ProjetDao();
-                    dao.insert(projetAjoutee);
+                    dao.insert(p);
                     
-                    request.setAttribute("message", "Projet numero" + projetAjoutee.getId() + " a été correctement créé " );
+                    request.setAttribute("message", "Projet numero" + p.getId() + " a été correctement créé " );
                     request.getRequestDispatcher(VUE_FORM).forward(request, response);
                 } catch (SQLException e) {
                     request.getRequestDispatcher("WEB-INF/exception.jsp").forward(request, response);
