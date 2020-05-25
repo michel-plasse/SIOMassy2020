@@ -82,8 +82,8 @@ public class CreerProjetServlet extends HttpServlet {
             String titre = request.getParameter("titre");
             String datefin = request.getParameter("date_Fin");
             Date dateLimite = null;
-            int id_session_formation = 1;
-            int id_createur = user.getId();
+            int id_session_formation = 0;
+            int id_createur = user.getId();          
             
             if (sidSession == null || sidSession.isEmpty()) {
                 champsrenseignes = false;
@@ -109,7 +109,8 @@ public class CreerProjetServlet extends HttpServlet {
                 champsrenseignes = false;
                 request.setAttribute("date_Fin", "Veuillez choisir une date limite.");
                 System.out.println("Rentre dans if condition");
-            } else {
+            }
+            else {
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-DD");
                 try {
                     dateLimite = df.parse(datefin);

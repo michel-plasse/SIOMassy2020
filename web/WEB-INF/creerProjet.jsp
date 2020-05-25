@@ -15,6 +15,16 @@
                 
                 <table>
                     
+                    <tr>
+                    <td>Session_formation : </td>
+                    <td>
+                        <select name="idSession">
+                            <option value="1" selected="selected">BTS SIO 2019-2020</option>
+                            <option value="2">BTS SIO 2018-2019</option>
+                        </select>${idSession}
+                            
+                        </td>
+                    </tr>
                     
                     
                     <tr>
