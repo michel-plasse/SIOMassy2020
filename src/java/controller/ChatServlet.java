@@ -1,7 +1,6 @@
 package controller;
 
 import dao.CanalDao;
-import dao.MessageDao;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.Canal;
-import modele.Message;
 
 
 @WebServlet(name = "ChatServlet", urlPatterns = {"/chat"})

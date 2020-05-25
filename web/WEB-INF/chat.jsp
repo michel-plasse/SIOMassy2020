@@ -5,7 +5,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <%-- <link rel="stylesheet"type="text/css" href="./agriotes.css"> --%>
         <title>JSP Page</title>
         <script src="jquery-3.4.1.min.js" type="text/javascript"></script>
     </head>
@@ -20,20 +19,20 @@
                 }
                 document.getElementById("canal" + idCanalCourant).style.fontWeight = "bold";
                 $.ajax({
-                        type: "GET",
-                        url: "canal?"+idCanalCourant,
-                        dataType: 'HTML',
-                        
-                        success:function(data)
-                        {
-                           $("#droite").html(data);
-                        },
-                        error:function(xhr, message)
-                        {
-                            $("#canal"+idCanalCourant).html(xhr.status +"" + "" + message);
-                        }
-                    });
-                
+                    type: "GET",
+                    url: "canal?idCanal="+ idCanalCourant,
+                    dataType: 'HTML' ,
+
+                    success: function (data)
+                    {
+                        $("#droite").html(data);
+                    },
+                    error: function (xhr, message)
+                    {
+                        $("#canal" + idCanalCourant).html(xhr.status + "" + "" + message);
+                    }
+                });
+                console.log();
             }
         </script>
         <div id="gauche"> 
@@ -42,12 +41,9 @@
             nombre de canaux:
             ${canaux.size()}
             <br>
-
-
             <ul>
                 <c:forEach items="${canaux}" var="canal">
                     <li id="canal${canal.idCanal}" onclick="setCanal()">
-
                         ${canal.nom}
                     </li>
                 </c:forEach>
@@ -55,43 +51,9 @@
 
         </div>
         <div id="droite">
-             
-        </div>
-
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            <div id="gauche"> 
-            <h1 align="center">Messages</h1>
-            <hr>
-            nombre de message:
-            ${messages.size()}
-            <br>
-
-
-            <ul>
-                <c:forEach items="${messages}" var="message">
-                    <li id="message${message.contenu}">
-                        Date :     ${message.date_publication} <br>
-                        Contenu :   ${message.contenu} <br>
-                        NOM : ${message.id_messageCanal}
-                        <hr>
-                    </li>
-                </c:forEach>
-            </ul>
 
         </div>
+
     </body>
 </html>
 
-
-
-
-</body>
-</html>

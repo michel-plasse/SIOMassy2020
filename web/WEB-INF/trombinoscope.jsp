@@ -93,29 +93,13 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <%--
-                             <li>
-                                  <img src="images/${stagiaire.nom}_${stagiaire.prenom}.jpg" 
-                                  width="100" alt="photo de ${stagiaire.prenom} ${stagiaire.nom}"/>
-                                  ${stagiaire.prenom} ${stagiaire.nom}
-                                  (<a href="mailto:${stagiaire.email}">${stagiaire.email}</a>)
-                            
-                              </li>  
-                        --%>
+ 
                     </div>
                 </c:forEach>
             </ol>
 
         </div>
 
-        <%--
-        <table border="" width="90%" align="center" background-color="black" color="white">
-          <c:forEach items="${stagiaires}" var="stagiaire">
-              <td align="center" bgcolor="#F0F0F0" width="15%"> <img src="images/${stagiaire.id}.jpg" width="100" height="100"/>
-                  <br> ${stagiaire.prenom} ${stagiaire.nom} <br> (<a href="mailto:${stagiaire.email}">${stagiaire.email}</a>)<br> </td>
-          </c:forEach>
-      </table>
-        --%>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>

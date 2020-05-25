@@ -36,13 +36,13 @@ public class TrombinoscopeServlet extends HttpServlet {
             throws ServletException, IOException {
         // Soyons optimistes
         String vue = VUE_OK;
-        // d'abord en dur
-        //int idSession = 1;
 
-        int idSession = Integer.parseInt(request.getParameter("idSession"));
+
+        
 
         // Recuperer les donnees (ici, les stagiaires)
         try {
+            int idSession = Integer.parseInt(request.getParameter("idSession"));
             List<Personne> stagiaires = PersonneDao.getByIdSessionFormation(idSession);
             // Ajouter 2 post it
             request.setAttribute("stagiaires", stagiaires);
