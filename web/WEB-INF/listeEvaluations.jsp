@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@taglib prefix="a" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -19,6 +20,8 @@
     <div align="center" style="padding-left: 200px">
       <br/>
       <h1>Liste des évaluations</h1>
+      <c:set var = "now" value = "" />
+      <p><fmt:formatDate type = "both" dateStyle = "short" timeStyle = "short" value = "${now}" /></p>
       <table>
         <tr>
           <th class="agrandir">Nom du module</th>
@@ -29,7 +32,8 @@
           <tr>
             <td class="agrandir"> ${uneEvaluation.nomModule}</td>
             <td class="agrandir"> ${uneEvaluation.nomSession}</td>
-            <td class="agrandir"> ${uneEvaluation.dateEffet}</td>
+            <fmt:parseDate value="${uneEvaluation.dateEffet}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+            <td class="agrandir"><fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${ parsedDateTime }" /></td>
           </tr>
         </c:forEach>
       </table>
