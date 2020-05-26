@@ -36,23 +36,21 @@ public class CreerEvaluationServlet extends HttpServlet {
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
+    String vue = VUE_FORM_CREATION_EVAL;
     SessionDao daoSF = new SessionDao();
     Map<Integer, String> sessions;
-    try {
-      sessions = daoSF.getSession();
-      request.setAttribute("sessions", sessions);
-    } catch (SQLException ex) {
-      Logger.getLogger(CreerEvaluationServlet.class.getName()).log(Level.SEVERE, null, ex);
-    }
     ModuleDao daoM = new ModuleDao();
     Map<Integer, String> modules;
     try {
+      sessions = daoSF.getSession();
+      request.setAttribute("sessions", sessions);
       modules = daoM.getModule();
       request.setAttribute("modules", modules);
     } catch (SQLException ex) {
       Logger.getLogger(CreerEvaluationServlet.class.getName()).log(Level.SEVERE, null, ex);
+      request.setAttribute("exception", ex);
+      vue = VUE_ERREUR;
     }
-
     request.getRequestDispatcher(VUE_FORM_CREATION_EVAL).forward(request, response);
 
   }
@@ -64,7 +62,7 @@ public class CreerEvaluationServlet extends HttpServlet {
     LocalDateTime dateEffet = LocalDateTime.parse(request.getParameter("dateEffet"));
     String vue = VUE_FORM_CREATION_EVAL;
 
-    if ( idModule == 0 || idSesionFormation == 0 || dateEffet.isBefore(LocalDateTime.now()) ) {
+    if (idModule == 0 || idSesionFormation == 0 || dateEffet.isBefore(LocalDateTime.now())) {
       request.setAttribute("erreur", "Veuillez renseigner tous les champs");
     } else {
       try {
