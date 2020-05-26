@@ -1,0 +1,17 @@
+@startuml
+participant Navigateur 
+participant Vue
+
+Navigateur -> Vue : accueil.jsp 
+Vue -> Controleur: GET /modifierProfil 
+Controleur -> Vue: modifierProfil.jsp 
+Vue -> Navigateur : Affichage page "modifier profil" 
+Navigateur -> Vue: modifierProfil.jsp 
+Vue -> Controleur: POST /modifierProfil 
+Controleur -> Vue : modifierProfil.jsp Si contrôles formulaire ko 
+Vue -> Navigateur : Affichage page "modifier profil" 
+Controleur -> Dao: Si controles OK PersonneDao.majByIdPersonne(personne) 
+Controleur -> Vue: accueil.jsp 
+Vue -> Navigateur: Vue Accueil 
+@enduml
+
