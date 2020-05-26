@@ -8,7 +8,7 @@
   </head>
   <body>
     <h1>Une erreur inattendue s'est produite</h1>
-    <p class="error">${exception.message}</p>
+    <p class="error">${exception}</p>
     <p>Voir le fichier journal pour plus de détails.</p>
   </body>
 </html>
