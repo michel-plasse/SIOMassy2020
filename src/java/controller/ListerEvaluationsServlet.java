@@ -37,12 +37,13 @@ public class ListerEvaluationsServlet extends HttpServlet {
     try {
       HttpSession session = request.getSession(true);
       Personne p = (Personne) session.getAttribute("user");
-      if(p==null){
+      if (p == null) {
+        request.setAttribute("exception", "Vous devez vous connecter");
         vue = VUE_ERREUR;
-      }else
-      {
-      List<Evaluation> evaluations = EvaluationDao.getEvaluationByFormateur(p.getId());
-      request.setAttribute("evaluation", evaluations);}
+      } else {
+        List<Evaluation> evaluations = EvaluationDao.getEvaluationByFormateur(p.getId());
+        request.setAttribute("evaluation", evaluations);
+      }
 
     } catch (SQLException exc) {
       Logger.getLogger(ConnexionServlet.class.getName()).log(Level.SEVERE, null, exc);
