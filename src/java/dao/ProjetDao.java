@@ -45,7 +45,8 @@ public class ProjetDao {
                     rs.getInt("id_createur"),
                     rs.getString("titre"),
                     rs.getDate("date_debut"),
-                    rs.getDate("date_fin"));
+                    rs.getDate("date_fin"),
+                    rs.getString("description"));
       result.add(projet);
     }
     return result;
@@ -58,8 +59,8 @@ public class ProjetDao {
         try {
             Connection db = Database.getConnection();
             
-            String sql = "INSERT INTO projet(id_projet, titre, date_debut, date_fin, id_session_formation, id_createur)"
-                    + " VALUES (?,?,?,?,?,?)";
+            String sql = "INSERT INTO projet(id_projet, titre, date_debut, date_fin, id_session_formation, id_createur, description)"
+                    + " VALUES (?,?,?,?,?,?,?)";
             PreparedStatement stmt = db.prepareStatement(sql);
             stmt.setInt(1, projet.getId());
             stmt.setString(2, projet.getTitre());
@@ -67,6 +68,7 @@ public class ProjetDao {
             stmt.setDate(4, new java.sql.Date(projet.getDate_Fin().getTime()));
             stmt.setInt(5, projet.getId_session_formation());
             stmt.setInt(6, projet.getId_createur());
+            stmt.setString(7, projet.getDescription());
             
             System.out.println(projet);
             stmt.executeUpdate();
@@ -102,8 +104,9 @@ public class ProjetDao {
         String titre = nouveau.getTitre();
         Date date_Debut = nouveau.getDate_Debut();
         Date date_Fin = nouveau.getDate_Fin();
+        String description = nouveau.getDescription();
 
-        stmt.executeUpdate("UPDATE projet SET(" + titre + ",'" + date_Debut + ",'" + date_Fin + ",'" + sessionFormation + "WHERE id_projet =" + id_projet + ";");
+        stmt.executeUpdate("UPDATE projet SET(" + titre + ",'" + date_Debut + ",'" + date_Fin + ",'" + sessionFormation + ",'" + description + "WHERE id_projet =" + id_projet + ";");
         
     }
 }

@@ -76,7 +76,7 @@ public class CreerProjetServlet extends HttpServlet {
             String Session = request.getParameter("id_session_formation");
             String titre = request.getParameter("titre");
             String datefin = request.getParameter("date_Fin");
-//            String description = request.getParameter("description");
+            String description = request.getParameter("description");
             Date dateLimite = null;
             int id_session_formation = 1;
             int id_createur = user.getId();
@@ -89,13 +89,13 @@ public class CreerProjetServlet extends HttpServlet {
            // verification du titre            
             if (titre == null || titre.isEmpty()) {
                 champsrenseignes = false;
-                request.setAttribute("message", "Veuillez entrer le nom de projet..");
+                request.setAttribute("messageErreurTitre", "Veuillez entrer le nom de projet..");
                 System.out.println("echec a titre");
             }
            // verification de la date de fin
             if (datefin == null || datefin.isEmpty()) {
                 champsrenseignes = false;
-                request.setAttribute("message1", "Veuillez choisir une date limite.");
+                request.setAttribute("messageErreurDateLimite", "Veuillez choisir une date limite.");
                 System.out.println("echec a datefin");
             }
             else {
@@ -115,7 +115,7 @@ public class CreerProjetServlet extends HttpServlet {
                     System.out.println("pitetre");
                     Date dateCreation = new Date();         // date de début initialisé au moment de la création
                     System.out.println("pitetre1");
-                    Projet p = new Projet(0, id_session_formation, id_createur, titre, dateCreation, dateLimite);                    // ajout du projet a l'aide du constructeur dans modele
+                    Projet p = new Projet(0, id_session_formation, id_createur, titre, dateCreation, dateLimite, description);                    // ajout du projet a l'aide du constructeur dans modele
                     System.out.println("pitetre2");
                     ProjetDao dao = new ProjetDao();
                     System.out.println("pitetre3");

@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class Projet {
     private int id,id_session_formation,id_createur;
-    private String titre;
+    private String titre,description;
     private Date date_Debut,date_Fin;
 
     public Projet(int id, String titre, Date date_Debut, Date date_Fin) {
@@ -30,13 +30,22 @@ public class Projet {
         this.titre = titre;
     }
 
-    public Projet(int id, int id_session_formation, int id_createur, String titre, Date date_Debut, Date date_Fin) {
+    public Projet(int id, int id_session_formation, int id_createur, String titre, Date date_Debut, Date date_Fin, String description) {
         this.id = id;
         this.id_session_formation = id_session_formation;
         this.id_createur = id_createur;
         this.titre = titre;
         this.date_Debut = date_Debut;
         this.date_Fin = date_Fin;
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getId_session_formation() {
