@@ -1,3 +1,55 @@
-.error {
-  color: red;
+. erreur {
+  couleur : rouge;
+}
+. bleu {
+    couleur : bleu
+}
+corps {
+  alignement du texte : centre;
+  taille de police : 20 px ;
+  rembourrage : 0 ;
+  marge : 0 ;
+  famille de polices : 'PT Sans' , sans-serif;
+  fond : # e0e0e0 ;
+}
+. sidenav {
+  taille de police : 10 px ;
+  hauteur : 100 % ;
+  largeur : 200 px ;
+  position : fixe;
+  indice z : 1 ;
+  en haut : 0 ;
+  gauche : 0 ;
+  couleur de fond : # 000 ;
+  overflow-x : caché;
+  rembourrage supérieur : 15 px ;
+}
+. sidenav  a {
+  rembourrage : 6 px  8 px  6 px  16 px ;
+  décoration de texte : aucune;
+  taille de police : 25 px ;
+  couleur : # 818181 ;
+  affichage : bloc;
+}
+. sidenav  a : hover {
+  couleur : # f1f1f1 ;
+}
+table {
+marge : auto;
+alignement du texte : gauche;
+}
+. agrandir
+{
+    largeur : 400 px ;
+    hauteur : 30 px ;
+}
+:: placeholder {
+  couleur : gris;
+  taille de police : 1 em ;
+}
+. agrandirbtn
+{    taille de police : 1,5 em ;
+    largeur : 200 px ;
+    hauteur : 50 px ;
+    couleur de fond : # 33DCFF ;
 }
