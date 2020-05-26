@@ -18,7 +18,7 @@ import modele.Message;
 
 /**
  *
- * @author akber
+ * Crist
  */
 public class MessageDao {
     
@@ -34,29 +34,7 @@ public class MessageDao {
               "SELECT * FROM message_canal WHERE id_canal IN ( SELECT id_canal FROM canal WHERE id_canal=? )";
                                                                
 
-  /**
-   * Stagiaires d'une session de formation
-   *
-   * @param idSession id de la session
-   * @return les stagiaires sous forme d'une List<Personne>
-   * @throws SQLException
-   */
-      
-   /**   
-  public void insert(Message message) throws SQLException {
-        Connection db = Database.getConnection();
-
-        PreparedStatement stmt = db.prepareStatement(INSERT_MESSAGE_BY_ID);
-        stmt.setInt(1, message.getId_messageCanal());
-        stmt.setInt(2, message.getId_auteur());
-        stmt.setInt(3, message.getId_canal());
-        stmt.setString(4, message.getContenu());
-        stmt.setTimestamp(5, Timestamp.valueOf(message.getDate_publication()));
-        stmt.executeUpdate();
-    }
-      
-      
-     */ 
+ 
       
       
   public static List<Message> getMessage(int id_canal) throws SQLException {

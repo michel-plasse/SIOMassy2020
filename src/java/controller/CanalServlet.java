@@ -40,7 +40,6 @@ public class CanalServlet extends HttpServlet {
         try {
             int id_canal = Integer.parseInt(request.getParameter("id_canal"));
             List<Message> messages = MessageDao.getMessage(id_canal);
-            // Ajouter 2 post it
             request.setAttribute("messages", messages);
             System.out.println("test passé" + messages.size());
         } catch (Exception exc) {

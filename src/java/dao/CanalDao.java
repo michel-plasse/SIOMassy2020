@@ -36,13 +36,7 @@ public class CanalDao {
               "SELECT * FROM message_canal ORDER BY id_message_canal";
     
 
-  /**
-   * Stagiaires d'une session de formation
-   *
-   * @param idSession id de la session
-   * @return les stagiaires sous forme d'une List<Personne>
-   * @throws SQLException
-   */
+  
       
        
     /**  
@@ -75,24 +69,5 @@ public class CanalDao {
     return result;
   }
   
-  public static List<Message>getAllmessage(int idCanal)throws SQLException {
-            
-         List<Message> result = new ArrayList<Message>(); 
-         Connection db = Database.getConnection();
-         PreparedStatement stmt = db.prepareStatement(AFFICHER_MESSAGE);
-         stmt.setInt(1, idCanal);
-         ResultSet rs = stmt.executeQuery();
-         while(rs.next()){
-             Message message = new Message(
-             rs.getInt("id_messageCanal"),
-             rs.getInt("id_auteur"),
-             rs.getInt("id_canal"),
-             rs.getString("contenu"),
-             rs.getString("date_publication"));
-         result.add(message);
-                
-                
-     }
-          return result;
+  
   }
-}
