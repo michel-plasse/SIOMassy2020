@@ -6,9 +6,10 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-    
-        <head>        
+<html>        
+    <head> 
+    </head>
+        <body>   
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <h1>Creation du projet</h1>
             <form method="post">
@@ -37,13 +38,15 @@
                         <td><input type="date" name="date_Fin"/></td>
                     </tr>${date_Fin}
                     
+                   <tr>
+                        <td>
+                            <input type="submit" value="Valider" />
+                        
+                            <input type="submit" value="Annuler" />
+                        </td>
+                    </tr>
                 </table>
-
-            <input type="submit" value="Valider" />
-
-            <input type="submit" value="Annuler" />
-            
-        </head>
-    <body>
+        ${message}
+        ${message1}
     </body>
 </html>

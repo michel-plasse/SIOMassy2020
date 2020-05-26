@@ -79,7 +79,6 @@ public class ProjetDao {
             projet.setId(rs.getInt("id"));
             System.out.println(projet);
             
-            db.commit();
             System.out.println("Projet ajouté.");
             
             } catch (SQLException exc) {

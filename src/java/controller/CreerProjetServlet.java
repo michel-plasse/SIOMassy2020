@@ -50,7 +50,7 @@ public class CreerProjetServlet extends HttpServlet {
 
  
     private final String VUE_FORM = "/WEB-INF/creerProjet.jsp";
-    private final String VUE_KO = "/WEB-INF/connexion.jsp";
+    private final String VUE_KO = "/WEB-INF/erreur.jsp";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -61,20 +61,22 @@ public class CreerProjetServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Personne user = (Personne) request.getSession(true).getAttribute("user");
-        user = new Personne();
-        
+        Personne user = (Personne) request.getSession(true).getAttribute("user");        
         if (user == null) {
+            request.setAttribute("message", "vous devez vous connecter pour créer un projet");
             request.getRequestDispatcher(VUE_KO).forward(request, response);
-//        } else if (!user.isEst_formateur()) {
-//            request.setAttribute("message", "Vous devez être formateur pour consulter cette page");
-//            request.getRequestDispatcher(VUE_KO).forward(request, response);
+            
+        } else if (!user.isEstFormateur()) {
+            request.setAttribute("message", "Vous devez être formateur pour créer un projet");
+            request.getRequestDispatcher(VUE_KO).forward(request, response);
+            
         } else {
             boolean champsrenseignes = true;
             System.out.println("post creerProjet");
             String Session = request.getParameter("id_session_formation");
             String titre = request.getParameter("titre");
             String datefin = request.getParameter("date_Fin");
+//            String description = request.getParameter("description");
             Date dateLimite = null;
             int id_session_formation = 1;
             int id_createur = user.getId();
@@ -84,16 +86,16 @@ public class CreerProjetServlet extends HttpServlet {
                 request.setAttribute("id_session_formation", "Veuillez selectionner une session de formation.");
                 System.out.println("echec a session");
             }
-            
+           // verification du titre            
             if (titre == null || titre.isEmpty()) {
                 champsrenseignes = false;
-                request.setAttribute("titre", "Veuillez entrer le nom de projet..");
+                request.setAttribute("message", "Veuillez entrer le nom de projet..");
                 System.out.println("echec a titre");
             }
            // verification de la date de fin
             if (datefin == null || datefin.isEmpty()) {
                 champsrenseignes = false;
-                request.setAttribute("date_Fin", "Veuillez choisir une date limite.");
+                request.setAttribute("message1", "Veuillez choisir une date limite.");
                 System.out.println("echec a datefin");
             }
             else {
@@ -113,7 +115,7 @@ public class CreerProjetServlet extends HttpServlet {
                     System.out.println("pitetre");
                     Date dateCreation = new Date();         // date de début initialisé au moment de la création
                     System.out.println("pitetre1");
-                    Projet p = new Projet(0, id_session_formation, id_createur, titre, dateLimite, dateCreation);                    // ajout du projet a l'aide du constructeur dans modele
+                    Projet p = new Projet(0, id_session_formation, id_createur, titre, dateCreation, dateLimite);                    // ajout du projet a l'aide du constructeur dans modele
                     System.out.println("pitetre2");
                     ProjetDao dao = new ProjetDao();
                     System.out.println("pitetre3");
