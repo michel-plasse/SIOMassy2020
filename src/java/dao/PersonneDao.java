@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-
 import modele.Personne;
 
 public class PersonneDao {
@@ -91,7 +90,7 @@ public class PersonneDao {
      * Stagiaires d'une session de formation
      *
      * @param idSession id de la session
-     * @return les stagiaires sous forme d'une List<Personne>
+     * @return les stagiaires sous forme d'une Liste
      * @throws SQLException
      */
     public static List<Personne> getByIdSessionFormation(int idSession) throws SQLException {

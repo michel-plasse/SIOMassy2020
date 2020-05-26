@@ -52,7 +52,7 @@ public class SupprimerMembresCanal extends HttpServlet {
         String vue = VUE_OK;
         //on affecte un entier à l'idCanal et à l'idPersonne
         int idCanal =1;
-        int idPersonne = 5;
+        int idPersonne = 5 ;
         CanalDao dao = new CanalDao();
 
         while (true) {
