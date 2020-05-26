@@ -5,7 +5,9 @@
 <ul>
     <c:forEach items="${messages}" var="message">
         <li>
-            Contenu :   ${message.contenu} 
+            Auteur :   ${message.id_auteur} <br>
+            Contenu :   ${message.contenu} <br>
+            Date :   ${message.date_publication}
             <hr>
         </li>
     </c:forEach>

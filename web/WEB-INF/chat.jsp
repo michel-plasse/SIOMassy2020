@@ -7,6 +7,33 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <script src="jquery-3.4.1.min.js" type="text/javascript"></script>
+
+
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            .column {
+                float: left;
+                width: 50%;
+                padding: 10px;
+                height: 300px; 
+                text-align: center;
+            }
+
+            .row:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+            
+                  ul{
+        list-style-type: none;
+      }
+        </style>
+
+
     </head>
     <body>
         <script>
@@ -20,8 +47,8 @@
                 document.getElementById("canal" + idCanalCourant).style.fontWeight = "bold";
                 $.ajax({
                     type: "GET",
-                    url: "canal?idCanal="+ idCanalCourant,
-                    dataType: 'HTML' ,
+                    url: "canal?idCanal=" + idCanalCourant,
+                    dataType: 'HTML',
 
                     success: function (data)
                     {
@@ -35,25 +62,23 @@
                 console.log();
             }
         </script>
-        <div id="gauche"> 
+        <div class="row">
             <h1 align="center">Agriotes Tchat</h1>
-            <hr>
-            nombre de canaux:
-            ${canaux.size()}
-            <br>
-            <ul>
-                <c:forEach items="${canaux}" var="canal">
-                    <li id="canal${canal.idCanal}" onclick="setCanal()">
-                        ${canal.nom}
-                    </li>
-                </c:forEach>
-            </ul>
-
+            <div class="column" id="gauche" style="background-color:#aaa;"> 
+                nombre de canaux:
+                ${canaux.size()}
+                <br>
+                <ul>
+                    <c:forEach items="${canaux}" var="canal">
+                        <li id="canal${canal.idCanal}" onclick="setCanal()">
+                            ${canal.nom} <hr>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+            <div class="column" id="droite" style="background-color:#bbb;">
+            </div>
         </div>
-        <div id="droite">
-
-        </div>
-
     </body>
 </html>
 
