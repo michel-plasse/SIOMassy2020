@@ -219,11 +219,63 @@ public class PersonneDao {
             return stmt.executeUpdate();
         }
     }
-public static boolean jetonEstValide(String jeton) throws SQLException {
+
+    public static boolean jetonEstValide(String jeton) throws SQLException {
         Connection db = Database.getConnection();
         PreparedStatement stmt = db.prepareStatement(GET_BY_JETON); //"SELECT * FROM personne WHERE email=? and date_inscription IS NOT NULL;"
         stmt.setString(1, jeton);
         ResultSet rs = stmt.executeQuery();
         return rs.next();
+    }
+//public static Personne getByToken(String jeton) throws SQLException {
+//        Connection con = Database.getConnection();
+//        Personne result = null;
+//        PreparedStatement stmt = con.prepareStatement(GET_BY_JETON);
+//        stmt.setString(1, jeton);
+//        ResultSet rs = stmt.executeQuery();
+//        if (rs.next()) {
+//            // Enregistrement est trouve
+//           
+//           
+//            result = new Personne(
+//                    rs.getInt("id_personne"),
+//                    rs.getString("nom"),
+//                    rs.getString("prenom"),
+//                    rs.getString("email"),
+//                    rs.getString("mdp"),
+//                    rs.getString("url_photo"),
+//                    rs.getBoolean("est_Administration"),
+//                    rs.getBoolean("est_Formateur"),
+//                    jeton
+//            );
+//        }
+//        stmt.close();
+//        con.close();
+//        return result;
+//} 
+
+    public Personne personneJeton(String jeton) {
+        Personne personne = new Personne();
+
+        try {
+            Connection con = Database.getConnection();
+            PreparedStatement stmt = con.prepareStatement(GET_BY_JETON);
+            stmt.setString(1, jeton);
+
+            ResultSet result = stmt.executeQuery();
+            if (result.first()) {
+                personne = new Personne(
+                        
+                        result.getString("jeton")
+                );
+            }
+                  
+    } catch (SQLException e) {
+
+        }
+        return personne;
+    }
 }
-}
+
+    
+
