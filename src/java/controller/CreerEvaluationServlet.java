@@ -31,7 +31,7 @@ import modele.Personne;
 public class CreerEvaluationServlet extends HttpServlet {
 
   private static final String VUE_FORM_CREATION_EVAL = "/WEB-INF/creerEvaluation.jsp";
-  private static final String VUE_VALIDER = "/WEB-INF/accueil.jsp";
+  private static final String VUE_VALIDER = "/WEB-INF/accueil.jsp"; // pas acceuil.jsp mais listeEvaluations.jsp -----------------
   private static final String VUE_ERREUR = "/WEB-INF/exception.jsp";
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -61,16 +61,16 @@ public class CreerEvaluationServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     int idModule = Integer.parseInt(request.getParameter("idModule"));
     int idSesionFormation = Integer.parseInt(request.getParameter("idSesionFormation"));
-    //LocalDateTime dateEffet = LocalDateTime.parse(request.getParameter("dateEffet"));
+    LocalDateTime dateEffet = LocalDateTime.parse(request.getParameter("dateEffet"));
     String vue = VUE_FORM_CREATION_EVAL;
 
-    if (idModule == 0 || idSesionFormation == 0) {
+    if ( idModule == 0 || idSesionFormation == 0 || dateEffet.isBefore(LocalDateTime.now()) ) {
       request.setAttribute("erreur", "Veuillez renseigner tous les champs");
     } else {
       try {
         HttpSession session = request.getSession(true);
         Personne p = (Personne) session.getAttribute("user");
-        Evaluation e = new Evaluation(idModule, idSesionFormation, LocalDateTime.now());
+        Evaluation e = new Evaluation(idModule, idSesionFormation, dateEffet);
         EvaluationDao.insertEval(e, p);
         vue = VUE_VALIDER;
 
