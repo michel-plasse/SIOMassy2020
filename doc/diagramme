@@ -1,0 +1,14 @@
+@startuml
+
+participant Navigateur
+participant Vue
+participant Controleur
+participant Modèle
+
+
+Navigateur -> Controleur: POST /CreerEvaluationServlet\navec idModule, idSessionFormation, dateHeure
+Controleur -> Modèle: new Evaluation(...);\nEvaluationDao\ndao.insertEval;
+Controleur -> Controleur: Vérifie que tous les champs sont remplis
+Controleur -> Navigateur: response.redirect("/ListeEvaluations.Jsp")
+
+@enduml
