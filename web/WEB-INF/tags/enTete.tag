@@ -14,7 +14,8 @@ dans l'onglet du navigateur)
     <link rel="stylesheet" href="agriotes.css"/>
   </head>
   <body>
-    <c:if test="${user != null}"  >
+    
+    <c:if test="${sessionScope.user != null}"  >
       <nav class="sidenav">     
         <a href="trombinoscope?idSession=1">Trombinoscope de la session 1</a>  
         <a href="modifierProfil">Modifier profil</a>
@@ -32,7 +33,7 @@ dans l'onglet du navigateur)
         </form>
       </nav>
     </c:if>
-    <c:if test="${user == null}"  >
+    <c:if test="${sessionScope.user == null}"  >
       <div class="sidenav">
         <a href="inscription">Inscription</a> <hr>
         <a href="connexion">Connexion</a> <hr>
