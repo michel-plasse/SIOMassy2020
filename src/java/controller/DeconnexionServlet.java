@@ -21,14 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 public class DeconnexionServlet extends HttpServlet {
 
   public static final String VUE_INDEX = "index.jsp";
-  /**
-   * Handles the HTTP <code>POST</code> method.
-   *
-   * @param request servlet request
-   * @param response servlet response
-   * @throws ServletException if a servlet-specific error occurs
-   * @throws IOException if an I/O error occurs
-   */
+  
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
@@ -36,11 +29,6 @@ public class DeconnexionServlet extends HttpServlet {
     request.getRequestDispatcher(VUE_INDEX).forward(request, response);
   }
 
-  /**
-   * Returns a short description of the servlet.
-   *
-   * @return a String containing servlet description
-   */
   @Override
   public String getServletInfo() {
     return "Short description";

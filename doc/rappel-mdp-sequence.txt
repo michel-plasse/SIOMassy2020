@@ -1,0 +1,29 @@
+@startuml
+participant Navigateur
+participant Vue
+
+== Demander à rappeler (changer) son mot de passe ==
+Navigateur -> Controleur: GET /rappelMdp
+Controleur -> Vue: rappelMdp.jsp
+Vue -> Navigateur: formulaire\npour saisir email
+
+Navigateur -> Controleur: POST /rappelMdp\navec email
+Controleur -> Controleur: vérifie saisie\ngénère token
+Controleur -> Dao: PersonneDao dao = ...;\ndao.setToken(email, token);\navec date d'expiration
+Controleur -> SMTP: envoi mail avec lien vers\n/changerMdp?token=...
+
+== Changer le mot de passe suite au mail reçu ==
+Navigateur -> Controleur: GET /changerMdp?token=...
+Controleur -> Controleur: vérifie token présent
+Controleur -> Dao: PersonneDao dao = ...;\nPersonne personne =\n dao.getByToken(token);
+Controleur -> Controleur: vérifie personne != null
+Controleur -> Vue: changementMdp.jsp
+Vue -> Navigateur: formulaire\navec token en hidden
+
+Navigateur -> Controleur: POST /changerMdp\navec token, mdp1, mdp2
+Controleur -> Controleur: vérifie mdp1 correct\net mdp1.equals(mdp2)
+Controleur -> Dao: PersonneDao dao = ...;\ndao.changerMdp(token, mdp1)
+Controleur -> SMTP: mail "mot de passe changé"
+Controleur -> Vue: message.jsp
+Vue -> Navigateur: mot de passe changé
+@enduml
