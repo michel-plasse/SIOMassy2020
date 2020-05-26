@@ -110,12 +110,15 @@ public class CreerProjetServlet extends HttpServlet {
 
             if (champsrenseignes) {
                 try {
+                    System.out.println("pitetre");
                     Date dateCreation = new Date();         // date de début initialisé au moment de la création
+                    System.out.println("pitetre1");
                     Projet p = new Projet(0, id_session_formation, id_createur, titre, dateLimite, dateCreation);                    // ajout du projet a l'aide du constructeur dans modele
-
+                    System.out.println("pitetre2");
                     ProjetDao dao = new ProjetDao();
+                    System.out.println("pitetre3");
                     dao.insert(p);
-                    
+                    System.out.println("c bon");
                     request.setAttribute("message", "Projet numero" + p.getId() + " a été correctement créé " );
                     request.getRequestDispatcher(VUE_FORM).forward(request, response);
                 } catch (SQLException e) {
@@ -124,7 +127,7 @@ public class CreerProjetServlet extends HttpServlet {
 
             } else {
                 request.getRequestDispatcher(VUE_FORM).forward(request, response);
-                System.out.println("c bon");
+                System.out.println("bof");
             }
         }
     }

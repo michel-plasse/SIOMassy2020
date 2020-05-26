@@ -104,7 +104,7 @@ public class ProjetDao {
         Date date_Debut = nouveau.getDate_Debut();
         Date date_Fin = nouveau.getDate_Fin();
 
-        stmt.executeUpdate("UPDATE projet SET(" + titre + "," + date_Debut + ",'" + date_Fin + ",'" + sessionFormation + ",'");
+        stmt.executeUpdate("UPDATE projet SET(" + titre + ",'" + date_Debut + ",'" + date_Fin + ",'" + sessionFormation + "WHERE id_projet =" + id_projet + ";");
         
     }
 }
