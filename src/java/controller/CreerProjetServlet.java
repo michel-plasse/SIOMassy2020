@@ -54,16 +54,6 @@ public class CreerProjetServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-		int idSession = 1;
-        try {
-            List<Projet>projet = ProjetDao.getByIdSessionFormation(idSession);
-      
-                request.setAttribute("projet", projet);
-                request.setAttribute("idSession", idSession);
-        } catch (SQLException ex) {
-            Logger.getLogger(CreerProjetServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
         request.getRequestDispatcher(VUE_FORM).forward(request, response);
     }
 
@@ -76,39 +66,35 @@ public class CreerProjetServlet extends HttpServlet {
         
         if (user == null) {
             request.getRequestDispatcher(VUE_KO).forward(request, response);
+//        } else if (!user.isEst_formateur()) {
+//            request.setAttribute("message", "Vous devez être formateur pour consulter cette page");
+//            request.getRequestDispatcher("/WEB-INF/message.jsp").forward(request, response);
         } else {
             boolean champsrenseignes = true;
-            String sidSession = request.getParameter("id_session_formation");
+            System.out.println("post creerProjet");
+            String Session = request.getParameter("id_session_formation");
             String titre = request.getParameter("titre");
             String datefin = request.getParameter("date_Fin");
             Date dateLimite = null;
-            int id_session_formation = 0;
-            int id_createur = user.getId();          
+            int id_session_formation = 1;
+            int id_createur = user.getId();
             
-            if (sidSession == null || sidSession.isEmpty()) {
+            if (Session == null || Session.isEmpty()) {
                 champsrenseignes = false;
-                request.setAttribute("idSession", "Veuillez selectionner une session de formation.");
+                request.setAttribute("id_session_formation", "Veuillez selectionner une session de formation.");
+                System.out.println("echec a session");
             }
-            else {
-                try {
-                    id_session_formation = Integer.parseInt(sidSession);
-                    System.out.println("idSession = " + id_session_formation);
-                } catch (NumberFormatException exc) {
-                    champsrenseignes = false;
-                    request.setAttribute("idSession", "La session de formation doit être un entier positif.");
-                }
-
-            }
+            
             if (titre == null || titre.isEmpty()) {
                 champsrenseignes = false;
                 request.setAttribute("titre", "Veuillez entrer le nom de projet..");
-                System.out.println("Rentre dans if condition");
+                System.out.println("echec a titre");
             }
            // verification de la date de fin
             if (datefin == null || datefin.isEmpty()) {
                 champsrenseignes = false;
                 request.setAttribute("date_Fin", "Veuillez choisir une date limite.");
-                System.out.println("Rentre dans if condition");
+                System.out.println("echec a datefin");
             }
             else {
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-DD");
@@ -120,7 +106,8 @@ public class CreerProjetServlet extends HttpServlet {
                     request.setAttribute("date_Fin", "Veuillez saisir une date valide (aaaa-mm-jj)");
                 }
             }
-            
+                            
+
             if (champsrenseignes) {
                 try {
                     Date dateCreation = new Date();         // date de début initialisé au moment de la création
@@ -133,10 +120,11 @@ public class CreerProjetServlet extends HttpServlet {
                     request.getRequestDispatcher(VUE_FORM).forward(request, response);
                 } catch (SQLException e) {
                     request.getRequestDispatcher("WEB-INF/exception.jsp").forward(request, response);
-                }
+                    }
 
             } else {
                 request.getRequestDispatcher(VUE_FORM).forward(request, response);
+                System.out.println("c bon");
             }
         }
     }
