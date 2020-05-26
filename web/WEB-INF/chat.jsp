@@ -1,6 +1,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "a" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,20 +23,20 @@
                 text-align: center;
             }
 
-            .row:after {
+            .main:after {
                 content: "";
                 display: table;
                 clear: both;
             }
-            
-                  ul{
-        list-style-type: none;
-      }
+            ul{
+                list-style-type: none;
+            }
         </style>
 
 
     </head>
     <body>
+        <div class="sidenav"><a:enTete titre="Chat"/></div>
         <script>
             var idCanalCourant = null;
             function setCanal() {
@@ -62,7 +63,7 @@
                 console.log();
             }
         </script>
-        <div class="row">
+        <div class="main">
             <h1 align="center">Agriotes Tchat</h1>
             <div class="column" id="gauche" style="background-color:#aaa;"> 
                 nombre de canaux:

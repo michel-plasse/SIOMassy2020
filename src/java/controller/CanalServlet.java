@@ -1,7 +1,7 @@
-
 package controller;
 
 import dao.MessageDao;
+import dao.PersonneDao;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.Message;
+import modele.Personne;
 
 /**
  *
@@ -27,9 +28,13 @@ public class CanalServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String vue = VUE_OK;
-
+        int idSession = 1;
+        
         try {
             int idCanal = Integer.parseInt(request.getParameter("idCanal"));
+            List<Personne> stagiaire = PersonneDao.getByIdSessionFormation(idSession);
+            request.setAttribute("stagiaire", stagiaire);
+            request.setAttribute("idSession", idSession);
             MessageDao dao = new MessageDao();
             List<Message> messages = MessageDao.getMessage(idCanal);
             request.setAttribute("messages", messages);
