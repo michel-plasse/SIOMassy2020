@@ -68,7 +68,7 @@ public class CreerProjetServlet extends HttpServlet {
             request.getRequestDispatcher(VUE_KO).forward(request, response);
 //        } else if (!user.isEst_formateur()) {
 //            request.setAttribute("message", "Vous devez être formateur pour consulter cette page");
-//            request.getRequestDispatcher("/WEB-INF/message.jsp").forward(request, response);
+//            request.getRequestDispatcher(VUE_KO).forward(request, response);
         } else {
             boolean champsrenseignes = true;
             System.out.println("post creerProjet");
