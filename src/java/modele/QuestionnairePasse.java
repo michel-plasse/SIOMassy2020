@@ -1,28 +1,35 @@
 package modele;
 
+import java.sql.Time;
 import java.time.LocalDateTime;
 
 public class QuestionnairePasse {
     private int id;
-    private int idStagiaire;
-    private LocalDateTime dateDebut;
-    private LocalDateTime dateFin;
+    private String titre;
+    private LocalDateTime dateCreation;
+    private Time duree;
+    private int idAuteur;
+    private int nbrStagiaires;
+
+    public QuestionnairePasse(int id, String titre, LocalDateTime dateCreation, Time duree, int idAuteur, int nbrStagiaires) {
+        this.id = id;
+        this.titre = titre;
+        this.dateCreation = dateCreation;
+        this.duree = duree;
+        this.idAuteur = idAuteur;
+        this.nbrStagiaires = nbrStagiaires;
+    }
 
     @Override
     public String toString() {
         return "QuestionnairePasse{" +
                 "id=" + id +
-                ", idStagiaire=" + idStagiaire +
-                ", dateDebut=" + dateDebut +
-                ", dateFin=" + dateFin +
+                ", titre='" + titre + '\'' +
+                ", dateCreation=" + dateCreation +
+                ", duree=" + duree +
+                ", idAuteur=" + idAuteur +
+                ", nbrStagiaires=" + nbrStagiaires +
                 '}';
-    }
-
-    public QuestionnairePasse(int id, int idStagiaire, LocalDateTime dateDebut, LocalDateTime dateFin) {
-        this.id = id;
-        this.idStagiaire = idStagiaire;
-        this.dateDebut = dateDebut;
-        this.dateFin = dateFin;
     }
 
     public int getId() {
@@ -33,27 +40,60 @@ public class QuestionnairePasse {
         this.id = id;
     }
 
-    public int getIdStagiaire() {
-        return idStagiaire;
+    public String getTitre() {
+        return titre;
     }
 
-    public void setIdStagiaire(int idStagiaire) {
-        this.idStagiaire = idStagiaire;
+    public void setTitre(String titre) {
+        this.titre = titre;
     }
 
-    public LocalDateTime getDateDebut() {
-        return dateDebut;
+    public LocalDateTime getDateCreation() {
+        return dateCreation;
     }
 
-    public void setDateDebut(LocalDateTime dateDebut) {
-        this.dateDebut = dateDebut;
+    public void setDateCreation(LocalDateTime dateCreation) {
+        this.dateCreation = dateCreation;
     }
 
-    public LocalDateTime getDateFin() {
-        return dateFin;
+    public Time getDuree() {
+        return duree;
     }
 
-    public void setDateFin(LocalDateTime dateFin) {
-        this.dateFin = dateFin;
+    public void setDuree(Time duree) {
+        this.duree = duree;
+    }
+
+    public int getIdAuteur() {
+        return idAuteur;
+    }
+
+    public void setIdAuteur(int idAuteur) {
+        this.idAuteur = idAuteur;
+    }
+
+    public int getNbrStagiaires() {
+        return nbrStagiaires;
+    }
+
+    public void setNbrStagiaires(int nbrStagiaires) {
+        this.nbrStagiaires = nbrStagiaires;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

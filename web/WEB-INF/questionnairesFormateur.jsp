@@ -44,13 +44,18 @@
                 <th onclick="sortTable(1)">Titre</th>
                 <th onclick="sortTable(2)">Date de Creation</th>
                 <th onclick="sortTable(3)">Duration</th>
+                <th onclick="sortTable(4)">idAuteur</th>
+                <th onclick="sortTable(5)">Nbr Stagiaires</th>
             </tr>
-            <c:forEach items="${questionnaires}" var="questionnaire">
+
+            <c:forEach items="${questionnairesFeeder}" var="questionnaire">
                 <tr>
                     <td>${questionnaire.id}</td>
-                    <td>${questionnaire.duree}</td>
                     <td>${questionnaire.titre}</td>
                     <td>${questionnaire.dateCreation}</td>
+                    <td>${questionnaire.duree}</td>
+                    <td>${questionnaire.idAuteur}</td>
+                    <td>${questionnaire.nbrStagiaires}</td>
                 </tr>
             </c:forEach>
         </table>

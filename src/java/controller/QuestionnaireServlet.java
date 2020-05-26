@@ -1,7 +1,7 @@
 package controller;
 
 import dao.QuestionnaireDao;
-import modele.Questionnaire;
+import modele.QuestionnairePasse;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,17 +18,17 @@ import java.util.logging.Logger;
 public class QuestionnaireServlet extends HttpServlet {
 
     private final String VUE_OK = "/WEB-INF/questionnairesFormateur.jsp";
-    private final String VUE_EXCEPTION = "/WEB-INF/exception.jsp";
+    private final String VUE_EXCEPTION = "/WEB-INF/erreur.jsp";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String vue = VUE_OK;
         try {
             QuestionnaireDao dao = new QuestionnaireDao();
-            List<Questionnaire> questionnaires = dao.getQuestionnaires();
-            request.setAttribute("questionnaires", questionnaires);
+            List<QuestionnairePasse> questionnaires = dao.getQuestionnaires();
+            request.setAttribute("questionnairesFeeder", questionnaires);
         } catch (SQLException exception){
             Logger.getLogger(QuestionnaireServlet.class.getName()).log(Level.SEVERE, null, exception);
-            request.setAttribute("exception", "This world is full of things that don't go as you wish.");
+            request.setAttribute("message", "This world is full of things that don't go as you wish.");
             vue = VUE_EXCEPTION;
         }
         request.getRequestDispatcher(vue).forward(request, response);
