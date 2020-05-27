@@ -5,6 +5,7 @@
  */
 package modele;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -12,21 +13,32 @@ import java.util.Objects;
  * @author akber
  */
 public class MessageAffiche {
-    
-    private String contenu, date_publication, prenom, nom;
+    private int id;
+    private String contenu, prenom, nom;
+    private LocalDateTime datePublication;
 
     public MessageAffiche() {
+        id = 0;
         contenu = null;
-        date_publication = null;
+        datePublication = null;
         prenom = null;
         nom = null;
     }
 
-    public MessageAffiche(String contenu, String date_publication, String prenom, String nom) {
+    public MessageAffiche(int id, String contenu, LocalDateTime datePublication, String prenom, String nom) {
+        this.id = id;
         this.contenu = contenu;
-        this.date_publication = date_publication;
+        this.datePublication = datePublication;
         this.prenom = prenom;
         this.nom = nom;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getContenu() {
@@ -35,14 +47,6 @@ public class MessageAffiche {
 
     public void setContenu(String contenu) {
         this.contenu = contenu;
-    }
-
-    public String getDate_publication() {
-        return date_publication;
-    }
-
-    public void setDate_publication(String date_publication) {
-        this.date_publication = date_publication;
     }
 
     public String getPrenom() {
@@ -61,18 +65,27 @@ public class MessageAffiche {
         this.nom = nom;
     }
 
+    public LocalDateTime getDatePublication() {
+        return datePublication;
+    }
+
+    public void setDatePublication(LocalDateTime datePublication) {
+        this.datePublication = datePublication;
+    }
+
     @Override
     public String toString() {
-        return "MessageAffiche{" + "contenu=" + contenu + ", date_publication=" + date_publication + ", prenom=" + prenom + ", nom=" + nom + '}';
+        return "MessageAffiche{" + "id=" + id + ", contenu=" + contenu + ", prenom=" + prenom + ", nom=" + nom + ", datePublication=" + datePublication + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 71 * hash + Objects.hashCode(this.contenu);
-        hash = 71 * hash + Objects.hashCode(this.date_publication);
-        hash = 71 * hash + Objects.hashCode(this.prenom);
-        hash = 71 * hash + Objects.hashCode(this.nom);
+        hash = 11 * hash + this.id;
+        hash = 11 * hash + Objects.hashCode(this.contenu);
+        hash = 11 * hash + Objects.hashCode(this.prenom);
+        hash = 11 * hash + Objects.hashCode(this.nom);
+        hash = 11 * hash + Objects.hashCode(this.datePublication);
         return hash;
     }
 
@@ -88,10 +101,10 @@ public class MessageAffiche {
             return false;
         }
         final MessageAffiche other = (MessageAffiche) obj;
-        if (!Objects.equals(this.contenu, other.contenu)) {
+        if (this.id != other.id) {
             return false;
         }
-        if (!Objects.equals(this.date_publication, other.date_publication)) {
+        if (!Objects.equals(this.contenu, other.contenu)) {
             return false;
         }
         if (!Objects.equals(this.prenom, other.prenom)) {
@@ -100,8 +113,12 @@ public class MessageAffiche {
         if (!Objects.equals(this.nom, other.nom)) {
             return false;
         }
+        if (!Objects.equals(this.datePublication, other.datePublication)) {
+            return false;
+        }
         return true;
     }
+
     
     
 }

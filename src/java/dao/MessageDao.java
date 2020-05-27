@@ -23,6 +23,30 @@ public class MessageDao {
             + "    WHERE c.id_canal IN ( SELECT c.id_canal FROM canal WHERE c.id_canal=?)";
     //  "SELECT * FROM message_canal WHERE id_canal IN ( SELECT id_canal FROM canal WHERE id_canal=? )";
 
+
+    public static List<MessageAffiche> getMessagesAffiche(int idCanal) throws SQLException {
+        List<MessageAffiche> result = new ArrayList<MessageAffiche>(idCanal);
+        Connection db = Database.getConnection();
+        PreparedStatement stmt = db.prepareStatement(AFFICHER_MESSAGE);
+        stmt.setInt(1, idCanal);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            MessageAffiche messageAffiche = new MessageAffiche(
+                    rs.getInt("id_personne"),
+                    rs.getString("contenu"),
+                    rs.getTimestamp("date_publication").toLocalDateTime(),
+                    rs.getString("prenom"),
+                    rs.getString("nom"));
+            result.add(messageAffiche);
+        }
+        return result;
+
+    }
+    
+    
+    
+    
+    
     public static List<Message> getMessages(int idCanal) throws SQLException {
         List<Message> result = new ArrayList<Message>();
         Connection db = Database.getConnection();
@@ -37,24 +61,6 @@ public class MessageDao {
                     rs.getString("contenu"),
                     rs.getString("date_publication"));
             result.add(message);
-        }
-        return result;
-
-    }
-
-    public static List<MessageAffiche> getMessagesAffiche(int idCanal) throws SQLException {
-        List<MessageAffiche> result = new ArrayList<MessageAffiche>();
-        Connection db = Database.getConnection();
-        PreparedStatement stmt = db.prepareStatement(AFFICHER_MESSAGE);
-        stmt.setInt(1, idCanal);
-        ResultSet rs = stmt.executeQuery();
-        while (rs.next()) {
-            MessageAffiche messageAffiche = new MessageAffiche(
-                    rs.getString("contenu"),
-                    rs.getString("date_publication"),
-                    rs.getString("prenom"),
-                    rs.getString("nom"));
-            result.add(messageAffiche);
         }
         return result;
 

@@ -65,7 +65,7 @@
         </script>
         <div class="main">
             <h1 align="center">Agriotes Tchat</h1>
-            <div class="column" id="gauche" style="background-color:#aaa;"> 
+            <div class="column" id="gauche"> 
                 nombre de canaux:
                 ${canaux.size()}
                 <br>
@@ -77,7 +77,7 @@
                     </c:forEach>
                 </ul>
             </div>
-            <div class="column" id="droite" style="background-color:#bbb;">
+            <div class="column" id="droite">
             </div>
         </div>
     </body>
