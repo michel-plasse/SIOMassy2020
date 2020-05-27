@@ -11,16 +11,12 @@
         <link rel="stylesheet" href="canal.css"/>
     </head>
     <body>
-        <div class="sidenav">
-            <a href="deconnexion">Déconnexion</a>
-        </div> 
-        
         <center>
             <a href="membresCanal?idCanal=1">Liste des membres du canal ${membre.idCanal} </a>
             <h1>Ajout de membres</h1>
-            <form method="post" action="ajouterMembresCanal" >
+            <form action="ajouterMembresCanal" method="post" >
                 <input type="hidden" name="idCanal" value="${membre.idCanal}" />
-                Id personne :  <input type="text" name="idPersonne"/>
+                Id personne :  <input type="text" name="idPersonne" />
                 <button type="submit">Ajouter</button>
             </form>
         </center>

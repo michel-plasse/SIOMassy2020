@@ -31,53 +31,31 @@ public class SupprimerMembresCanal extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     private static final long serialVersionUID = 1L;
-    private static final String VUE_OK = "WEB-INF/supprimerMembresCanal.jsp";
+    private static final String NORMALE = "WEB-INF/supprimerMembresCanal.jsp";
     /**
      * Vue si erreur (exception)
      */
-    private static final String VUE_ERREUR = "WEB-INF/exception.jsp";
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String vue = VUE_OK;
-
-        request.getRequestDispatcher(vue).forward(request, response);
-    }
+    private static final String ERREUR = "WEB-INF/exception.jsp";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         response.setContentType("text/html");
-        String vue = VUE_OK;
-        //on affecte un entier à l'idCanal et à l'idPersonne
-        int idCanal =1;
-        int idPersonne = 5 ;
+        String vue = NORMALE;
         CanalDao dao = new CanalDao();
-
-        while (true) {
-            try {
-                idCanal = Integer.parseInt(request.getParameter("idCanal"));
-                break;
-            } catch (NumberFormatException e) {
-                request.setAttribute("message", "Veuillez saisir un nombre valide pour l'idCanal");
-            }
-            try {
-                idPersonne = Integer.parseInt(request.getParameter("idPersonne"));
-                break;
-            } catch (NumberFormatException e2) {
-                request.setAttribute("message", "Veuillez saisir un nombre valide pour l'idPersonne");
-            }
-        }
+        int idCanal=1;
         try {
+            idCanal = Integer.parseInt(request.getParameter("idCanal"));
+            int idPersonne = Integer.parseInt(request.getParameter("idPersonne"));
             dao.supprimerMembre(idCanal, idPersonne);
-            //response.sendRedirect("membresCanal?idCanal="+idCanal+"&?idPersonne="+idPersonne);
+            //response.sendRedirect("http://localhost:8090/SIOMassy/membresCanal?idCanal="+idCanal);
+
         } catch (SQLException exc) {
             request.setAttribute("exception", exc);
-            vue = VUE_ERREUR;
+            request.getRequestDispatcher(ERREUR).forward(request, response);
         }
-        request.getRequestDispatcher(vue).forward(request, response);
 
+        request.getRequestDispatcher(vue).forward(request, response);
     }
 
 }

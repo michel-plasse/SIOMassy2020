@@ -12,31 +12,28 @@
 
     </head>
     <body>
-        <div class="sidenav">
-            <a href="deconnexion">Déconnexion</a>
-        </div> 
     <center>
         <h1>Les membres du canal ${idCanal}</h1>
-        <form action="supprimerMembresCanal" method="post">
-            <table width = "300px" border="1">
-                <tr>
-                    <th>Id canal</th>
-                    <th>Id personne</th>
-                    <th>Supprimer</th>
-                </tr>
-                <c:forEach items="${membres}" var="membre">
-                    <tr>  
-                        <td>${membre.idCanal}</td>
-                        <td>${membre.idPersonne}</td>
-                        <td>
+        <table width = "300px" border="1">
+            <tr>
+                <th>Id canal</th>
+                <th>Id personne</th>
+                <th>Supprimer</th>
+            </tr>
+            <c:forEach items="${membres}" var="membre">
+                <tr>  
+                    <td>${membre.idCanal}</td>
+                    <td>${membre.idPersonne}</td>
+                    <td>
+                        <form action="supprimerMembresCanal" method="post">
                             <input type="hidden" name="idCanal" value="${membre.idCanal}"/>
                             <input type="hidden" name="idPersonne" value="${membre.idPersonne}"/>
                             <button type="submit">Supprimer</button>
-                        </td>
-                    </tr>
-                </c:forEach>
-            </table>
-        </form>
+                        </form>
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
         <a href="ajouterMembresCanal?idCanal=1">Ajouter</a>      
     </center>
 

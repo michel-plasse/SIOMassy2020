@@ -5,24 +5,14 @@
  */
 package dao;
 
-import static dao.PersonneDao.DELETE_BY_JETON;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import modele.Canal;
 import modele.Membre;
-import modele.Personne;
 
 /**
  *
@@ -43,14 +33,14 @@ public class CanalDao {
             = "Insert into membre_canal  (id_canal, id_personne) VALUES(?, ?)";
 
     public static final String DELETE_MEMBRE_CANAL
-            = "DELETE FROM membre_canal WHERE id_canal=? and id_personne=? ";
+            = "DELETE FROM membre_canal WHERE id_canal=? and id_personne=?";
 
     /**
      * @param idCanal idCanal
      * @return
      * @throws SQLException
      */
-    public static List<Membre> getMembres(int idCanal) throws SQLException {
+    public static List<Membre> AfficherMembresDUnCanal(int idCanal) throws SQLException {
         List<Membre> result = new ArrayList<>();
         Connection db = Database.getConnection();
         PreparedStatement stmt = db.prepareStatement(AFFICHER_MEMBRE_CANAL);

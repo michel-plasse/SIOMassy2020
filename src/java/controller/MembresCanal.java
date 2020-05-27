@@ -7,8 +7,10 @@ package controller;
 
 import dao.CanalDao;
 import java.io.IOException;
+import static java.lang.Integer.parseInt;
 import java.sql.SQLException;
 import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,47 +24,36 @@ import modele.Membre;
  */
 @WebServlet("/membresCanal")
 public class MembresCanal extends HttpServlet {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * Vue si succes
      */
-    private static final String VUE_OK = "WEB-INF/membresCanal.jsp";
-    
+    private static final String NORMALE = "WEB-INF/membresCanal.jsp";
     /**
      * Vue si erreur (exception)
      */
-    
-    private static final String VUE_ERREUR = "WEB-INF/exception.jsp";
+    private static final String ERREUR = "WEB-INF/exception.jsp";
+
     @Override
-    
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        // Soyons optimistes
-        String vue = VUE_OK;
-        
-        int idCanal = 1;
-        
+        String vue = NORMALE;
         // Recuperer les donnees des membres d'un canal
         try {
-            List<Membre> membres = CanalDao.getMembres(idCanal);
+            int idCanal = Integer.parseInt(request.getParameter("idCanal"));
+            List<Membre> membres = CanalDao.AfficherMembresDUnCanal(idCanal);
             // Ajouter 2 post it            
-
             request.setAttribute("membres", membres);
             request.setAttribute("idCanal", idCanal);
-            //response.sendRedirect("membresCanal?idCanal="+idCanal);
-            
+            //response.sendRedirect("membresCanal?idCanal=1");
         } catch (SQLException exc) {
-            
             request.setAttribute("exception", exc);
-            vue = VUE_ERREUR;
+            request.getRequestDispatcher(ERREUR).forward(request, response);
         }
         // Passer la main a la vue
         request.getRequestDispatcher(vue).forward(request, response);
-
     }
-    
 
 }

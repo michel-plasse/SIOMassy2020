@@ -23,60 +23,40 @@ public class AjouterMembresCanal extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private static final String VUE_OK = "WEB-INF/ajouterMembresCanal.jsp";
+    private static final String NORMALE = "WEB-INF/ajouterMembresCanal.jsp";
     /**
      * Vue si erreur (exception)
      */
-    private static final String VUE_ERREUR = "WEB-INF/exception.jsp";
+    private static final String ERREUR = "WEB-INF/exception.jsp";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String vue = VUE_OK;
-        //response.sendRedirect("ajouterMembresCanal?idCanal=1");
-
-        request.getRequestDispatcher(vue).forward(request, response);
-
+        request.getRequestDispatcher(NORMALE).forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        int idCanal = 1;
-        int idPersonne = 1;
         response.setContentType("text/html");
-        String vue = VUE_OK;
-
+        String vue = NORMALE;
+        int idCanal=1;
         CanalDao dao = new CanalDao();
-        
-        while (true) {
-            try {
-                idCanal = Integer.parseInt(request.getParameter("idCanal"));
-                break;
-            } catch (NumberFormatException e) {
-                request.setAttribute("message", "Veuillez saisir un nombre valide pour l'idCanal");
-            }
-            try {
-                idPersonne = Integer.parseInt(request.getParameter("idPersonne"));
-                break;
-            } catch (NumberFormatException e2) {
-                request.setAttribute("message", "Veuillez saisir un nombre valide pour l'idPersonne");
-            }
-        }
         try {
+             idCanal = Integer.parseInt(request.getParameter("idCanal"));
 
+        } catch (NumberFormatException e) {
+            request.setAttribute("message", "Veuillez saisir un nombre valide pour l'idCanal");
+        }
+
+        try {
+            int idPersonne = Integer.parseInt(request.getParameter("idPersonne"));
             dao.ajouterMembre(idCanal, idPersonne);
-            //response.sendRedirect("ajouterMembresCanal?idCanal=1");
+            //response.sendRedirect("http://localhost:8090/SIOMassy/membresCanal?idCanal="+idCanal);
 
         } catch (SQLException exc) {
-
             request.setAttribute("exception", exc);
-
-            vue = VUE_ERREUR;
+            request.getRequestDispatcher(ERREUR).forward(request, response);
         }
-
         request.getRequestDispatcher(vue).forward(request, response);
-
     }
-
 }

@@ -11,6 +11,6 @@
     <body>
         <h1>Membre supprimé avec succès</h1>
         <hr>
-        <a href="membresCanal?idCanal="${idCanal}>Les membres du canal ${idCanal}</a>
+        <a href="membresCanal?idCanal=1">Les membres du canal ${idCanal}</a>
     </body>
 </html>
