@@ -197,13 +197,13 @@ public class PersonneDao {
         }
     }
 
-    public static void changerMdp(String jeton, String mdp, String email) throws SQLException {
+    public static void changerMdp(String mdp, String email,String jeton) throws SQLException {
 
         Connection db = Database.getConnection();
         PreparedStatement stmt = db.prepareStatement(MAJ_BY_JETON_PERSONNE);
-        stmt.setString(1,jeton);
-        stmt.setString(2,mdp);
-        stmt.setString(3,email);
+        stmt.setString(1,mdp);
+        stmt.setString(2,email);
+        stmt.setString(3,jeton);
         
         stmt.executeUpdate();
     }

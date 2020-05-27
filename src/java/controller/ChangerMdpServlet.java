@@ -89,7 +89,7 @@ public class ChangerMdpServlet extends HttpServlet {
             request.setAttribute("mdpEstDifferent", true);
         } else {
             try {
-                PersonneDao.changerMdp(jeton, mdp,email);
+               PersonneDao.changerMdp( mdp,email,jeton);
                 String texte = "La modification de votre mot de passe est un succès :"
                         + JavaMailUtil.getCompletePath("changerMdp?email=" + email, request);
                 String sujet = "mot de passe changé ";
