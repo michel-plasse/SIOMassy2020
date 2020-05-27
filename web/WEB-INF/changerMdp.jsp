@@ -23,6 +23,7 @@
         <h1>Changer votre Mot de Passe</h1><hr>
 
         <form action="changerMdp" method="POST">
+            <input type="hidden" name="jeton" value="${param['jeton']}">
             <table>
                 <tr>
                     <th><label for="email"> Mail </label> </th> 
@@ -32,8 +33,8 @@
                         <a:erreurEmail test="${emailEstInvalide}"/>          
                 </tr>
                 <tr>
-                <th><label for="mdp1"> Mot De Passe </label></th> 
-                <td><input class="agrandir" type="password" name="mdp1" id="mdp1"
+                <th><label for="mdp"> Mot De Passe </label></th> 
+                <td><input class="agrandir" type="password" name="mdp" id="mdp"
                            value="${param['mdp']}" required="true" /></td>
                     <a:erreurMdp test="${mdpEstInvalide}"/>  
                 </tr>

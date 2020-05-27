@@ -5,6 +5,7 @@
  */
 package controller;
 
+import static com.sun.corba.se.impl.util.Utility.printStackTrace;
 import dao.Database;
 import dao.PersonneDao;
 import java.io.IOException;
@@ -43,27 +44,17 @@ public class ChangerMdpServlet extends HttpServlet {
             throws ServletException, IOException {
         String jeton = request.getParameter("jeton");
         String vue = VUE_FORM_CHG;
+
         if (jeton == null) {
 //            vue = VUE_ERREUR;
-            request.setAttribute("message", "Vous n'avez pas le droit aux modifications");
+            request.setAttribute("message", "Vous devez fournir un jeton");
         } else {
-
+            PersonneDao dao = new PersonneDao();
             try {
-                Connection db = Database.getConnection();
-                PersonneDao dao = new PersonneDao();
-                PreparedStatement stmt = db.prepareStatement("SELECT * from personne where jeton= ?");
-                stmt.setString(1, jeton);
-                ResultSet rs = stmt.executeQuery();
-
-                while (rs.next()) {
-                    Personne personne = dao.personneJeton(jeton);
-
-                    if (personne != null) {
-                        vue = VUE_FORM_CHG;
-
-                    } else {
-                        vue = VUE_ERREUR;
-                    }
+                if (dao.jetonEstTrouve(jeton)) {
+                    vue = VUE_FORM_CHG;
+                } else {
+                    vue = VUE_ERREUR;
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(ChangerMdpServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -78,38 +69,40 @@ public class ChangerMdpServlet extends HttpServlet {
             throws ServletException, IOException {
         PersonneDao dao = new PersonneDao();
         String email = request.getParameter("email");
-        String mdp1 = request.getParameter("mdp1");
+        String mdp = request.getParameter("mdp");
         String mdp2 = request.getParameter("mdp2");
         String vue = VUE_FORM_CHG;
         String msg;
         String jeton = request.getParameter("jeton");
         Personne personne = dao.personneJeton(jeton);
-        personne.setMdp(mdp1);
+        personne.setMdp(mdp);
         // nous faisons d'abord un test sur tous les champs du formulaire
-        if (email == null || email.trim().isEmpty() || mdp1 == null || mdp1.trim().isEmpty() || mdp2 == null || mdp2.trim().isEmpty()) {
+        if (email == null || email.trim().isEmpty() || mdp == null || mdp.trim().isEmpty() || mdp2 == null || mdp2.trim().isEmpty()) {
             request.setAttribute("erreurLogin", "Veuillez renseigner tous les champs");
         } else if (!personne.emailIsValid(email)) {
             request.setAttribute("emailEstInvalide", true);
-        } else if (!personne.mdpIsValid(mdp1)) {
+        } else if (!personne.mdpIsValid(mdp)) {
             request.setAttribute("mdpEstInvalide", true);
         } else if (!personne.mdpIsValid(mdp2)) {
             request.setAttribute("mdpEstInvalide", true);
-        } else if (!mdp1.equals(mdp2)) {
+        } else if (!mdp.equals(mdp2)) {
             request.setAttribute("mdpEstDifferent", true);
         } else {
             try {
-                PersonneDao.majByMailPersonne(personne);
+                PersonneDao.changerMdp(jeton, mdp,email);
                 String texte = "La modification de votre mot de passe est un succès :"
-                        + JavaMailUtil.getCompletePath("connexion", request);
-                String sujet = "Connectez vous avec vos nouveaux identifiants";
+                        + JavaMailUtil.getCompletePath("changerMdp?email=" + email, request);
+                String sujet = "mot de passe changé ";
                 JavaMailUtil.sendMail(email, "", "", sujet, texte);                       // Dans la classe JavaMailUtil, nous avons l'implémentation de ma méthode sendMail() qui permet t'établie l'envoi du mail
                 vue = VUE_INDEX;    // + passer la main a jsp VUE_MESSAGE (juste un message)
                 request.setAttribute("majOK", "mot de passe modifié");
+
             } catch (SQLException ex) {
-                Logger.getLogger(ModifierProfilServlet.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ChangerMdpServlet.class.getName()).log(Level.SEVERE, null, ex);
                 vue = VUE_ERREUR;
+                
             } catch (Exception e) {
-                vue = VUE_ERREUR;
+                vue = VUE_INDEX;
             }
         }
         request.getRequestDispatcher(vue).forward(request, response);                   // La servlet nous envoi vers la vue appropriée en envoyant avec les objets request et response

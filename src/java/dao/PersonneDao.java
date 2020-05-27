@@ -37,6 +37,10 @@ public class PersonneDao {
             = "UPDATE personne SET nom =?, prenom =?,email = ?, mdp =?  WHERE id_personne =? ";
     public static final String MAJ_BY_MAIL_PERSONNE
             = "UPDATE personne SET  mdp =?  WHERE email = ? ";
+    public static final String MAJ_BY_JETON_PERSONNE
+            = "UPDATE personne SET  mdp =?  WHERE email = ? AND jeton = ? ";
+    public static final String GET_BY_MAIL_JETON
+            = "SELECT jeton FROM personne WHERE email = ? ";
     public static final String GET_BY_JETON
             = "SELECT * FROM personne WHERE jeton=? ";
     public static final String CHECK_BY_ACTIF
@@ -60,28 +64,24 @@ public class PersonneDao {
         stmt.executeUpdate();
 
     }
-
     public static void deletePerson(String jeton) throws SQLException {
         Connection db = Database.getConnection();
         PreparedStatement stmt = db.prepareStatement(DELETE_BY_JETON); //"DELETE FROM personne WHERE jeton=? ";
         stmt.setString(1, jeton);
         stmt.executeUpdate();
     }
-
     public static void deletePersonBydate(Timestamp now) throws SQLException {
         Connection db = Database.getConnection();
         PreparedStatement stmt = db.prepareStatement(DELETE_BY_DATE_BUTOIR); //"DELETE FROM personne WHERE date_butoir_jeton <= ? "
         stmt.setTimestamp(1, now);
         stmt.executeUpdate();
     }
-
     public static void updatePersonByMdp(String mail) throws SQLException {
         Connection db = Database.getConnection();
         PreparedStatement stmt = db.prepareStatement(SET_JETON); //"update mdp FROM personne WHERE email= ? "
         //stmt.setTimestamp(1, now);
         stmt.executeUpdate();
     }
-
     /**
      * Stagiaires d'une session de formation
      *
@@ -105,7 +105,6 @@ public class PersonneDao {
         }
         return result;
     }
-
     public static boolean estValide(String mail) throws SQLException {
         Connection db = Database.getConnection();
         PreparedStatement stmt = db.prepareStatement(CHECK_BY_ACTIF); //"SELECT * FROM personne WHERE email=? and date_inscription IS NOT NULL;"
@@ -157,7 +156,6 @@ public class PersonneDao {
         con.close();
         return result;
     }
-
     /**
      * Positionne le jeton d'une personne en fonction de son email. La personne
      * doit avoir validé son inscription (date_inscription IS NOT NULL). Renvoie
@@ -184,7 +182,6 @@ public class PersonneDao {
         stmt.setString(2, email);
         return stmt.executeUpdate();
     }
-
     public static void majByIdPersonne(Personne personne) throws SQLException {
 
         try (Connection db = Database.getConnection()) {
@@ -200,8 +197,33 @@ public class PersonneDao {
         }
     }
 
-    public static void majByMailPersonne(Personne personne) throws SQLException {
+    public static void changerMdp(String jeton, String mdp, String email) throws SQLException {
 
+        Connection db = Database.getConnection();
+        PreparedStatement stmt = db.prepareStatement(MAJ_BY_JETON_PERSONNE);
+        stmt.setString(1,jeton);
+        stmt.setString(2,mdp);
+        stmt.setString(3,email);
+        
+        stmt.executeUpdate();
+    }
+    public boolean jetonEstTrouve(String jeton) throws SQLException {
+        {
+            Connection con = Database.getConnection();
+            PreparedStatement stmt = con.prepareStatement(GET_BY_JETON);
+            stmt.setString(1, jeton);
+           ResultSet rs = stmt.executeQuery();
+           return rs.next();
+        }
+    }
+    public static boolean jetonEstValide(String jeton) throws SQLException {
+        Connection db = Database.getConnection();
+        PreparedStatement stmt = db.prepareStatement(GET_BY_JETON); //"SELECT * FROM personne WHERE email=? and date_inscription IS NOT NULL;"
+        stmt.setString(1, jeton);
+        ResultSet rs = stmt.executeQuery();
+        return rs.next();
+    }
+    public static void majByMailPersonne(Personne personne) throws SQLException {
         try (Connection db = Database.getConnection()) {
             try (PreparedStatement stmt = db.prepareStatement(MAJ_BY_MAIL_PERSONNE)) {
                 stmt.setString(4, personne.getMdp());
@@ -209,23 +231,6 @@ public class PersonneDao {
             }
             db.close();
         }
-    }
-
-    public int getByJeton(String jeton) throws SQLException {
-        {
-            Connection con = Database.getConnection();
-            PreparedStatement stmt = con.prepareStatement(GET_BY_JETON);
-            stmt.setString(1, jeton);
-            return stmt.executeUpdate();
-        }
-    }
-
-    public static boolean jetonEstValide(String jeton) throws SQLException {
-        Connection db = Database.getConnection();
-        PreparedStatement stmt = db.prepareStatement(GET_BY_JETON); //"SELECT * FROM personne WHERE email=? and date_inscription IS NOT NULL;"
-        stmt.setString(1, jeton);
-        ResultSet rs = stmt.executeQuery();
-        return rs.next();
     }
 //public static Personne getByToken(String jeton) throws SQLException {
 //        Connection con = Database.getConnection();
@@ -259,7 +264,7 @@ public class PersonneDao {
 
         try {
             Connection con = Database.getConnection();
-            PreparedStatement stmt = con.prepareStatement(GET_BY_JETON);
+            PreparedStatement stmt = con.prepareStatement(GET_BY_MAIL_JETON);
             stmt.setString(1, jeton);
 
             ResultSet result = stmt.executeQuery();
@@ -276,6 +281,3 @@ public class PersonneDao {
         return personne;
     }
 }
-
-    
-
