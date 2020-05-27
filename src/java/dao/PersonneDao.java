@@ -35,8 +35,12 @@ public class PersonneDao {
             = "UPDATE personne SET jeton=? WHERE email=? ";
     public static final String MAJ_BY_ID_PERSONNE
           = "UPDATE personne SET nom =?, prenom =?,email = ?, mdp =?  WHERE id_personne =? ";
-            
-            
+   /** 
+    * insert la personne p dans la bdd
+    * 
+    * @param p
+    * @throws SQLException 
+    */         
             
     public static void insert(Personne p) throws SQLException {
         Connection db = Database.getConnection();
