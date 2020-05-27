@@ -37,6 +37,7 @@ public class ChangerMdpServlet extends HttpServlet {
     private static final String VUE_FORM_CHG = "/WEB-INF/changerMdp.jsp";
     private static final String VUE_INDEX = "/index.jsp";
     private static final String VUE_FORM_CON = "/WEB-INF/connexion.jsp";
+    private static final String VUE_MESSAJE = "/WEB-INF/messaje.jsp";
     // Pour tester private static final String VUE_VERIFY= "/WEB-INF/verify.jsp";
 
     @Override
@@ -63,7 +64,6 @@ public class ChangerMdpServlet extends HttpServlet {
         }
         request.getRequestDispatcher(vue).forward(request, response);
     }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -94,7 +94,7 @@ public class ChangerMdpServlet extends HttpServlet {
                         + JavaMailUtil.getCompletePath("changerMdp?email=" + email, request);
                 String sujet = "mot de passe changé ";
                 JavaMailUtil.sendMail(email, "", "", sujet, texte);                       // Dans la classe JavaMailUtil, nous avons l'implémentation de ma méthode sendMail() qui permet t'établie l'envoi du mail
-                vue = VUE_INDEX;    // + passer la main a jsp VUE_MESSAGE (juste un message)
+                vue = VUE_MESSAJE;    // + passer la main a jsp VUE_MESSAGE (juste un message)
                 request.setAttribute("majOK", "mot de passe modifié");
 
             } catch (SQLException ex) {

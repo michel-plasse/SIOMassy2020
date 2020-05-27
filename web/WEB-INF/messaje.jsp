@@ -1,13 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="a" tagdir="/WEB-INF/tags"%>
-<a:enTete titre="messaje"/>
-<h1>Connexion</h1>
+<a:enTete titre="connexion"/>
+<h1>Connexion votre mot de passe est modifié</h1>
 <c:if test='${sessionScope["user"] == null}'>
 
   <form id="loginForm" action="connexion" method="POST">
       <input type="hidden" value="email">
-      
     Identifiant :  <input type="text" name="login" id="login" value="${param["login"]}"/><br/>
     Mot de passe :  <input type="password" name="password" id="password"/><br/>
     <button type="submit">Connexion</button>    
