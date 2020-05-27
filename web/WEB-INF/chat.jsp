@@ -86,9 +86,8 @@
                 <br>
                 <ul>
                     <c:forEach items="${canauxAffiche}" var="canal">
+                        
                         <li id="canal${canal.nomCanal}" onclick="setCanal()"> ${canal.nomCanal} ( ${canal.nomCreateur} )</li> 
-
-
                     </c:forEach>           
                 </ul>
             </div>
