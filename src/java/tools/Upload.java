@@ -14,7 +14,7 @@ import javax.servlet.http.Part;
  */
 public class Upload {
 
-  public static boolean upload(Part part, String repertoireDestination, String nomFichier) throws IOException {
+  public static boolean upload(Part part, String repertoireDestination, String nomFichier, String nomFichier2) throws IOException {
     int read = 0;
     final byte[] BYTES = new byte[1024];
     final String PATH = repertoireDestination;
@@ -30,18 +30,19 @@ public class Upload {
       System.out.println("nom du fichier : ");
       System.out.println(nomFichier);
       System.out.println(PATH);
-      out = new FileOutputStream(new File(PATH + nomFichier));
+      
+      System.out.println(nomFichier2);
+      out = new FileOutputStream(new File(PATH + nomFichier2));
       filecontent = part.getInputStream();
       System.out.println(out);
       while ((read = filecontent.read(BYTES)) != -1) {
         out.write(BYTES, 0, read);
       }
-
     } catch (FileNotFoundException fileNotFound) {
-       return false;
+      return false;
 
     } catch (IOException io) {
-       return false;
+      return false;
 
     } finally {
       if (out != null) {
@@ -52,6 +53,10 @@ public class Upload {
       }
     }
     return true;
+  }
+
+  public static String getExtension(File nomFichier) {
+    return null;
   }
 
   public static String getFilenameToUpload(Part part) {

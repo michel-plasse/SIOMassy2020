@@ -37,7 +37,7 @@ public class ModifierProfilServlet extends HttpServlet {
 
   /*public static final String CHEMIN
           = "C:/Users/sandr/OneDrive/Documents/NetBeansProjects/SIOMassy2020/web/img/";
-  */
+   */
   public static final int TAILLE_TAMPON = 409600; // 400 ko /* Vue si erreur
 
   private static final String VUE_ERREUR = "/WEB-INF/exception.jsp";
@@ -74,9 +74,15 @@ public class ModifierProfilServlet extends HttpServlet {
   private void majProfil(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     HttpSession session = request.getSession(true);
     Personne personne = (Personne) session.getAttribute("user");
+    String nom = request.getParameter("nom");
+    String prenom = request.getParameter("prenom");
+    String email = request.getParameter("email");
+    String mdp1 = request.getParameter("mdp1");
+    String mdp2 = request.getParameter("mdp2");
+    int idPersonne = personne.getId();
     CHEMIN = request.getServletContext().getRealPath("/img/");
     String oldPhoto = personne.getUrlPhoto();
-    
+
     System.out.println(CHEMIN);
     /*
      * Les données reçues sont multipart, on doit donc utiliser la méthode
@@ -108,23 +114,24 @@ public class ModifierProfilServlet extends HttpServlet {
               .substring(nomFichier.lastIndexOf('\\') + 1);
       /* Écriture du fichier sur le disque */
 
-      if (!Upload.upload(part, CHEMIN, nomFichier)) {
+      String ext = "";
+      if (nomFichier != null) {
+        int i = nomFichier.lastIndexOf('.');
+        if (i > 0 && i < nomFichier.length() - 1) {
+          ext = "." + nomFichier.substring(i + 1).toLowerCase();
+        }
+      }
+      String nomFichier2 = idPersonne + nom + prenom + ext;
+      personne.setUrlPhoto(nomFichier2);
+      if (oldPhoto != "" && oldPhoto != null) {
+        supprimerFichier(CHEMIN, oldPhoto);
+      }
+      if (!Upload.upload(part, CHEMIN, nomFichier, nomFichier2)) {
         System.out.println("probleme sur l'upload du fichier");
         vue = VUE_ERREUR;
         request.getRequestDispatcher(vue).forward(request, response);
-      } else {
-        System.out.println(oldPhoto);
-        personne.setUrlPhoto(nomFichier);
-        if (oldPhoto != "" && oldPhoto != null) {
-          supprimerFichier(CHEMIN, oldPhoto);
-        }
       }
     }
-    String nom = request.getParameter("nom");
-    String prenom = request.getParameter("prenom");
-    String email = request.getParameter("email");
-    String mdp1 = request.getParameter("mdp1");
-    String mdp2 = request.getParameter("mdp2");
     personne.setNom(nom);
     personne.setPrenom(prenom);
     personne.setEmail(email);
@@ -176,7 +183,7 @@ public class ModifierProfilServlet extends HttpServlet {
 
   private static void supprimerFichier(String chemin, String nomFichier) {
     try {
-  
+
       File file = new File(chemin + "/" + nomFichier);
       if (file.delete()) {
         System.out.println(file.getName() + " est supprimé.");
