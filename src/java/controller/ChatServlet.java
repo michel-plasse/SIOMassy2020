@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 package controller;
-
+// reponds sur whatsapp stp 
 import dao.CanalDao;
+import static dao.CanalDao.CanalAffiche;
 import dao.MessageDao;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.Canal;
+import modele.CanalAffiche;
 import modele.Message;
 
 
@@ -32,9 +34,12 @@ public class ChatServlet extends HttpServlet {
         String vue = VUE_OK;
 
         try {
-            List<Canal> canaux = CanalDao.getAll();
+            
+            List<CanalAffiche> canauxAffiche = CanalDao.CanalAffiche();
+            request.setAttribute("canauxAffiche", canauxAffiche);
+            /**List<Canal> canaux = CanalDao.getAll();
             request.setAttribute("canaux", canaux);
-            System.out.println("test passé" + canaux.size());
+            System.out.println("test passé" + canaux.size());**/
         } catch (SQLException exc) {
             exc.printStackTrace();
             request.setAttribute("exception", exc);

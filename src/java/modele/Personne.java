@@ -29,6 +29,10 @@ public class Personne {
     this.estAdministration = estAdministration;
   }
 
+    public Personne(String prenom, String nom, String mail, String mdp, String jeton) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 	public int getId() {
 		return id;
 	}
@@ -60,5 +64,21 @@ public class Personne {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+    public void setMdp(String mdp1) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void setUrlPhoto(String photo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean emailIsValid(String email) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean mdpIsValid(String mdp1) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }

@@ -16,7 +16,7 @@ dans l'onglet du navigateur)
         <title>Agriotes - ${titre}</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="agriotes.css"/>
+        <link rel="stylesheet" href="css/agriotes.css"/>
     </head>
     <body>
         <c:if test="${user != null}"  >

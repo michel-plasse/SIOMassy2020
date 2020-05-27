@@ -27,19 +27,24 @@
                 text-align: center;
             }
 
-            .row:after {
+            .main:after {
                 content: "";
                 display: table;
                 clear: both;
+                margin-left: 160px; /* Same as the width of the sidenav /
+  font-size: 28px; / Increased text to enable scrolling */
+                padding: 0px 10px;
             }
             ul{
-            list-style-type: none;
+                list-style-type: none;
             }
         </style>
 
 
     </head>
     <body>
+        <div class = "sidenav">
+            <a:enTete titre="ACCUEIL"/></div>
         <script>
             var idCanalCourant = null;
             function setCanal() {
@@ -71,30 +76,28 @@
 
             }
         </script>
-        <div class="row">
+        <div class="main">
             <h1 align="center">Bienvenue sur le chat Agriotes</h1>
             <div class="column" id="gauche" style="background-color:#aaa;"> 
-                
-                
+
+
                 nombre de canaux:
-                ${canaux.size()}
+                ${canauxAffiche.size()}
                 <br>
                 <ul>
-                    <c:forEach items="${canaux}" var="canal">
-                        <li id="canal${canal.idCanal}" onclick="setCanal()">   
+                    <c:forEach items="${canauxAffiche}" var="canal">
+                        <li id="canal${canal.nomCanal}" onclick="setCanal()"> ${canal.nomCanal} ( ${canal.nomCreateur} )</li> 
 
-                            ${canal.nom}
 
-                        </li>
                     </c:forEach>           
                 </ul>
             </div>
 
 
 
-            
-            
-            
+
+
+
 
             <div class="column" id="droite" style="background-color:#bbb;">
 
