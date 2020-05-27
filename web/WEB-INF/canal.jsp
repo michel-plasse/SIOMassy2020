@@ -3,13 +3,13 @@
 
 
 <ul>
-    <c:forEach items="${messages}" var="message">
+    <c:forEach items="${messagesAffiche}" var="messagesAffiche">
         <li>
-            ${message.id_auteur} <br>
-            ${message.contenu} <br>
-            ${message.date_publication} <br>
-            ${stagiaire.size()} <br>
-            ${idSession} <br>
+            ${messagesAffiche.prenom} <br>
+            ${messagesAffiche.contenu} <br>
+            ${messagesAffiche.date_publication} <br>
+            
+            
         </li>
     </c:forEach>
 </ul>

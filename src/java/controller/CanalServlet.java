@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.Message;
+import modele.MessageAffiche;
 import modele.Personne;
 
 /**
@@ -28,17 +29,18 @@ public class CanalServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String vue = VUE_OK;
-        int idSession = 1;
+
         
         try {
             int idCanal = Integer.parseInt(request.getParameter("idCanal"));
-            List<Personne> stagiaire = PersonneDao.getByIdSessionFormation(idSession);
-            request.setAttribute("stagiaire", stagiaire);
-            request.setAttribute("idSession", idSession);
             MessageDao dao = new MessageDao();
-            List<Message> messages = MessageDao.getMessage(idCanal);
+            List<MessageAffiche> messagesAffiche = MessageDao.getMessagesAffiche(idCanal);
+            request.setAttribute("messagesAffiche", messagesAffiche);
+          /**  int idCanal = Integer.parseInt(request.getParameter("idCanal"));
+            MessageDao dao = new MessageDao();
+            List<Message> messages = MessageDao.getMessages(idCanal);
             request.setAttribute("messages", messages);
-
+            **/
         } catch (SQLException exc) {
             exc.printStackTrace();
             request.setAttribute("exception", exc);

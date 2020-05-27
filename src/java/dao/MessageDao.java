@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import modele.Message;
+import modele.MessageAffiche;
 import modele.Personne;
 
 public class MessageDao {
@@ -22,7 +23,7 @@ public class MessageDao {
             + "    WHERE c.id_canal IN ( SELECT c.id_canal FROM canal WHERE c.id_canal=?)";
     //  "SELECT * FROM message_canal WHERE id_canal IN ( SELECT id_canal FROM canal WHERE id_canal=? )";
 
-    public static List<Message> getMessage(int idCanal) throws SQLException {
+    public static List<Message> getMessages(int idCanal) throws SQLException {
         List<Message> result = new ArrayList<Message>();
         Connection db = Database.getConnection();
         PreparedStatement stmt = db.prepareStatement(AFFICHER_MESSAGE);
@@ -41,21 +42,21 @@ public class MessageDao {
 
     }
 
-    public static List<Personne> getByIdSessionFormation(int idSession) throws SQLException {
-        List<Personne> result = new ArrayList<Personne>();
+    public static List<MessageAffiche> getMessagesAffiche(int idCanal) throws SQLException {
+        List<MessageAffiche> result = new ArrayList<MessageAffiche>();
         Connection db = Database.getConnection();
-        PreparedStatement stmt = db.prepareStatement(GET_BY_ID_SESSION);
-        stmt.setInt(1, idSession);
+        PreparedStatement stmt = db.prepareStatement(AFFICHER_MESSAGE);
+        stmt.setInt(1, idCanal);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
-            Personne personne = new Personne(
-                    rs.getInt("id_personne"),
+            MessageAffiche messageAffiche = new MessageAffiche(
+                    rs.getString("contenu"),
+                    rs.getString("date_publication"),
                     rs.getString("prenom"),
-                    rs.getString("nom"),
-                    rs.getString("email"));
-            result.add(personne);
+                    rs.getString("nom"));
+            result.add(messageAffiche);
         }
         return result;
-    }
 
+    }
 }
