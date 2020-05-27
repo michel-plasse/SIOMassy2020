@@ -8,13 +8,22 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/agriotes.css"/>
     <style>
+
         table {
             border-spacing: 0;
-            width: 100%;
+            width: 300px;
             padding: 10px;
             border: 4px solid #bc13fe;
             background: #4deeea;
             margin: 10px 10px 10px 200px;
+        }
+
+
+        #details {
+            width: 800px;
+            height: 100px;
+            position: fixed;
+            left: 200px;
         }
 
         th {
@@ -25,47 +34,66 @@
             text-align: left;
             padding: 16px;
         }
-
-
-        .selected {
-            color: #001eff;
+        tr:nth-child(n+2):hover {
+            background-color: #74ee15;
         }
-
-        tr:hover {background-color:#74ee15;}
     </style>
+    <title>Questionnaires</title>
 </head>
 <body>
-<div id="bloc">
-    <section id="contain">
-
-        <table id="questionnaireTable">
-            <tr>
-                <th onclick="sortTable(0)">ID</th>
-                <th onclick="sortTable(1)">Titre</th>
-                <th onclick="sortTable(2)">Date de Creation</th>
-                <th onclick="sortTable(3)">Duration</th>
-                <th onclick="sortTable(4)">idAuteur</th>
-                <th onclick="sortTable(5)">Nbr Stagiaires</th>
-            </tr>
-
-            <c:forEach items="${questionnairesFeeder}" var="questionnaire">
+    <div id="bloc">
+        <section id="contain">
+            <table id="questionnaireTable">
                 <tr>
-                    <td>${questionnaire.id}</td>
-                    <td>${questionnaire.titre}</td>
-                    <td>${questionnaire.dateCreation}</td>
-                    <td>${questionnaire.duree}</td>
-                    <td>${questionnaire.idAuteur}</td>
-                    <td>${questionnaire.nbrStagiaires}</td>
+                    <th onclick="sortTable(0)">Titre</th>
+                    <th onclick="sortTable(1)">Date de Creation</th>
+                    <th onclick="sortTable(2)">Duration</th>
+                    <th onclick="sortTable(3)">Nbr Stagiaires</th>
                 </tr>
-            </c:forEach>
-        </table>
-    </section>
-</div >
+                <c:forEach items="${questionnairesFeeder}" var="questionnaire">
+                    <tr class="hoverTable">
+                        <td>${questionnaire.titre}</td>
+                        <td>${questionnaire.dateCreation}</td>
+                        <td>${questionnaire.duree}</td>
+                        <td>${questionnaire.nbrStagiaires}</td>
+                    </tr>
+                </c:forEach>
+            </table>
 
+        </section>
+    </div >
+    <div>
+        <section id="questionDetails">
+            <table id="questionTable">
+                <tr>
+                    <%--                    <th onclick="sortTable(0)">Question ID</th>--%>
+                    <th>Text</th>
+                    <%--                    <th onclick="sortTable(2)">Questionnaire ID</th>--%>
+                </tr>
+                <c:forEach items="${questionFeeder}" var="questions">
+                    <tr>
+                        <td>${questions.texte}</td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </section>
+    </div>
 </body>
 </html>
 
+<div>
+    <button id="details" >click</button>
+</div>
 
+
+<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        $('#details').on('click', function(){
+            $('#questionDetails').toggle();
+        });
+    });
+</script>
 
 <script>
     function sortTable(n) {
@@ -107,15 +135,10 @@
     function highlight_row() {
         var table = document.getElementById('questionnaireTable');
         var cells = table.getElementsByTagName('td');
-
         for (var i = 0; i < cells.length; i++) {
-            // Take each cell
             var cell = cells[i];
-            // do something on onclick event for cell
             cell.onclick = function () {
-                // Get the row id where the cell exists
                 var rowId = this.parentNode.rowIndex;
-
                 var rowsNotSelected = table.getElementsByTagName('tr');
                 for (var row = 0; row < rowsNotSelected.length; row++) {
                     rowsNotSelected[row].style.backgroundColor = "";
@@ -124,14 +147,11 @@
                 var rowSelected = table.getElementsByTagName('tr')[rowId];
                 rowSelected.style.backgroundColor = "yellow";
                 rowSelected.className += " selected";
-
-                msg = 'Vegeta, allow me to achieve my final perfect form. As a Saiyan, you can appreciate the challenge.: ' + rowSelected.cells[0].innerHTML;
-                msg += '\nThe cell value is: ' + this.innerHTML;
-                alert(msg);
+                // msg = 'Questionnaire: ' + rowSelected.cells[0].innerHTML;
+                // msg += '\nThis will show details pulled from the Questions Table : ' + this.innerHTML;
+                // alert(msg);
             }
         }
-
-    } //end of function
-
+    }
     window.onload = highlight_row;
 </script>

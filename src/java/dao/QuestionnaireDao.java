@@ -1,5 +1,6 @@
 package dao;
 
+import modele.Question;
 import modele.QuestionnairePasse;
 
 import java.sql.Connection;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionnaireDao {
-    //add formateur variable
+    //add formateur variable catch
     public List<QuestionnairePasse> getQuestionnaires() throws SQLException{
         ArrayList<QuestionnairePasse> questionnairePasseArrayList = new ArrayList<>();
         Connection connection = Database.getConnection();
@@ -18,7 +19,8 @@ public class QuestionnaireDao {
                 "FROM questionnaire qa\n" +
                 "LEFT JOIN passage_questionnaire pq ON qa.id_questionnaire = pq.id_questionnaire\n" +
                 "WHERE id_auteur = 10\n" +
-                "GROUP BY qa.id_questionnaire;\n";
+                "GROUP BY qa.id_questionnaire\n" +
+                "ORDER BY qa.date_creation desc";
 
         PreparedStatement statement = connection.prepareStatement(SQL);
 //        statement(set formateur variable here)
@@ -36,4 +38,27 @@ public class QuestionnaireDao {
         }
         return questionnairePasseArrayList;
     }
+    public List<Question> getQuestion() throws SQLException{
+        ArrayList<Question> questionArrayList = new ArrayList<>();
+        Connection connection = Database.getConnection();
+        final String SQL = "SELECT * FROM question;";
+
+        PreparedStatement statement = connection.prepareStatement(SQL);
+
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()){
+            questionArrayList.add(new Question(
+                    resultSet.getInt("id_question"),
+                    resultSet.getString("texte"),
+                    resultSet.getInt("id_questionnaire")
+            ));
+        }
+        return questionArrayList;
+    }
+
+
+
+
+
+
 }

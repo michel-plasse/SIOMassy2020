@@ -41,5 +41,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="jstl:jstl:1.2" level="project" />
+    <orderEntry type="library" name="jquery-2.2.4" level="application" />
   </component>
 </module>

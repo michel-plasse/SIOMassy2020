@@ -1,6 +1,7 @@
 package controller;
 
 import dao.QuestionnaireDao;
+import modele.Question;
 import modele.QuestionnairePasse;
 
 import javax.servlet.ServletException;
@@ -26,6 +27,8 @@ public class QuestionnaireServlet extends HttpServlet {
             QuestionnaireDao dao = new QuestionnaireDao();
             List<QuestionnairePasse> questionnaires = dao.getQuestionnaires();
             request.setAttribute("questionnairesFeeder", questionnaires);
+            List<Question> questions = dao.getQuestion();
+            request.setAttribute("questionsFeeder", questions);
         } catch (SQLException exception){
             Logger.getLogger(QuestionnaireServlet.class.getName()).log(Level.SEVERE, null, exception);
             request.setAttribute("message", "This world is full of things that don't go as you wish.");
@@ -33,4 +36,6 @@ public class QuestionnaireServlet extends HttpServlet {
         }
         request.getRequestDispatcher(vue).forward(request, response);
     }
+
+
 }
