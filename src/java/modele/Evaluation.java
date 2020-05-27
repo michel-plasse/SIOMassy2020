@@ -9,6 +9,8 @@ public class Evaluation {
   private int idCreateur;
   private int idSessionFormation;
   private int idModule;
+  private String nomModule;
+  private String nomSession;
 
   public Evaluation() {
   }
@@ -26,6 +28,12 @@ public class Evaluation {
     this.idSessionFormation = idSesionFormation;
     this.dateEffet = dateEffet;
 
+  }
+
+  public Evaluation(LocalDateTime dateEffet, String nomModule, String nomSession) {
+    this.dateEffet = dateEffet;
+    this.nomModule = nomModule;
+    this.nomSession = nomSession;
   }
 
   public int getIdEvaluation() {
@@ -68,4 +76,19 @@ public class Evaluation {
     this.idModule = idModule;
   }
 
+  public String getNomModule() {
+    return nomModule;
+  }
+
+  public void setNomModule(String nomModule) {
+    this.nomModule = nomModule;
+  }
+
+  public String getNomSession() {
+    return nomSession;
+  }
+
+  public void setNomSession(String nomSession) {
+    this.nomSession = nomSession;
+  }
 }
