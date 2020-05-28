@@ -11,14 +11,20 @@
         <link rel="stylesheet" href="canal.css"/>
     </head>
     <body>
-        <center>
-            <a href="membresCanal?idCanal=1">Liste des membres du canal ${membre.idCanal} </a>
-            <h1>Ajout de membres</h1>
-            <form action="ajouterMembresCanal" method="post" >
-                <input type="hidden" name="idCanal" value="${membre.idCanal}" />
-                Id personne :  <input type="text" name="idPersonne" />
-                <button type="submit">Ajouter</button>
-            </form>
-        </center>
-    </body>
+    <center>
+        <form action="ajouterMembresCanal" method="post" >
+            <fieldset>
+                <legend>Ajout de membres</legend>
+                <label for="idCanal">Id Canal:</label>
+                <input type="text" id="idCanal" name="idCanal" />
+                <label for="idPersonne">Id Personne:</label>
+                <input type="text" id="idPersonne" name="idPersonne" /><br><br>
+                <button type="submit" value="Submit">Ajouter</button>
+            </fieldset>
+        </form>
+        <c:forEach var="idCanal" begin="1" end="3">
+            <br>${idCanal})<a href="membresCanal?idCanal=${idCanal}"> Liste des membres du Canal ${idCanal} </a><br>
+        </c:forEach>
+    </center>
+</body>
 </html>
