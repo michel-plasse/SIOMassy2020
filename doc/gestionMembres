@@ -1,0 +1,24 @@
+@startuml
+participant Navigateur
+participant Vue 
+
+== Lister les membres ==
+Navigateur -> Controleur: GET membresCanal?idCanal=...
+Controleur -> Controleur: vérifie idCanal entier
+Controleur -> Dao: CanalDao dao = ...;\nList membres =\n dao.getMembres(idCanal)
+Controleur -> Vue: membresCanal.jsp
+Vue -> Navigateur: liste des membres (prenom, nom)
+
+
+== Ajouter un membre ==
+Navigateur -> Controleur: POST ajouterMembreCanal\navec idCanal, idMembre
+Controleur -> Controleur: vérifie idCanal et IdMembre ok
+Controleur -> Dao: CanalDao dao = ...;\ndao.ajouterMembre(idCanal, idMembre);
+Controleur -> Navigateur: redirect vers membresCanal?idCanal=...
+
+== Supprimer un membre ==
+Navigateur -> Controleur: POST supprimerMembreCanal\navec idCanal, idMembre
+Controleur -> Controleur: vérifie idCanal et idMembre ok
+Controleur -> Dao: CanalDao dao = ...;\ndao.supprimerMembre(idCanal, idMembre);
+Controleur -> Navigateur: redirect vers membresCanal?idCanal=...
+@enduml

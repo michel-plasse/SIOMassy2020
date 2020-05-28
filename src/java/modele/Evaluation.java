@@ -23,6 +23,13 @@ public class Evaluation {
     this.idModule = idModule;
   }
 
+  public Evaluation(int idModule, int idSesionFormation, LocalDateTime dateEffet) {
+    this.idModule = idModule;
+    this.idSessionFormation = idSesionFormation;
+    this.dateEffet = dateEffet;
+
+  }
+
   public Evaluation(LocalDateTime dateEffet, String nomModule, String nomSession) {
     this.dateEffet = dateEffet;
     this.nomModule = nomModule;
@@ -84,5 +91,4 @@ public class Evaluation {
   public void setNomSession(String nomSession) {
     this.nomSession = nomSession;
   }
-
 }
