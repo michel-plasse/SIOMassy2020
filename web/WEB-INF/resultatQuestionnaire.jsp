@@ -11,7 +11,7 @@
         <th>Prénom du stagiaire</th>
         <th>Date de debut du questionnaire</th>
         <th>Date de fin du questionnaire</th>
-        <th>Note</th>
+        <th>Note actuellement mal calculée</th>
     </tr>
     <c:forEach items="${resquest}" var="resquest">
         <tr>

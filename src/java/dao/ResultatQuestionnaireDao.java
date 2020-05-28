@@ -18,7 +18,8 @@ import modele.ResultatQuestionnaire;
  * @author wowmi
  */
 public class ResultatQuestionnaireDao {
-
+/* Requête SQL à réécrire car elle ne donne pas le bon résultat */
+    
     public static final String GET_BY_ID_SESSION
             = "SELECT nom, prenom, passage_questionnaire.id_questionnaire, passage_questionnaire.id_stagiaire, COUNT(est_correcte) AS nb_bonnes_reponse_possible, SUM(est_correcte) AS nb_bonnes_reponse_données, SUM(est_correcte) / COUNT(est_correcte) * 20 AS note, date_debut, date_fin\n" +
 "FROM reponse_possible, question,passage_questionnaire, reponse_donnee, personne\n" +
