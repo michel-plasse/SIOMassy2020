@@ -36,6 +36,7 @@
             }
             p{
                 text-align:left;
+                
             }
         </style>
         <script>
