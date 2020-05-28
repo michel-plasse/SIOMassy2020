@@ -40,8 +40,9 @@ public class ResultatQuestionnaireServlet extends HttpServlet {
             throws ServletException, IOException {
         // Soyons optimistes
         String vue = VUE_OK;
-        // d'abord en dur
-        int idQuestionnaire = 1;
+        
+        int idQuestionnaire =  Integer.parseInt(request.getParameter("idQuestionnaire"));
+       
         // Recuperer les donnees (ici, les stagiaires)
         try {
 

@@ -41,8 +41,10 @@ BEGIN
   (13, 'Enora', 'Marquis', 'administration2@gmail.com', 'azerty', 0, 1);
 
   INSERT INTO session_formation(id_session_formation, nom, date_debut, date_fin) values 
-  (1,'BTS SIO 2019-2020','2019-09-02','2020-05-29'),
-  (2,'BTS SIO 2018-2019','2018-06-01','2019-05-29');
+  (1,'BTS SIO SLAM 2019-2020','2019-09-02','2020-05-29'),
+  (2,'BTS SIO SLAM 2018-2019','2018-06-01','2019-05-29'),
+  (3,'BTS SIO SISR 2019-2020','2019-09-02','2020-05-29'),
+  (4,'BTS SIO SISR 2018-2019','2018-06-01','2019-05-29');
 
   INSERT INTO membre_session (id_personne,id_session_formation, date_entree) values
   (1,1,'2019-09-02'),
@@ -97,6 +99,12 @@ BEGIN
   (1, 1, 2),
   (1, 2, 3),
   (1, 3, 3);
+  
+  INSERT INTO module(id_module, nom) values 
+  (1,'Français'),
+  (2,'Maths'),
+  (3,'Informatique'),
+  (4,'Sport');
 END$$
 
 CALL agriotes2020_reset() $$
