@@ -47,12 +47,10 @@ public class SupprimerMembresCanal extends HttpServlet {
             int idCanal = Integer.parseInt(request.getParameter("idCanal"));
             int idPersonne = Integer.parseInt(request.getParameter("idPersonne"));
             dao.supprimerMembre(idCanal, idPersonne);
-        } catch (SQLException exc) {
+            response.sendRedirect("membresCanal?idCanal=" + idCanal);
+        } catch (SQLException | NumberFormatException exc) {
             request.setAttribute("exception", exc);
             request.getRequestDispatcher(ERREUR).forward(request, response);
         }
-
-        request.getRequestDispatcher(vue).forward(request, response);
     }
-
 }

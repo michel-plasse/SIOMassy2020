@@ -15,8 +15,7 @@
         <form action="ajouterMembresCanal" method="post" >
             <fieldset>
                 <legend>Ajout de membres</legend>
-                <label for="idCanal">Id Canal:</label>
-                <input type="text" id="idCanal" name="idCanal" />
+                <input type="hidden" id="idCanal" name="idCanal" value="${param[idCanal]}"/>
                 <label for="idPersonne">Id Personne:</label>
                 <input type="text" id="idPersonne" name="idPersonne" /><br><br>
                 <button type="submit" value="Submit">Ajouter</button>

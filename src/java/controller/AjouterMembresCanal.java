@@ -45,12 +45,11 @@ public class AjouterMembresCanal extends HttpServlet {
             int idCanal = Integer.parseInt(request.getParameter("idCanal"));
             int idPersonne = Integer.parseInt(request.getParameter("idPersonne"));
             dao.ajouterMembre(idCanal, idPersonne);
-            //response.sendRedirect("http://localhost:8090/SIOMassy/membresCanal?idCanal="+idCanal);
-
-        } catch (SQLException exc) {
+            response.sendRedirect("membresCanal?idCanal="+idCanal);
+            
+        } catch (SQLException | NumberFormatException exc) {
             request.setAttribute("exception", exc);
             request.getRequestDispatcher(ERREUR).forward(request, response);
         }
-        request.getRequestDispatcher(vue).forward(request, response);
     }
 }

@@ -16,14 +16,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import modele.Membre;
+import modele.Personne;
 
 /**
  *
  * @author Cissé-LENOVO
  */
 @WebServlet("/membresCanal")
-public class MembresCanal extends HttpServlet {
+public class MembresCanalServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,11 +36,19 @@ public class MembresCanal extends HttpServlet {
     /**
      * Vue si erreur (exception)
      */
-    private static final String ERREUR = "WEB-INF/exception.jsp";
+    private static final String EXCEPTION = "WEB-INF/exception.jsp";
+    private static final String ERREUR = "WEB-INF/erreur.jsp";
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String vue = NORMALE;
+        HttpSession maSession = request.getSession(true);
+        Personne user = (Personne) maSession.getAttribute("user");
+        if (user == null) {
+            request.setAttribute("message", "Vous devez être connecté pour cela");
+            vue = ERREUR;
+        }
         // Recuperer les donnees des membres d'un canal
         try {
             int idCanal = Integer.parseInt(request.getParameter("idCanal"));
@@ -47,9 +57,9 @@ public class MembresCanal extends HttpServlet {
             request.setAttribute("membres", membres);
             request.setAttribute("idCanal", idCanal);
             //response.sendRedirect("membresCanal?idCanal=1");
-        } catch (SQLException exc) {
+        } catch (NumberFormatException | SQLException exc) {
             request.setAttribute("exception", exc);
-            request.getRequestDispatcher(ERREUR).forward(request, response);
+            vue = ERREUR;
         }
         // Passer la main a la vue
         request.getRequestDispatcher(vue).forward(request, response);
