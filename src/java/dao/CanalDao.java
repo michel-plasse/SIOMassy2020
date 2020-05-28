@@ -27,9 +27,9 @@ public class CanalDao {
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
             CanalAffiche canalAffiche = new CanalAffiche(
-                    rs.getInt("idCanal"),
                     rs.getString("nomCanal"),
-                    rs.getString("nomCreateur"));
+                    rs.getString("nomCreateur"),
+                    rs.getInt("idCanal"));
             result.add(canalAffiche);
         }
         return result;

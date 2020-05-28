@@ -6,14 +6,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "a" tagdir="/WEB-INF/tags"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        <link rel="stylesheet" href="css/agriotes.css">
+ <a:enTete titre="chat"/>
         <script src="jquery-3.5.0.min.js" type="text/javascript"></script>
         <style>
+            body{
+                margin-left: 200px;
+            }
             * {
                 box-sizing: border-box;
             }
@@ -24,24 +22,22 @@
                 padding: 10px;
                 height: 300px; 
                 text-align: left;
+                
             }
 
             .main:after {
                 content: "";
                 display: table;
                 clear: both;
-                margin-left: 160px; /* Same as the width of the sidenav /
-  font-size: 28px; / Increased text to enable scrolling */
                 padding: 0px 10px;
             }
             ul{
                 list-style-type: none;
             }
+            p{
+                text-align:left;
+            }
         </style>
-    </head>
-    <body>
-        <div class = "sidenav">
-            <a:enTete titre="ACCUEIL"/></div>
         <script>
             var idCanalCourant = null;
             function setCanal() {
@@ -70,7 +66,7 @@
         <div class="main">
             <h1 align="center">Bienvenue sur le chat Agriotes</h1>
             <div class="column" id="gauche" style="background-color:#aaa;"> 
-                <p style="text-align: center">nombre de canaux:
+                <p>nombre de canaux:
                     ${canauxAffiche.size()}</p>
                 <br>
                 <ul>
