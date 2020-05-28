@@ -27,10 +27,10 @@ dans l'onglet du navigateur)
                 <a href="sondages">Sondages</a>
                 <a href="creerSondage">Creer un sondage</a>
                 <a href="chat">Chat</a>
-                <a href="membresCanal">Gerer les membres d'un canal</a>
+                <a href="membresCanal?idCanal=1">Gerer les membres d'un canal</a>
 
                 <form action="deconnexion" method="POST">
-                    <button type="sumit">Déconnexion</button> 
+                    <button type="submit">Déconnexion</button> 
                 </form>
             </nav>
         </c:if>

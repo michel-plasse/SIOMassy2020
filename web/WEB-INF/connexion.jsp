@@ -5,20 +5,21 @@
 <h1>Connexion</h1>
 <c:if test='${sessionScope["user"] == null}'>
 
-  <form id="loginForm" action="connexion" method="POST">
-    Identifiant :  <input type="text" name="login" id="login" value="${param["login"]}"/><br/>
-    Mot de passe :  <input type="password" name="password" id="password"/><br/>
-    <button type="submit">Connexion</button>
+    <form id="loginForm" action="connexion" method="POST">
+        <input type="hidden" value="email">
+        Identifiant :  <input type="text" name="login" id="login" value="${param["login"]}"/><br/>
+        Mot de passe :  <input type="password" name="password" id="password"/><br/>
+        <button type="submit">Connexion</button>    
 
-    <c:if test="${erreurLogin != null}">
-      <div class="error" id="msgLogin">${erreurLogin}</div>
-    </c:if>
-  </form>
-  <c:if test='${sessionScope["user"] != null}'>
-    <form id="loginForm" action="deconnexion" method="POST">
-      <button type="submit" id="boutonDeconnecter">Déconnecter ${sessionScope["user"].email}</button>
+        <c:if test="${erreurLogin != null}">
+            <div class="error" id="msgLogin">${erreurLogin}</div>
+        </c:if>
     </form>
-  </c:if>
+    <c:if test='${sessionScope["user"] != null}'>
+        <form id="loginForm" action="deconnexion" method="POST">
+            <button type="submit" id="boutonDeconnecter">Déconnecter ${sessionScope["user"].email}</button>
+        </form>
+    </c:if>  
 </c:if>
 
 

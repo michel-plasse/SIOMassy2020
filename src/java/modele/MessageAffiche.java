@@ -6,6 +6,7 @@
 package modele;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /**
@@ -24,6 +25,7 @@ public class MessageAffiche {
         prenom = null;
         nom = null;
     }
+    
 
     public MessageAffiche(int id, String contenu, LocalDateTime datePublication, String prenom, String nom) {
         this.id = id;
@@ -119,6 +121,8 @@ public class MessageAffiche {
         return true;
     }
 
-    
+    public String getDateFomattee(){
+        return datePublication.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+    }
     
 }

@@ -15,37 +15,42 @@ import modele.Personne;
 
 @WebServlet("/trombinoscope")
 public class TrombinoscopeServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-  
-  /** Vue si succes */
-  private static final String VUE_OK = "WEB-INF/trombinoscope.jsp";
-  
-  /** Vue si erreur (exception) */
-  private static final String VUE_ERREUR = "WEB-INF/exception.jsp";
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-    // Soyons optimistes
-    String vue = VUE_OK;
-		// d'abord en dur
-		int idSession = 1;
-		// Recuperer les donnees (ici, les stagiaires)
-		try {
-			List<Personne> stagiaire = PersonneDao.getByIdSessionFormation(idSession);
-			// Ajouter 2 post it
-			request.setAttribute("stagiaire", stagiaire);
-                        request.setAttribute("idSession", idSession);
-		} catch (SQLException exc) {
-			exc.printStackTrace();
-			request.setAttribute("exception", exc);
-                        vue = VUE_ERREUR;
-		}
-		// Passer la main a la vue
-		request.getRequestDispatcher(vue).forward(request, response);
-	}
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Vue si succes
+     */
+    private static final String VUE_OK = "WEB-INF/trombinoscope.jsp";
+
+    /**
+     * Vue si erreur (exception)
+     */
+    private static final String VUE_ERREUR = "WEB-INF/exception.jsp";
+
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     * response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Soyons optimistes
+        String vue = VUE_OK;
+        // d'abord en dur
+        int idSession = 1;
+        // Recuperer les donnees (ici, les stagiaires)
+        try {
+            List<Personne> stagiaires = PersonneDao.getByIdSessionFormation(idSession);
+            // Ajouter 2 post it
+            request.setAttribute("stagiaires", stagiaires);
+            request.setAttribute("idSession", idSession);
+        } catch (SQLException exc) {
+            exc.printStackTrace();
+            request.setAttribute("exception", exc);
+            vue = VUE_ERREUR;
+        }
+        // Passer la main a la vue
+        request.getRequestDispatcher(vue).forward(request, response);
+    }
 
 }

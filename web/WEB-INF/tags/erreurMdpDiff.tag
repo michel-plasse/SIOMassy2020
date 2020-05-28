@@ -11,7 +11,7 @@
 <%@attribute name="test"%>
 <c:if test="${test}">
   <span class=error>  
-  Les deux mots de passe doivent identiques et contenir :
+  Les deux motsNNNNNN de passe doivent etre identiques et contenir :
     <ul>
       <li> - un minimum de 8 caractères</li>
       <li> - une ou plusieures majuscules </li>
