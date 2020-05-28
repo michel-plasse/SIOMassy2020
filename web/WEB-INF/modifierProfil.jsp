@@ -41,7 +41,7 @@
               <th><label for="mdp1"> Mot De Passe </label></th> 
               <td class="tdModifProfil"><input type="password" name="mdp1" id="mdp1" value="${user.mdp}" required="true"/></td> 
                 <a:erreurMdp test="${mdpEstInvalide}"/>       
-              <th><label for="mdp2"> Veuillez confirmer votre Mot De Passe </label></th> 
+              <th><label < for="mdp2"> Veuillez confirmer votre Mot De Passe </label></th> 
               <td><input type="password" name="mdp2" id="mdp2" value="${user.mdp}" required="true"/></td> 
               <td><a:erreurMdpDiff test="${mdpEstDifferent}"/></td>
             </tr>
