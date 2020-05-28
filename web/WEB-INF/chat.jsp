@@ -1,52 +1,85 @@
 
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "a" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>HELLO CHAT</title>
-    </head>
-    <body bgcolor="#6495ED">
-         <center>
-        <h1>HELLO CHAT</h1>
-        <br>
-        <br>
-        
-       
-       <br><br>
-        <h2>LOGIN</h2>
-        <form name="userLogin" action="userLogin" method="POST">
-        
-            <table border="0" width="30" cellspacing="8" cellpadding="20">
+        <title>JSP Page</title>
+        <script src="jquery-3.4.1.min.js" type="text/javascript"></script>
 
-                <tbody>
-                    <tr>
-                        <td>USERNAME:</td>
-                        <td><input type="text" name="user" value="" /></td>
-                    </tr>
-                    
-                </tbody>
-            </table>   
-            <input type="submit" value="JOIN CHAT ROOM" name="log in" /> 
-            
-        </form>
-     
-     
-       </center>
-    
-    
-    <div class=" main">
-        <h1 align ="Center"> Chat</h1>
-        <hr>
-        <ul>
-            <c:forEach items ="${canaux}" ref="canal">
-                <li>
-                    ${canal.id}
-                    ${canal.nom}
-                </li>
-            </c:forEach>
-        </ul>
-    </div>
+
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            .column {
+                float: left;
+                width: 50%;
+                padding: 10px;
+                height: 300px; 
+                text-align: center;
+            }
+
+            .main:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+            ul{
+                list-style-type: none;
+            }
+        </style>
+
+
+    </head>
+    <body>
+        <div class="sidenav"><a:enTete titre="Chat"/></div>
+        <script>
+            var idCanalCourant = null;
+            function setCanal() {
+                idCanalCourant = event.target.getAttribute("id").substring(5);
+                var canaux = document.querySelectorAll('*[id^="canal"]');
+                for (var i = 0; i < canaux.length; i++) {
+                    canaux[i].style.fontWeight = "normal";
+                }
+                document.getElementById("canal" + idCanalCourant).style.fontWeight = "bold";
+                $.ajax({
+                    type: "GET",
+                    url: "canal?idCanal=" + idCanalCourant,
+                    dataType: 'HTML',
+
+                    success: function (data)
+                    {
+                        $("#droite").html(data);
+                    },
+                    error: function (xhr, message)
+                    {
+                        $("#canal" + idCanalCourant).html(xhr.status + "" + "" + message);
+                    }
+                });
+                console.log();
+            }
+        </script>
+        <div class="main">
+            <h1 align="center">Agriotes Tchat</h1>
+            <div class="column" id="gauche"> 
+                nombre de canaux:
+                ${canaux.size()}
+                <br>
+                <ul>
+                    <c:forEach items="${canaux}" var="canal">
+                        <li id="canal${canal.idCanal}" onclick="setCanal()">
+                            ${canal.nom} <hr>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+            <div class="column" id="droite">
+            </div>
+        </div>
     </body>
 </html>
+
