@@ -15,10 +15,7 @@ import javax.servlet.http.HttpSession;
 import modele.Evaluation;
 import modele.Personne;
 
-/**
- *
- * @author azery
- */
+
 @WebServlet(name = "ListerEvaluationsServlet", urlPatterns = {"/evaluationsStagiaires"})
 public class ListerEvaluationsStagiairesServlet extends HttpServlet {
 

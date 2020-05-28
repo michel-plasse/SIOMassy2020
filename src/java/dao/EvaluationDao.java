@@ -8,10 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import modele.Evaluation;
 
-/**
- *
- * @author azery
- */
+
 public class EvaluationDao {
 
   public static List<Evaluation> getEvaluationByFormateur(int idFormateur) throws SQLException {

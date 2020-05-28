@@ -12,7 +12,6 @@ public class Evaluation {
   private String nomModule;
   private String nomSession;
 
-  // ##################################    Constructeurs    ############################################
   public Evaluation() {
   }
 
@@ -30,7 +29,6 @@ public class Evaluation {
     this.nomSession = nomSession;
   }
 
-  // ############################### Getters et Setters ##################################################
   public int getIdEvaluation() {
     return idEvaluation;
   }
