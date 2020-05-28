@@ -24,7 +24,7 @@
                 width: 50%;
                 padding: 10px;
                 height: 300px; 
-                text-align: center;
+                text-align: left;
             }
 
             .main:after {
@@ -70,6 +70,7 @@
 
 
 
+
                 });
 
 
@@ -81,13 +82,13 @@
             <div class="column" id="gauche" style="background-color:#aaa;"> 
 
 
-                nombre de canaux:
-                ${canauxAffiche.size()}
+                <p style="text-align: center">nombre de canaux:
+                   ${canauxAffiche.size()}</p>
                 <br>
                 <ul>
                     <c:forEach items="${canauxAffiche}" var="canal">
                         
-                        <li id="canal${canal.nomCanal}" onclick="setCanal()"> ${canal.nomCanal} ( ${canal.nomCreateur} )</li> 
+                        <li id="canal${canal.idCanal}" onclick="setCanal()"> ${canal.nomCanal} ( ${canal.nomCreateur} )</li> 
                     </c:forEach>           
                 </ul>
             </div>

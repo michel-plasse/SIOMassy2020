@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /**
  *
- * @author akber
+ * @crist
  */
 public class Message {
     int id_messageCanal, id_auteur, id_canal;
