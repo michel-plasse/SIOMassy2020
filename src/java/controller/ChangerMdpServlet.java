@@ -37,7 +37,7 @@ public class ChangerMdpServlet extends HttpServlet {
         String jeton = request.getParameter("jeton");
         String vue = VUE_FORM_CHG;
         if (jeton == null) {
-           vue = VUE_ERREUR;
+           //vue = VUE_ERREUR;
             request.setAttribute("message", "Vous devez fournir un jeton");
         } else {
             PersonneDao dao = new PersonneDao();
@@ -45,10 +45,12 @@ public class ChangerMdpServlet extends HttpServlet {
                 if (dao.jetonEstTrouve(jeton)) {
                     vue = VUE_FORM_CHG;
                 } else {
-                    vue = VUE_ERREUR;
+                    vue = VUE_MESSAGE;
+                    request.setAttribute("message", "jeton non trouvé");
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(ChangerMdpServlet.class.getName()).log(Level.SEVERE, null, ex);
+                request.setAttribute("exception", ex);
                 vue = VUE_ERREUR;
             }
         }
@@ -83,7 +85,7 @@ public class ChangerMdpServlet extends HttpServlet {
             try {
                 PersonneDao.changerMdp(mdp, email, jeton);
                 String texte = "La modification de votre mot de passe est un succès :"
-                        + JavaMailUtil.getCompletePath("confirmationEmail?email=" + email, request);
+                        + JavaMailUtil.getCompletePath("connexion",request);
                 String sujet = "mot de passe changé ";
                 JavaMailUtil.sendMail(email, "", "", sujet, texte);                       // Dans la classe JavaMailUtil, nous avons l'implémentation de ma méthode sendMail() qui permet t'établie l'envoi du mail
                 vue = VUE_MESSAGE;    // + passer la main a jsp VUE_MESSAGE (juste un message)
