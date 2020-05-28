@@ -43,13 +43,10 @@ public class SupprimerMembresCanal extends HttpServlet {
         response.setContentType("text/html");
         String vue = NORMALE;
         CanalDao dao = new CanalDao();
-        int idCanal=1;
         try {
-            idCanal = Integer.parseInt(request.getParameter("idCanal"));
+            int idCanal = Integer.parseInt(request.getParameter("idCanal"));
             int idPersonne = Integer.parseInt(request.getParameter("idPersonne"));
             dao.supprimerMembre(idCanal, idPersonne);
-            //response.sendRedirect("http://localhost:8090/SIOMassy/membresCanal?idCanal="+idCanal);
-
         } catch (SQLException exc) {
             request.setAttribute("exception", exc);
             request.getRequestDispatcher(ERREUR).forward(request, response);

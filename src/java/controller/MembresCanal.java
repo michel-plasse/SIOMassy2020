@@ -35,7 +35,6 @@ public class MembresCanal extends HttpServlet {
      * Vue si erreur (exception)
      */
     private static final String ERREUR = "WEB-INF/exception.jsp";
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

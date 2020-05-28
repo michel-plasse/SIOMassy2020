@@ -39,10 +39,10 @@ public class AjouterMembresCanal extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html");
         String vue = NORMALE;
-        int idCanal=1;
+        int idCanal = 1;
         CanalDao dao = new CanalDao();
         try {
-             idCanal = Integer.parseInt(request.getParameter("idCanal"));
+            idCanal = Integer.parseInt(request.getParameter("idCanal"));
 
         } catch (NumberFormatException e) {
             request.setAttribute("message", "Veuillez saisir un nombre valide pour l'idCanal");
