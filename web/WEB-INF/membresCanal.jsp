@@ -34,8 +34,11 @@
                 </tr>
             </c:forEach>
         </table>
-        <a href="ajouterMembresCanal?idCanal=1">Ajouter</a>      
-    </center>
+        <a href="ajouterMembresCanal" />Ajouter</a>      
+</center>
 
+    <c:forEach var="idCanal" begin="1" end="3">
+        <br>${idCanal})<a href="membresCanal?idCanal=${idCanal}"> Liste des membres du Canal ${idCanal} </a><br>
+    </c:forEach>
 </body>
 </html>
