@@ -13,13 +13,12 @@
     <body>
         <c:forEach items="${messagesAffiche}" var="messages">
             <div class="container" id="msg${messages.id}">
-                <img src="img/${messages.id}.jpg" alt="Avatar" style="width:100%;">
-                <h3>${messages.prenom}</h3><hr>
-                <p>${messages.contenu}</p>
-                <span class="time-right">${messages.datePublication}</span>
+                <strong>${messages.prenom}</strong>
+                <em>${messages.dateFomattee}</em>
+                ${messages.contenu}
             </div>
         </c:forEach>
-        Votre message: <input type="text">
+        Votre message: <input type="text" placeholder="Not emplemented yet">
         <button>Envoyer</button>
     </body>
 </html>
