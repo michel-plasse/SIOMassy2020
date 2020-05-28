@@ -20,10 +20,15 @@ import modele.ResultatQuestionnaire;
 public class ResultatQuestionnaireDao {
 
     public static final String GET_BY_ID_SESSION
-            = "SELECT nom, prenom, date_debut, date_fin FROM passage_questionnaire,personne WHERE id_personne = id_stagiaire AND id_questionnaire = ?";
-            
-           
-            
+            = "SELECT nom, prenom, passage_questionnaire.id_questionnaire, passage_questionnaire.id_stagiaire, COUNT(est_correcte) AS nb_bonnes_reponse_possible, SUM(est_correcte) AS nb_bonnes_reponse_données, SUM(est_correcte) / COUNT(est_correcte) * 20 AS note, date_debut, date_fin\n" +
+"FROM reponse_possible, question,passage_questionnaire, reponse_donnee, personne\n" +
+"WHERE question.id_question=reponse_possible.id_question\n" +
+"AND passage_questionnaire.id_stagiaire = personne.id_personne\n" +
+"AND passage_questionnaire.id_questionnaire = ?\n" +
+"AND passage_questionnaire.id_questionnaire= reponse_donnee.id_questionnaire\n" +
+"AND passage_questionnaire.id_stagiaire = reponse_donnee.id_stagiaire\n" +
+"AND reponse_donnee.id_reponse_possible = reponse_possible.id_reponse_possible\n" +
+"GROUP BY passage_questionnaire.id_questionnaire, passage_questionnaire.id_stagiaire";
 
     /**
      * Liste des élèves ayant répondu à un questionnaire
@@ -39,12 +44,16 @@ public class ResultatQuestionnaireDao {
         PreparedStatement stmt = db.prepareStatement(GET_BY_ID_SESSION);
         stmt.setInt(1, idQuestionnaire);
         ResultSet rs = stmt.executeQuery();
+
         while (rs.next()) {
+
             ResultatQuestionnaire p = new ResultatQuestionnaire(
                     rs.getString("nom"),
                     rs.getString("prenom"),
                     rs.getTimestamp("date_debut").toLocalDateTime(),
-                    rs.getTimestamp("date_fin").toLocalDateTime());
+                    rs.getTimestamp("date_fin").toLocalDateTime(),
+                    rs.getInt("note"));
+
             resquest.add(p);
         }
 

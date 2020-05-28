@@ -11,6 +11,7 @@
         <th>Prénom du stagiaire</th>
         <th>Date de debut du questionnaire</th>
         <th>Date de fin du questionnaire</th>
+        <th>Note</th>
     </tr>
     <c:forEach items="${resquest}" var="resquest">
         <tr>
@@ -19,7 +20,8 @@
             <td>${resquest.nom}</td>
             <td>${resquest.dateDebut}</td>
             <td>${resquest.dateFin}</td>
-
+            <td>${resquest.note}</td>
+           
         </tr>
     </c:forEach>
 </table>

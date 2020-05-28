@@ -18,12 +18,23 @@ public class ResultatQuestionnaire {
     private String prenom;
     private LocalDateTime dateDebut;
     private LocalDateTime dateFin;
+    private int note;
 
-    public ResultatQuestionnaire(String nom, String prenom, LocalDateTime dateDebut, LocalDateTime dateFin) {
+    public int getNote() {
+        return note;
+    }
+
+    public void setNote(int note) {
+        this.note= note;
+    }
+
+    public ResultatQuestionnaire(String nom, String prenom, LocalDateTime dateDebut, LocalDateTime dateFin, int note) {
         this.prenom = prenom;
         this.nom = nom;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
+        this.note = note;
+      
     }
 
     public String getNom() {
@@ -57,5 +68,6 @@ public class ResultatQuestionnaire {
     public void setDateFin(LocalDateTime dateFin) {
         this.dateFin = dateFin;
     }
+
 
 }

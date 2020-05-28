@@ -1,7 +1,6 @@
 package controller;
 
 import dao.PersonneDao;
-import dao.QuestionnaireDao;
 import dao.ResultatQuestionnaireDao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,7 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.Personne;
-import modele.Questionnaire;
 import modele.ResultatQuestionnaire;
 
 @WebServlet("/resultatQuestionnaire")
