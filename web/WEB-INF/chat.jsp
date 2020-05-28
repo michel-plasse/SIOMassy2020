@@ -13,7 +13,6 @@
         <title>JSP Page</title>
         <link rel="stylesheet" href="css/agriotes.css">
         <script src="jquery-3.5.0.min.js" type="text/javascript"></script>
-
         <style>
             * {
                 box-sizing: border-box;
@@ -39,8 +38,6 @@
                 list-style-type: none;
             }
         </style>
-
-
     </head>
     <body>
         <div class = "sidenav">
@@ -67,43 +64,23 @@
                     {
                         $("#canal" + idCanalCourant).html(xhr.status + "" + "" + message);
                     }
-
-
-
-
                 });
-
-
-
             }
         </script>
         <div class="main">
             <h1 align="center">Bienvenue sur le chat Agriotes</h1>
             <div class="column" id="gauche" style="background-color:#aaa;"> 
-
-
                 <p style="text-align: center">nombre de canaux:
-                   ${canauxAffiche.size()}</p>
+                    ${canauxAffiche.size()}</p>
                 <br>
                 <ul>
                     <c:forEach items="${canauxAffiche}" var="canal">
-                        
                         <li id="canal${canal.idCanal}" onclick="setCanal()"> ${canal.nomCanal} ( ${canal.nomCreateur} )</li> 
-                    </c:forEach>           
+                        </c:forEach>           
                 </ul>
             </div>
-
-
-
-
-
-
-
             <div class="column" id="droite" style="background-color:#bbb;">
-
-
             </div>
-
         </div>    
     </body>
 </html>

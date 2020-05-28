@@ -15,8 +15,10 @@ import modele.CanalAffiche;
 
 public class CanalDao {
 
-      public static final String AFFICHER_CANAL
-            = " SELECT c.id_canal as idCanal, c.nom as nomCanal, p.nom as nomCreateur FROM canal c INNER JOIN personne p on c.id_createur = p.id_personne; ";
+    public static final String AFFICHER_CANAL
+            = " SELECT c.id_canal as idCanal, c.nom as nomCanal, p.nom as nomCreateur"
+            + " FROM canal c "
+            + "INNER JOIN personne p on c.id_createur = p.id_personne; ";
 
     public static List<CanalAffiche> CanalAffiche() throws SQLException { // juste pour test  
         List<CanalAffiche> result = new ArrayList<>();
