@@ -5,16 +5,9 @@
  */
 package controller;
 
-import static com.sun.corba.se.impl.util.Utility.printStackTrace;
-import dao.Database;
 import dao.PersonneDao;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -23,7 +16,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.Personne;
-import org.apache.commons.codec.digest.DigestUtils;
 import tools.JavaMailUtil;
 
 /**
@@ -36,9 +28,7 @@ public class ChangerMdpServlet extends HttpServlet {
     private static final String VUE_ERREUR = "WEB-INF/exception.jsp";
     private static final String VUE_FORM_CHG = "/WEB-INF/changerMdp.jsp";
     private static final String VUE_INDEX = "/index.jsp";
-    private static final String VUE_FORM_CON = "/WEB-INF/connexion.jsp";
     private static final String VUE_MESSAGE = "/WEB-INF/message.jsp";
-    // Pour tester private static final String VUE_VERIFY= "/WEB-INF/verify.jsp";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -72,7 +62,6 @@ public class ChangerMdpServlet extends HttpServlet {
         String mdp = request.getParameter("mdp");
         String mdp2 = request.getParameter("mdp2");
         String vue = VUE_FORM_CHG;
-        String msg;
         String jeton = request.getParameter("jeton");
         Personne personne = dao.personneJeton(jeton);
         personne.setMdp(mdp);
@@ -91,21 +80,18 @@ public class ChangerMdpServlet extends HttpServlet {
             try {
                 PersonneDao.changerMdp(mdp, email, jeton);
                 String texte = "La modification de votre mot de passe est un succès :"
-                        + JavaMailUtil.getCompletePath("changerMdp?email=" + email, request);
+                        + JavaMailUtil.getCompletePath("confirmationEmail?email=" + email, request);
                 String sujet = "mot de passe changé ";
                 JavaMailUtil.sendMail(email, "", "", sujet, texte);                       // Dans la classe JavaMailUtil, nous avons l'implémentation de ma méthode sendMail() qui permet t'établie l'envoi du mail
                 vue = VUE_MESSAGE;    // + passer la main a jsp VUE_MESSAGE (juste un message)
                 request.setAttribute("majOK", "mot de passe modifié");
-
             } catch (SQLException ex) {
                 Logger.getLogger(ChangerMdpServlet.class.getName()).log(Level.SEVERE, null, ex);
                 vue = VUE_ERREUR;
-
             } catch (Exception e) {
                 vue = VUE_INDEX;
             }
         }
         request.getRequestDispatcher(vue).forward(request, response);                   // La servlet nous envoi vers la vue appropriée en envoyant avec les objets request et response
     }
-
 }

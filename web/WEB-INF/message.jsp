@@ -1,28 +1,39 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="a" tagdir="/WEB-INF/tags"%>
-<a:enTete titre="connexion"/>
-<h1>Connexion votre mot de passe est modifié</h1>
-<c:if test='${sessionScope["user"] == null}'>
 
-  <form id="loginForm" action="connexion" method="POST">
-      <input type="hidden" value="email">
-    Identifiant :  <input type="text" name="login" id="login" value="${param["login"]}"/><br/>
-    Mot de passe :  <input type="password" name="password" id="password"/><br/>
-    <button type="submit">Connexion</button>    
 
-    <c:if test="${erreurLogin != null}">
-      <div class="error" id="msgLogin">${erreurLogin}</div>
-    </c:if>
-  </form>
-  <c:if test='${sessionScope["user"] != null}'>
-    <form id="loginForm" action="deconnexion" method="POST">
-      <button type="submit" id="boutonDeconnecter">Déconnecter ${sessionScope["user"].email}</button>
-    </form>
-  </c:if>  
-</c:if>
+
 
 
 
 </body>
+</html>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Agriotes</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="agriotes.css"/>
+    </head>
+
+    <body>
+        <div class="sidenav">
+            <a href="inscription">Inscription</a> 
+            <hr/>
+            <a href="connexion">Connexion</a>
+            <hr/>
+        </div>
+
+        <h1>Merci !</h1>
+        <h2>Votre mot de passe a été mis à jour</h2>
+        <h2>Vous allez recevoir un email de confirmation pour pouvoir vous connecter</h2>
+        <input type="hidden" value="email">
+
+        <%--  <nav> 
+        <a href="connexion">Connexion</a>
+        <a href="trombinoscope?idSession=1">Session 1</a>
+        </nav>--%> 
+
+
+    </body>
 </html>

@@ -27,6 +27,7 @@ public class ConfirmationEmailServlet extends HttpServlet {
 
   private static final String VUE_FORM_CON = "/WEB-INF/connexion.jsp";
   private static final String VUE_INDEX = "/index.jsp";
+  private static final String VUE_MESSAGE = "/message.jsp";
   // Pour tester private static final String VUE_VERIFY= "/WEB-INF/verify.jsp";
 
   @Override
