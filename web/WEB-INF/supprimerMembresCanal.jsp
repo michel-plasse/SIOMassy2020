@@ -11,6 +11,8 @@
     <body>
         <h1>Membre supprimé avec succès</h1>
         <hr>
-        <a href="membresCanal?idCanal=1">Les membres du canal ${idCanal}</a>
-    </body>
+        <c:forEach items="membres" var="membre">
+            <a href="membresCanal?idCanal=1">Les membres du canal</a>
+        </c:forEach>
+        </body>
 </html>

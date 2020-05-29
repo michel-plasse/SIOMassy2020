@@ -1,0 +1,118 @@
+{
+  "id": "6d8ac0e8-382e-4577-86e6-a3b45b3fe6dc",
+  "version": "2.0",
+  "name": "Test",
+  "url": "http://localhost:8080/SIOMassy2020/membresCanal?idCanal=1",
+  "tests": [{
+    "id": "2607a179-012c-4767-a3fa-fc71c16d517d",
+    "name": "ajoutNormal",
+    "commands": [{
+      "id": "00a784b5-39a6-4495-9932-3e82515eb327",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/SIOMassy2020/membresCanal?idCanal=1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d54db467-27eb-4270-a6c0-fb2ad69bacf1",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Ajouter",
+      "targets": [
+        ["linkText=Ajouter", "linkText"],
+        ["css=center > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Ajouter')]", "xpath:link"],
+        ["xpath=//a[contains(@href, 'ajouterMembresCanal')]", "xpath:href"],
+        ["xpath=//center/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Ajouter')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f84f28a5-555c-4f6e-bb27-5105129458ab",
+      "comment": "",
+      "command": "assertElementNotPresent",
+      "target": "css=tr:nth-child(4) > td:nth-child(2)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "daf000c0-87b5-423e-9765-2336e1c7032b",
+      "comment": "",
+      "command": "click",
+      "target": "id=idCanal",
+      "targets": [
+        ["id=idCanal", "id"],
+        ["name=idCanal", "name"],
+        ["css=#idCanal", "css:finder"],
+        ["xpath=//input[@id='idCanal']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b1b5f28d-870a-48ad-b93a-36bd73cb3237",
+      "comment": "",
+      "command": "type",
+      "target": "id=idCanal",
+      "targets": [
+        ["id=idCanal", "id"],
+        ["name=idCanal", "name"],
+        ["css=#idCanal", "css:finder"],
+        ["xpath=//input[@id='idCanal']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "1"
+    }, {
+      "id": "83cff01d-a744-4aff-87e6-3ca10205b082",
+      "comment": "",
+      "command": "type",
+      "target": "id=idPersonne",
+      "targets": [
+        ["id=idPersonne", "id"],
+        ["name=idPersonne", "name"],
+        ["css=#idPersonne", "css:finder"],
+        ["xpath=//input[@id='idPersonne']", "xpath:attributes"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "3"
+    }, {
+      "id": "d3710e4b-568c-44bb-9c5f-17746ba1b32a",
+      "comment": "",
+      "command": "click",
+      "target": "css=button",
+      "targets": [
+        ["css=button", "css:finder"],
+        ["xpath=//button[@value='Submit']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Ajouter')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2d19260f-e6e7-491d-b6e0-bd854d13a33e",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/SIOMassy2020/membresCanal?idCanal=1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ed2f6644-aebb-4184-a9de-fe9713011da4",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=tr:nth-child(4) > td:nth-child(2)",
+      "targets": [
+        ["css=tr:nth-child(4) > td:nth-child(2)", "css:finder"],
+        ["xpath=//tr[4]/td[2]", "xpath:position"],
+        ["xpath=//td[contains(.,'3')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "33a2ab70-517f-44da-bf97-f9e08aebab5c",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["2607a179-012c-4767-a3fa-fc71c16d517d"]
+  }],
+  "urls": ["http://localhost:8080/", "http://localhost:8080/SIOMassy2020/membresCanal?idCanal=1"],
+  "plugins": []
+}

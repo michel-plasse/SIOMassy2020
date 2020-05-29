@@ -34,8 +34,19 @@
                 </tr>
             </c:forEach>
         </table>
-        <a href="ajouterMembresCanal?idCanal=1">Ajouter</a>      
+        <form action="ajouterMembresCanal" method="post" >
+            <fieldset>
+                <legend>Ajout de membres</legend>
+                <input type="hidden" id="idCanal" name="idCanal" value="${param['idCanal']}"/>
+                <label for="idPersonne">Id Personne:</label>
+                <input type="text" id="idPersonne" name="idPersonne" /><br><br>
+                <button type="submit" value="Submit">Ajouter un membre</button>
+            </fieldset>
+        </form>
     </center>
 
+    <c:forEach var="idCanal" begin="1" end="3">
+        <br>${idCanal})<a href="membresCanal?idCanal=${idCanal}"> Liste des membres du Canal ${idCanal} </a><br>
+    </c:forEach>
 </body>
 </html>
