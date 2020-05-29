@@ -10,7 +10,7 @@
         <script src="jquery-3.5.0.min.js" type="text/javascript"></script>
         <style>
             body{
-                margin-left: 200px;
+                
             }
             * {
                 box-sizing: border-box;
@@ -35,7 +35,7 @@
                 list-style-type: none;
             }
             p{
-                text-align:left;
+                padding-left: 37px;
                 
             }
         </style>
