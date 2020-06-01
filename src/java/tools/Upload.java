@@ -27,12 +27,7 @@ public class Upload {
       if (!uploadFolder.exists()) {
         uploadFolder.mkdirs();
       }
-      System.out.println("nom du fichier : ");
-      System.out.println(nomFichier);
-      System.out.println(PATH);
-      
-      System.out.println(nomFichier2);
-      out = new FileOutputStream(new File(PATH + nomFichier2));
+       out = new FileOutputStream(new File(PATH + nomFichier2));
       filecontent = part.getInputStream();
       System.out.println(out);
       while ((read = filecontent.read(BYTES)) != -1) {
